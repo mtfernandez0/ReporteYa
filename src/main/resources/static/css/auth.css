@@ -1,0 +1,36 @@
+*{
+    color: white;
+}
+
+p{
+    /*max-width: 18rem;*/
+    font-size: 1rem;
+}
+
+label, input{
+    font-size: 20px;
+}
+
+.btnSubmit{
+    cursor: pointer;
+    font-weight: 600;
+    width: 50%;
+    color: #282726;
+    background-color: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    padding:2%;
+    font-size: 20px;
+}
+
+.btnForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btnForgetPwd:hover{
+    text-decoration:none;
+    cursor: pointer;
+    color:#fff;
+}

@@ -1,0 +1,22 @@
+rememberMe: test
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: ${MYSQL_P}
+        url: jdbc:mysql://localhost:3306/reporteYa?createDatabaseIfNotExist=true
+        username: ${MYSQL_U}
+    jpa:
+        defer-datasource-initialization: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+        show-sql: true
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true
+    sql:
+        init:
+            mode: always
