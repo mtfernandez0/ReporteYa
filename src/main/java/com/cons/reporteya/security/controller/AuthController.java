@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AuthController {
@@ -34,13 +35,19 @@ public class AuthController {
 
     @PostMapping("/register")
     public String validate(@Valid @ModelAttribute("user") User user,
-                           BindingResult result){
+                           BindingResult result,
+                           RedirectAttributes redirectAttributes){
 
         userService.checkCredentialsRegistration(user, result);
 
         if (result.hasErrors()) return "auth/register";
 
         userService.register(user);
+
+        redirectAttributes.addFlashAttribute(
+                "register",
+                "Registration successfully!"
+        );
 
         return "redirect:/login";
     }
