@@ -61,7 +61,7 @@ public class SecurityConfig {
         return http.csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(RESOURCES).permitAll()
-                        .requestMatchers("/login**", "/register**", "/home").permitAll()
+                        .requestMatchers("/login**", "/register**", "/home", "", "/").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login")

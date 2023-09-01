@@ -11,7 +11,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-
+.factorypath
+**/application.yml
+.setting**
 # AWS User-specific
 .idea/**/aws.xml
 
