@@ -2,35 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <title>Reporte Ya!</title>
+<!--    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">-->
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <div class="container-fluid w-75 w-75 mt-5">
-        <nav class="d-flex flex-row justify-content-between bg-info">
-            <p>Logo</p>
-            <ul class="d-flex flex-row gap-3 ">
-                <li> Cosa 1 </li>
-                <li> Cosa 2 </li>
-                <li> Cuenta </li>
-            </ul>
-        </nav>
-        <div class="bg-success">
-            <div class="d-flex justify-content-center gap-3">
-                <div class="bg-danger text-white">
-                    <a class="d-flex flex-column align-items-center" href="/reports/new">
-                        <span>Haga</span><span>su reporte</span>
-                    </a>
-                </div>
-                <div class="bg-danger text-white d-flex flex-column align-items-center">
-                    <span>Mis</span><span>Reportes</span>
-                </div>
-                <div class="bg-danger text-white d-flex flex-column align-items-center">
-                    <span>Quienes</span><span>somos</span>
+
+<body class = "main-home">
+    <header>
+        <div class="header w-75 w-75 mt-5">
+            <div class = row>
+                <div class = "logo_section">
+                    <div class = "full">
+                        <div class = "center-desk">
+                            <div class = "logo">
+                     <!--  foto aca -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class = "nav_section">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Reporte Ya!</a>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Gallery</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=""> Testimonial </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div>
+    </header>
 </body>
+
 </html>
