@@ -52,10 +52,9 @@ public class Report {
     @JoinColumn(name = "user_id")
     private User creator;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
-    private List<Company> companies;
-
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
+//    private List<Company> companies;
 
     @Column(nullable = false)
     private Date created_at;

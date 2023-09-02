@@ -12,7 +12,9 @@
 .idea/**/dictionaries
 .idea/**/shelf
 .factorypath
-src/**/application.yml
+
+src/main/resources/application.yml
+src/main/resources/application.properties
 .setting**
 # AWS User-specific
 .idea/**/aws.xml
