@@ -28,8 +28,6 @@ public class Comment {
 	@JoinColumn(name = "user_id")
 	private User owner;
 
-
-
 	@Column(nullable = false)
 	private Date created_at;
 

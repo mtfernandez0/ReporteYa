@@ -16,6 +16,4 @@ public class Marker {
     private Double latitude;
 
     private Double longitude;
-
-    private String content;
 }

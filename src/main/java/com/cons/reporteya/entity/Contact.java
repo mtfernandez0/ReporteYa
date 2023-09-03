@@ -29,12 +29,10 @@ public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
+
 	private String number;
 	
 	private String email;
-
 	
 	@Column(nullable = false)
 	private Date created_at;
