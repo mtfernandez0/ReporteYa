@@ -7,7 +7,7 @@ import lombok.*;
 @Table(name = "markers")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter
 @Builder
-public class Coordinate {
+public class Marker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

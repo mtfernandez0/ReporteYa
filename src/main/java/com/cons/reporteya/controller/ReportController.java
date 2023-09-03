@@ -1,6 +1,6 @@
 package com.cons.reporteya.controller;
 
-import com.cons.reporteya.entity.Coordinate;
+import com.cons.reporteya.entity.Marker;
 import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.service.ReportService;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class ReportController {
     }
 
     @GetMapping("/new")
-    public String newReport(@ModelAttribute("coordinate") Coordinate coordinate,
+    public String newReport(@ModelAttribute("coordinate") Marker coordinate,
                             @ModelAttribute("report") Report report){
         return "report/new";
     }
