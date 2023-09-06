@@ -52,6 +52,9 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
+	
+	 @OneToOne(mappedBy="user", fetch=FetchType.LAZY)
+	 private Company company;
 
 	@Column(nullable = false)
 	private Date created_at;

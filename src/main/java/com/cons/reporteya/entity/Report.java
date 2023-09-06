@@ -52,6 +52,8 @@ public class Report {
 //    @JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
 //    private List<Company> companies;
 
+    
+    
     @Column(nullable = false)
     private Date created_at;
 
