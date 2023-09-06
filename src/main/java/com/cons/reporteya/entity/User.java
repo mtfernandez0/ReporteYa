@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -21,6 +20,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private int status;
 
 	@NotBlank
 	@Size(max = 255)
@@ -57,6 +58,11 @@ public class User {
 	private Date created_at;
 
 	private Date updated_at;
+	
+	public User() {
+		status=1;
+	}
+
 
 	@PrePersist
 	private void onCreate() {

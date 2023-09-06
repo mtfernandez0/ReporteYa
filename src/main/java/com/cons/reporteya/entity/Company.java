@@ -24,7 +24,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "companies")
-@NoArgsConstructor
+
 @AllArgsConstructor
 @Getter
 @Setter
@@ -34,6 +34,8 @@ public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private int status;
 	
 	@NotBlank
 	private String name;
@@ -54,6 +56,11 @@ public class Company {
 	private Date created_at;
 
 	private Date updated_at;
+	
+	public Company() {
+		status=2;
+	}
+
 
 	@PrePersist
 	private void onCreate() {
