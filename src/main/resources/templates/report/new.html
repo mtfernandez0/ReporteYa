@@ -9,6 +9,13 @@
 <body>
     <div class="container-fluid w-75 w-75 mt-5">
         <h1>New report</h1>
+        <form action="" method="post" th:object="${marker}">
+            <p th:text="'País:' + ${marker.getCountry()}"></p>
+            <p th:text="${'Calle: ' + marker.getRoad()}"></p>
+            <p th:text="${'Barrio: ' + marker.getTown()}"></p>
+            <p th:text="${'Latitude: ' + marker.getLatitude()}"></p>
+            <p th:text="${'Longitud: ' + marker.getLongitude()}"></p>
+        </form>
     </div>
 </body>
 </html>
