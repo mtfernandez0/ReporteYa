@@ -52,7 +52,7 @@ public class AuthController {
 
         return "redirect:/login";
     }
-    @GetMapping("/registerC")
+   /* @GetMapping("/registerC")
     public String registerC(@ModelAttribute("company") Company company) { return "auth/registerC"; }
 
     @PostMapping("/registerC")
@@ -72,5 +72,5 @@ public class AuthController {
         );
 
         return "redirect:/login";
-    }
+    }*/
 }

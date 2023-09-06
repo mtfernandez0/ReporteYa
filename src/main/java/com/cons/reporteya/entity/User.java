@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -47,9 +48,9 @@ public class User {
 	@Size(max = 255)
 	private String last_name;
 
-	@NotNull
+	/*@NotNull
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private Date date_of_birth;
+	private Date date_of_birth;*/
 
 	@NotBlank
 	@Size(max = 255)
