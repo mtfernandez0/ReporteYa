@@ -45,7 +45,7 @@ public class ReportService {
 
 	// Borrar Reporte
 	public void deleteReport(Long id) {
-		if (reportRepository.existById(id)) {
+		if (reportRepository.existsById(id)) {
 			reportRepository.deleteById(id);
 		} else {
 			throw new IllegalArgumentException("No se encontró el reporte a eliminar.");
