@@ -1,13 +1,14 @@
 package com.cons.reporteya.repository;
 
-import com.cons.reporteya.entity.Report;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
+import org.springframework.data.repository.CrudRepository;
+
+import com.cons.reporteya.entity.Report;
+
 public interface ReportRepository extends CrudRepository<Report, Long> {
 
-    List<Report> findAll();
+	List<Report> findAll();
+
+	boolean existById(Long id);
 }
