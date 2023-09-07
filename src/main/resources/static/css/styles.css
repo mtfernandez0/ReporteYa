@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    /*background-image: url('');*/
+    /*background-image: url('tu-imagen-de-fondo.jpg');*/
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
@@ -42,14 +42,14 @@ h1 {
 h2 {
     font-size: 24px;
 }
-
+/* ... Estilos anteriores ... */
 
 .cartas {
     position: absolute;
     width: 1265.35px;
     height: 255.36px;
-    top: 50%;
-    left: 50%;
+    top: 533.89px;
+    left: 319px;
     border: 1px solid #000;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
@@ -57,7 +57,6 @@ h2 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
-    transform: translate(-50%, -50%);
 }
 
 .carta {
@@ -67,27 +66,6 @@ h2 {
     text-align: center;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-/* Media query para hacerlo responsive */
-@media screen and (max-width: 768px) {
-    .cartas {
-        width: 100%;
-        height: auto;
-        top: auto;
-        left: auto;
-        margin: 20px;
-        position: static;
-        border: none;
-        background-color: transparent;
-        box-shadow: none;
-        flex-direction: column;
-    }
-
-    .carta {
-        width: 100%;
-        margin-bottom: 20px;
-    }
 }
 
 .otro-h2 {
@@ -101,5 +79,27 @@ h2 {
     font-weight: 400;
     line-height: normal;
     text-align: center;
-    margin-top: 20px; /* Espacio entre el segundo h2 y las cartas */
+    margin-top: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -40px; /* Espacio entre el segundo h2 y las cartas */
+}
+.nuevo-div {
+    width: 1551px;
+    height: 282px;
+    flex-shrink: 0;
+    color: #00599A;
+    text-align: center;
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 20px auto; /* Centrar el nuevo div horizontalmente con margen */
+}
+
+.parrafo {
+    margin: 0;
+    padding: 10px;
 }

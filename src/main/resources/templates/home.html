@@ -1,307 +1,42 @@
+
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Reporte Ya!</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-
-<!--    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">-->
-    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>z
+    <link rel="stylesheet" href="Css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Mi Página</title>
 </head>
-
-<body class = "main-home">
-    <header>
-        <div class="header w-75 mt-5">
-            <div class = row>
-                <div class = "logo_section">
-                    <div class = "full">
-                        <div class = "center-desk">
-                            <div class = "logo">
-                     <!--  foto aca -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "nav_section">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Reporte Ya!</a>
-                        <div class="collapse navbar-collapse" id="navbarsExample04">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="">Inicio</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/reports">Reportes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">Companias</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=""> Contacto </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/profile"> Cuenta </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/map"> Crear reporte </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-    <section class="banner_main">
-        <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
-            <ol class="carousel-indicators">
-<!--                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
-<!--                <li data-target="#myCarousel" data-slide-to="1"></li>-->
-<!--                <li data-target="#myCarousel" data-slide-to="2"></li>-->
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="container">
-                        <div class="carousel-caption relative">
-                            <div class="row">
-                                <div class="col-md-7 offset-md-5">
-                                    <div class="text-bg">
-                                        <h1> Servicios <br>De Reporte Ya</h1>
-                                        <span>There are many variations of passages of Lorem Ipsum available</span>
-<!--                                        <a class="read_more" href="Javascript:void(0)">Read More</a>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container">
-                        <div class="carousel-caption relative">
-                            <div class="row">
-                                <div class="col-md-7 offset-md-5">
-                                    <div class="text-bg">
-                                        <h1> Conoce al <br>Equipo</h1>
-                                        <span>There are many variations of passages of Lorem Ipsum available</span>
-<!--                                        <a class="read_more" href="Javascript:void(0)">Read More</a>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container">
-                        <div class="carousel-caption relative">
-                            <div class="row">
-                                <div class="col-md-7 offset-md-5">
-                                    <div class="text-bg">
-                                        <h1> Reportes</h1>
-                                        <span>There are many variations of passages of Lorem Ipsum available</span>
-<!--                                        <a class="read_more" href="Javascript:void(0)">Read More</a>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div id="about" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="titlepage">
-                        <h2>About <span class="green">Us</span></h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>
-
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="about_img">
-<!--                        <figure><img src="images/about.png" alt="#"/></figure>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--    <div id="about" class="about">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-5">-->
-<!--                    <div class="titlepage">-->
-<!--                        <h2>About <span class="green">Us</span></h2>-->
-<!--                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-7">-->
-<!--                    <div class="about_img">-->
-<!--                        &lt;!&ndash;                        <figure><img src="images/about.png" alt="#"/></figure>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div><div id="about" class="about">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-5">-->
-<!--                    <div class="titlepage">-->
-<!--                        <h2>About <span class="green">Us</span></h2>-->
-<!--                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-7">-->
-<!--                    <div class="about_img">-->
-<!--                        &lt;!&ndash;                        <figure><img src="images/about.png" alt="#"/></figure>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-    </div>
-<!--    <div id="about" class="about">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-5">-->
-<!--                    <div class="titlepage">-->
-<!--                        <h2>About <span class="green">Us</span></h2>-->
-<!--                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-7">-->
-<!--                    <div class="about_img">-->
-<!--                        &lt;!&ndash;                        <figure><img src="images/about.png" alt="#"/></figure>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-    </div>
-    <!-- end about -->
-    <div id="service" class="service">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <h2>Our <span class="green">Services</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-10 offset-md-1">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="service_box">
-<!--                                <i><img src="images/service1.png" alt="#"/></i>-->
-
-                        </div>
-                        <div class="col-md-12">
-                            <a class="read_more" href="Javascript:void(0)"> Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="contact" class="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <h2>Contact Us</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <form id="request" class="main_form">
-                        <div class="row">
-                            <div class="col-md-12 ">
-                                <input class="contactus" placeholder="Name" type="type" name="Name">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Email" type="type" name="Email">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
-                            </div>
-                            <div class="col-md-12">
-                                <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <button class="send_btn">Send</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <div class="map_main">
-                        <div class="map-responsive">
-                            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Palacio+Legislativo+Montevideo+Uruguay" width="600" height="345" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class=" col-md-3 col-sm-6">
-                        <ul class="social_icon">
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        </ul>
-                        <p class="variat pad_roght2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Aliquam, voluptatem?
-                        </p>
-                    </div>
-                    <div class=" col-md-3 col-sm-6">
-                        <h3>LET US HELP YOU </h3>
-                        <p  class="variat pad_roght2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Officiis, reiciendis.
-                        </p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <h3>INFORMATION</h3>
-                        <ul class="link_menu">
-                            <li><a href="index.html"></a>Reporte ya</li>
-                            <li><a href="about.html"> </a>Sobre Nosotros</li>
-                            <li><a href="service.html"></a></li>
-                            <li><a href="gallery.html"></a></li>
-                            <li><a href="testimonial.html"></a></li>
-                            <li><a href="contact.html"> </a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <h3>OUR Design</h3>
-                        <p  class="variat">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Commodi, quasi.
-                        </p>
-                    </div>
-                    <div class="col-md-6 offset-md-6">
-                        <form id="hkh" class="bottom_form">
-                            <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
-                            <button class="sub_btn">subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    </div>
+<body>
+<nav>
+    <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Acerca de</a></li>
+        <li><a href="#">Servicios</a></li>
+        <li><a href="#">Portafolio</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Blog</a></li>
+    </ul>
+</nav>
+<header>
+    <h2 class="subtitulo">Subtítulo</h2>
+    <h1>Título Principal</h1>
+</header>
+<div class="cartas">
+    <div class="carta">Carta 1</div>
+    <div class="carta">Carta 2</div>
+    <div class="carta">Carta 3</div>
+    <div class="carta">Carta 4</div>
+    <div class="carta">Carta 5</div>
+</div>
+<div>
+    <h2 class="otro-h2">Segundo título</h2>
+</div>
+<div class="nuevo-div">
+    <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic repellendus labore deserunt doloribus et iure ullam. Accusantium, id. Dignissimos exercitationem ea repudiandae sunt itaq
+        ue quod doloribus molestiae quae alias corporis?</p>
+</div>
 </body>
-
 </html>
