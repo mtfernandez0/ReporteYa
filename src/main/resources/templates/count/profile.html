@@ -23,16 +23,12 @@
 		</tbody>
 	</table>
 	<div th:if="${user.contact==null}">
-
 		<form th:action="@{/profile}" th:object="${cont}" method="post">
 			<label for="number">Number:</label>
-			<input type="text" th:value="${cont.number}" />
-			<label for="address">Address:</label>
-			<input type="text" th:value="${cont.address}" />
+			<input type="text" id="number" th:value="${cont.number}" />
 			<label for="email">Email:</label>
-			<input type="text" th:value="${cont.email}" />
+			<input type="text" id="email" th:value="${cont.email}" />
 			<input type="submit" value="Save" />
-
 		</form>
 	</div>
 <!-- 	<div th:if="${user.contact!=null}"> -->
