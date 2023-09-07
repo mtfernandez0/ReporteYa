@@ -36,9 +36,7 @@ public class User {
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //    private Date date_of_birth;
 
-	@NotBlank
-	@Size(max = 255)
-	private String address;
+	
 
 	@NotBlank
 	@Email
