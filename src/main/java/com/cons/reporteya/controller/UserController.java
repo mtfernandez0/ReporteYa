@@ -33,7 +33,6 @@ public class UserController {
 			model.addAttribute("contact", us.getContact());
 
 		return "count/profile";
-		
 	}
 	
 	@PostMapping("/profile")
