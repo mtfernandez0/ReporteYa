@@ -27,15 +27,15 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Contact {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String number;
-	
+
 	private String email;
-	
+
 	@Column(nullable = false)
 	private Date created_at;
 
@@ -44,9 +44,9 @@ public class Contact {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-	
-	
-	
+
+
+
 	@PrePersist
 	private void onCreate() {
 		this.created_at = new Date();

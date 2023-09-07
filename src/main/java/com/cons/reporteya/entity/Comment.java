@@ -28,6 +28,10 @@ public class Comment {
 	@JoinColumn(name = "user_id")
 	private User owner;
 
+	@ManyToOne
+	@JoinColumn(name = "report_id")
+	private Report report;
+
 	@Column(nullable = false)
 	private Date created_at;
 

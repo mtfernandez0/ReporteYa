@@ -1,5 +1,6 @@
 package com.cons.reporteya.security.controller;
 
+import com.cons.reporteya.entity.Company;
 import com.cons.reporteya.entity.User;
 import com.cons.reporteya.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -51,4 +52,25 @@ public class AuthController {
 
         return "redirect:/login";
     }
+   /* @GetMapping("/registerC")
+    public String registerC(@ModelAttribute("company") Company company) { return "auth/registerC"; }
+
+    @PostMapping("/registerC")
+    public String validateC(@Valid @ModelAttribute("company") Company company,
+                           BindingResult result,
+                           RedirectAttributes redirectAttributes){
+
+        userService.checkCredentialsRegistration(company, result);
+
+        if (result.hasErrors()) return "auth/registerC";
+
+        userService.register(company);
+
+        redirectAttributes.addFlashAttribute(
+                "register",
+                "Registration successfully!"
+        );
+
+        return "redirect:/login";
+    }*/
 }
