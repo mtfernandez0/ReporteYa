@@ -24,16 +24,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
-	public String showProfile(@ModelAttribute("cont")Contact contact, Model model, Principal principal) {
+	public String showProfile(@ModelAttribute("cont") Contact contact, Model model, Principal principal) {
 		
 		User us = userServ.findByEmail(principal.getName());
 		model.addAttribute("user", userServ.findByEmail(principal.getName()));
 		
-		if (us.getContact() !=null) {
-		
-		model.addAttribute("contact", us.getContact());
-		}
-		
+		if (us.getContact() != null)
+			model.addAttribute("contact", us.getContact());
+
 		return "count/profile";
 		
 	}
