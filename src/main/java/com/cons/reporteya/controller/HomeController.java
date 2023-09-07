@@ -1,10 +1,11 @@
 package com.cons.reporteya.controller;
 
-import com.cons.reporteya.service.ReportService;
-import com.cons.reporteya.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.cons.reporteya.service.ReportService;
+import com.cons.reporteya.service.UserService;
 
 @Controller
 public class HomeController {
