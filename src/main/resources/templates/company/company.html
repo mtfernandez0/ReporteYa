@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign out</title>
+    <link th:href="@{/css/auth.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</head>
+<body data-bs-theme="dark">
+    <div class="container-fluid bg-dark bg-gradient py-4">
+        <div class="w-75 mx-auto">
+<!--            <div class="d-flex flex-row-reverse">-->
+<!--                <a href="/" class="btn btn-outline-secondary">Home</a>-->
+<!--            </div>-->
+            <form th:action="@{/company/new}" method="post" th:object="${company}">
+                <h2 class="text-center display-6">Crear Companía</h2>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           autofocus required th:value="${company.name}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Descripción</label>
+                    <input type="text" class="form-control" id="description" name="description" 
+                           required th:value="${company.description}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Locación</label>
+                    <input type="text" class="form-control" id="location" name="location"
+                           required th:value="${company.location}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="website">Sitio web</label>
+                    <input type="text" class="form-control" id="website" name="website"
+                            th:value="${company.website}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('website')}" th:errors="*{website}"></p>
+                </div>
+                <div class="mb-3 text-center my-2">
+                    <input type="submit" class="btnSubmit" value="Crear"/>
+                </div>
+                <div class="mb-3 text-center">
+                    <a href="/home" class="btnForgetPwd">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
