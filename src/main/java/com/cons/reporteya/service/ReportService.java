@@ -31,8 +31,6 @@ public class ReportService {
 
 			existingReport.setTitle(updatedReport.getTitle());
 			existingReport.setDescription(updatedReport.getDescription());
-			existingReport.setMunicipality(updatedReport.getMunicipality());
-			existingReport.setLocation(updatedReport.getLocation());
 			existingReport.setBudget(updatedReport.getBudget());
 
 			return reportRepository.save(existingReport);

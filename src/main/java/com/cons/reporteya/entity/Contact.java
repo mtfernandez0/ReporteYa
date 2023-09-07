@@ -44,9 +44,9 @@ public class Contact {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-	
-	
-	
+
+
+
 	@PrePersist
 	private void onCreate() {
 		this.created_at = new Date();

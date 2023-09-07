@@ -43,7 +43,7 @@ public class Report {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
-    private String additional_directions;
+  private String additional_directions;
 
 	private double budget;
 

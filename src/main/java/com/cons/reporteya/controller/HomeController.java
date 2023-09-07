@@ -18,15 +18,10 @@ public class HomeController {
 		this.reportService = reportService;
 	}
 
-    @GetMapping(value= {"", "/"})
-    public String redirect(){
-        return "redirect:/home";
-    }
-
-    @GetMapping("/home")
-    public String home(){
-        return "home";
-    }
+	@GetMapping(value = { "", "/" })
+	public String redirect() {
+		return "redirect:/home";
+	}
 
 	@GetMapping("/home")
 	public String home() {
