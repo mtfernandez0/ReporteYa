@@ -10,6 +10,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -30,13 +55,9 @@ public class User {
 	@Size(max = 255)
 	private String last_name;
 
-//    @NotNull
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//    private Date date_of_birth;
-
-	@NotBlank
-	@Size(max = 255)
-	private String address;
+	/*@NotNull
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private Date date_of_birth;*/
 
 	@NotBlank
 	@Email
@@ -50,8 +71,14 @@ public class User {
 	@NotBlank
 	private String passwordConfirmation;
 
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Contact contact;
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
+
+	 @OneToOne(mappedBy="user", fetch=FetchType.LAZY)
+	 private Company company;
 
 	@Column(nullable = false)
 	private Date created_at;
