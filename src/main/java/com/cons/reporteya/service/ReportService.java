@@ -16,6 +16,7 @@ public class ReportService {
 		this.reportRepository = reportRepository;
 	}
 
+	// Buscar todos
 	public List<Report> findAll() {
 		return reportRepository.findAll();
 	}
@@ -33,7 +34,6 @@ public class ReportService {
 			existingReport.setDescription(updatedReport.getDescription());
 			existingReport.setMunicipality(updatedReport.getMunicipality());
 			existingReport.setLocation(updatedReport.getLocation());
-			existingReport.setBudget(updatedReport.getBudget());
 
 			return reportRepository.save(existingReport);
 

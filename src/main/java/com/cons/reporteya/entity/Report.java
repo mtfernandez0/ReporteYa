@@ -3,6 +3,7 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -54,12 +56,15 @@ public class Report {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User creator;
+	
+	@OneToOne(mappedBy = "report", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+	private Marker marker;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
 	private List<Company> companies;
 
-	@OneToMany(mappedBy = "report")
+	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
 	@ManyToMany(fetch = FetchType.LAZY)

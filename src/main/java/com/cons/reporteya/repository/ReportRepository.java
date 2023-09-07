@@ -11,4 +11,5 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 	List<Report> findAll();
 
 	boolean existsById(Long id);
+
 }

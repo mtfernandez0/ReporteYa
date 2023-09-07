@@ -47,9 +47,9 @@ public class User {
 	@Size(max = 255)
 	private String last_name;
 
-	@NotNull
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private Date date_of_birth;
+//	@NotNull
+//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//	private Date date_of_birth;
 
 	@NotBlank
 	@Size(max = 255)

@@ -27,14 +27,10 @@ public class HomeController {
         return "home";
     }
 
-	@GetMapping("/home")
-	public String home() {
-		return "home";
-	}
-
 	@GetMapping("/map")
 	public String map(Model model) {
 		model.addAttribute("reports", reportService.findAll());
 		return "map";
 	}
+	
 }

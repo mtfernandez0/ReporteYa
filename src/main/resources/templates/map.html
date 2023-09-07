@@ -29,8 +29,9 @@
 
         //create report
         let popup = L.popup();
+
         function onMapClick(e) {
-            let town = undefined, road = undefined, country = undefined;
+            let town = undefined, road = undefined, country = undefined, village = undefined, city = undefined;
             $.getJSON("https://nominatim.openstreetmap.org/reverse?lat="+e.latlng.lat+"&lon="+e.latlng.lng+"&format=json",
                 (data) => {
                     let content ='<form action="/reports/new" method="get">' +
@@ -40,7 +41,16 @@
                         town = data.address.town,
                         road = data.address.road;
                         country = data.address.country;
+                        village = data.address.village;
+                        city = data.address.city;
+                        console.log(data)
                     }
+
+                    if (city !== undefined)
+                        content += '<input type="hidden" name="city" value="'+city+'">';
+
+                    if (village !== undefined)
+                        content += '<input type="hidden" name="village" value="'+village+'">';
 
                     if (town !== undefined)
                         content += '<input type="hidden" name="town" value="'+town+'">';
@@ -51,20 +61,18 @@
                     if (country !== undefined)
                         content += '<input type="hidden" name="country" value="'+country+'">';
 
-                    console.log(town)
-
-                    if (town === undefined && road === undefined)
+                    if (town === undefined && city === undefined && village === undefined && road === undefined)
                         content = "Por favor elige un lugar válido"
                     else
                         content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
 
-                    console.log(content)
                     popup
                         .setLatLng(e.latlng)
                         .setContent(content)
                         .openOn(map);
             });
         }
+
 
         function getCoordinates() {
             return new Promise((resolve, reject) => {
