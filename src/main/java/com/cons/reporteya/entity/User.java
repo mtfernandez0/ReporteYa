@@ -1,5 +1,14 @@
 package com.cons.reporteya.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +77,9 @@ public class User {
 	@NotBlank
 	private String passwordConfirmation;
 
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Contact contact;
+	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
 	

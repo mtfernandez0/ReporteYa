@@ -43,11 +43,7 @@ public class Report {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
-	@NotBlank
-	private String municipality;
-
-	@NotBlank
-	private String location;
+    private String additional_directions;
 
 	private double budget;
 
