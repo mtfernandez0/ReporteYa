@@ -50,6 +50,7 @@ public class Report {
 
 	@NotBlank
 	private String location;
+    private String additional_directions;
 
 	private double budget;
 

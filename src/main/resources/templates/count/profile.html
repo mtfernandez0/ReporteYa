@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>My account</title>
+</head>
+<body>
+
+	<h1>
+		Welcome <span th:text="${user.first_name+' '+user.last_name}"></span>
+	</h1>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Email:</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${user.email}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:if="${user.contact==null}">
+		<form th:action="@{/profile}" th:object="${cont}" method="post">
+			<label for="number">Number:</label>
+			<input type="text" id="number" th:value="${cont.number}" />
+			<label for="email">Email:</label>
+			<input type="text" id="email" th:value="${cont.email}" />
+			<input type="submit" value="Save" />
+		</form>
+	</div>
+<!-- 	<div th:if="${user.contact!=null}"> -->
+
+<!-- 		<form action="/profile" th:object="${cont}" th:method="put"></form> -->
+<!-- 	</div> -->
+
+
+
+
+
+</body>
+</html>

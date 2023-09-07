@@ -19,7 +19,7 @@
 <body>
     <div class="container-fluid w-75">
         <h1>Map</h1>
-        <div id="map" style="height: 300px"></div>
+        <div id="map" style="height: 600px"></div>
     </div>
 </body>
     <script>
@@ -31,28 +31,29 @@
         let popup = L.popup();
 
         function onMapClick(e) {
-            let town = undefined, road = undefined, country = undefined, village = undefined, city = undefined;
+            let town = undefined, road = undefined, country = undefined, village = undefined, city = undefined, suburb = undefined;
             $.getJSON("https://nominatim.openstreetmap.org/reverse?lat="+e.latlng.lat+"&lon="+e.latlng.lng+"&format=json",
                 (data) => {
                     let content ='<form action="/reports/new" method="get">' +
                     '           <input type="hidden" name="latitude" value='+e.latlng.lat+'>' +
                     '           <input type="hidden" name="longitude" value='+e.latlng.lng+'>';
                     if (data.address !== undefined){
-                        town = data.address.town,
+                        town = data.address.town;
                         road = data.address.road;
                         country = data.address.country;
                         village = data.address.village;
                         city = data.address.city;
+                        suburb = data.address.suburb;
                         console.log(data)
                     }
 
                     if (city !== undefined)
                         content += '<input type="hidden" name="city" value="'+city+'">';
-
-                    if (village !== undefined)
+                    else if (village !== undefined)
                         content += '<input type="hidden" name="village" value="'+village+'">';
-
-                    if (town !== undefined)
+                    else if (town !== undefined)
+                        content += '<input type="hidden" name="town" value="'+town+'">';
+                    else if (suburb !== undefined)
                         content += '<input type="hidden" name="town" value="'+town+'">';
 
                     if (road !== undefined)
@@ -61,7 +62,7 @@
                     if (country !== undefined)
                         content += '<input type="hidden" name="country" value="'+country+'">';
 
-                    if (town === undefined && city === undefined && village === undefined && road === undefined)
+                    if (town === undefined && city === undefined && village === undefined && suburb === undefined)
                         content = "Por favor elige un lugar válido"
                     else
                         content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
