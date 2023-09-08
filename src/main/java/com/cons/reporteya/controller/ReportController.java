@@ -2,6 +2,7 @@ package com.cons.reporteya.controller;
 
 import java.security.Principal;
 
+import com.cons.reporteya.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +73,12 @@ public class ReportController {
                             Principal principal){
 
         if (result.hasErrors()) return "report/new";
+
+        User user = userService.findByEmail(principal.getName());
+
+        report.setCreator(user);
+
+        reportService.createReport(report);
 
         return "redirect:/map";
     }

@@ -19,8 +19,6 @@
             <input type="hidden" name="latitude" th:value="${marker.latitude}">
             <input type="hidden" name="longitude" th:value="${marker.longitude}">
             <p th:text="${'Location: ' + location}"></p>
-            <p th:text="${'Latitude: ' + marker.getLatitude()}"></p>
-            <p th:text="${'Longitud: ' + marker.getLongitude()}"></p>
             <label for="title">Title</label>
             <input type="text" name="title" id="title" th:value="${report.title}">
             <label for="description">Description</label>

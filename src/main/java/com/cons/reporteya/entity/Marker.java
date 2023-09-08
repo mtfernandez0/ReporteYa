@@ -29,5 +29,6 @@ public class Marker {
     private String village;
 
     private String suburb;
+
     private String road;
 }

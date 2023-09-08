@@ -30,42 +30,39 @@
         //create report
         let popup = L.popup();
         function onMapClick(e) {
-            let town = undefined, road = undefined, country = undefined, village = undefined, city = undefined, suburb = undefined;
+            // let town = undefined, road = undefined, country = undefined, village = undefined, city = undefined, suburb = undefined;
+            let address = {town: undefined, road: undefined, country: undefined, village: undefined, city: undefined, suburb: undefined};
             $.getJSON("https://nominatim.openstreetmap.org/reverse?lat="+e.latlng.lat+"&lon="+e.latlng.lng+"&format=json",
                 (data) => {
                     let content ='<form action="/reports/new" method="get">' +
                     '           <input type="hidden" name="latitude" value='+e.latlng.lat+'>' +
                     '           <input type="hidden" name="longitude" value='+e.latlng.lng+'>';
                     if (data.address !== undefined){
-                        town = data.address.town;
-                        road = data.address.road;
-                        country = data.address.country;
-                        village = data.address.village;
-                        city = data.address.city;
-                        suburb = data.address.suburb;
-                        console.log(data)
+                        for (let key in data.address)
+                            if (address.hasOwnProperty(key))
+                                address[key] = data.address[key];
+                        console.log(address);
                     }
 
-                    if (city !== undefined)
-                        content += '<input type="hidden" name="city" value="'+city+'">';
-                    else if (village !== undefined)
-                        content += '<input type="hidden" name="village" value="'+village+'">';
-                    else if (town !== undefined)
-                        content += '<input type="hidden" name="town" value="'+town+'">';
-                    else if (suburb !== undefined)
-                        content += '<input type="hidden" name="town" value="'+town+'">';
+                    if (address.city !== undefined)
+                        content += '<input type="hidden" name="city" value="'+address.city+'">';
+                    else if (address.village !== undefined)
+                        content += '<input type="hidden" name="village" value="'+address.village+'">';
+                    else if (address.town !== undefined)
+                        content += '<input type="hidden" name="town" value="'+address.town+'">';
+                    else if (address.suburb !== undefined)
+                        content += '<input type="hidden" name="town" value="'+address.town+'">';
 
-                    if (road !== undefined)
-                        content += '<input type="hidden" name="road" value="'+road+'">';
+                    if (address.road !== undefined)
+                        content += '<input type="hidden" name="road" value="'+address.road+'">';
 
-                    if (country !== undefined)
-                        content += '<input type="hidden" name="country" value="'+country+'">';
+                    if (address.country !== undefined)
+                        content += '<input type="hidden" name="country" value="'+address.country+'">';
 
-                    if (town === undefined && city === undefined && village === undefined && suburb === undefined)
+                    if (address.town === undefined && address.city === undefined && address.village === undefined && address.suburb === undefined)
                         content = "Por favor elige un lugar válido"
                     else
                         content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
-
                     popup
                         .setLatLng(e.latlng)
                         .setContent(content)
