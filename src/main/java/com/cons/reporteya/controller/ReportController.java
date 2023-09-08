@@ -23,7 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cons.reporteya.service.UserService;
 
-import java.security.Principal;
+import com.cons.reporteya.entity.Marker;
+import com.cons.reporteya.entity.Report;
+import com.cons.reporteya.service.ReportService;
+import com.cons.reporteya.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/reports")
