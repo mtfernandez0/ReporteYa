@@ -2,6 +2,7 @@ package com.cons.reporteya.service;
 
 import java.util.List;
 
+import com.cons.reporteya.entity.Marker;
 import org.springframework.stereotype.Service;
 
 import com.cons.reporteya.entity.Report;
@@ -31,7 +32,6 @@ public class ReportService {
 
 			existingReport.setTitle(updatedReport.getTitle());
 			existingReport.setDescription(updatedReport.getDescription());
-			existingReport.setBudget(updatedReport.getBudget());
 
 			return reportRepository.save(existingReport);
 
@@ -48,6 +48,22 @@ public class ReportService {
 		} else {
 			throw new IllegalArgumentException("No se encontró el reporte a eliminar.");
 		}
+	}
+
+	public static String finalLocation(Report report){
+		Marker marker = report.getMarker();
+		String location = "";
+
+		if (marker.getCity() != null) location += marker.getCity();
+		else if(marker.getTown() != null) location += marker.getTown();
+		else if(marker.getVillage() != null) location += marker.getVillage();
+		else location += marker.getSuburb();
+
+		String res = "";
+
+		if (marker.getRoad() != null) res += marker.getRoad() + ", ";
+
+		return String.format("%s%s, %s", res, location, marker.getCountry());
 	}
 
 }

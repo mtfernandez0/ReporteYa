@@ -31,4 +31,8 @@ public class Marker {
     private String suburb;
 
     private String road;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "report_id")
+    private Report report;
 }

@@ -13,10 +13,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "reports")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter
 @Builder
 public class Report {
 
@@ -35,6 +32,9 @@ public class Report {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User creator;
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "report")
+	private Marker marker;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))

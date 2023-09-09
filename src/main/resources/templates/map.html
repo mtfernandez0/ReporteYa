@@ -20,17 +20,19 @@
     <div class="container-fluid w-75">
         <h1>Map</h1>
         <div id="map" style="height: 600px"></div>
+        <div id="reports-data" th:text="${reports}" style="display:none;"></div>
     </div>
 </body>
     <script>
         let lat = -34.34884;
         let lng = -58.801811;
         let map = null;
+        let reportsDataElement = document.getElementById('reports-data');
+        let reportsData = JSON.parse(reportsDataElement.textContent);
 
         //create report
         let popup = L.popup();
         function onMapClick(e) {
-            // let town = undefined, road = undefined, country = undefined, village = undefined, city = undefined, suburb = undefined;
             let address = {town: undefined, road: undefined, country: undefined, village: undefined, city: undefined, suburb: undefined};
             $.getJSON("https://nominatim.openstreetmap.org/reverse?lat="+e.latlng.lat+"&lon="+e.latlng.lng+"&format=json",
                 (data) => {
@@ -72,8 +74,8 @@
 
         function getCoordinates() {
             return new Promise((resolve, reject) => {
-                navigator.geolocation.getCurrentPosition(position => console.log(position))
                 if ("geolocation" in navigator) {
+                    console.log(navigator.geolocation)
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
                             lat = position.coords.latitude;
@@ -89,7 +91,7 @@
         }
 
         function setMapView() {
-            map = L.map('map').setView([lat, lng], 13);
+            map = L.map('map').setView([-35.337681220763616, -58.78508812496555], 13);
             L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
                 maxZoom: 20,
                 attribution: '&copy; <a href="http://google.com/copyright">Google Maps</a>',
@@ -105,12 +107,17 @@
         getCoordinates()
             .then(() => setMapView())
             .then(() => mapEvent())
+            .then(() => setReportsOnMap(reportsData))
             .catch((error) => {});
 
-        //set marker from database
-        function setMarker(lat, lng, content){
-            L.marker([lat, lng])
-                .bindPopup(content)
+        function setReportsOnMap(reports){
+            for (let i = 0; i < reports.length; i++)
+                setMarker(reports[i]);
+        }
+
+        function setMarker(report){
+            L.marker([report.lat, report.lng])
+                .bindPopup("<p>"+report.title+"</p><p>"+report.location+"</p>")
                 .addTo(map);
         }
     </script>
