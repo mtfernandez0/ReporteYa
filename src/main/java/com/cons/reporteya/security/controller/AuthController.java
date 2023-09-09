@@ -1,5 +1,6 @@
 package com.cons.reporteya.security.controller;
 
+import com.cons.reporteya.entity.Company;
 import com.cons.reporteya.entity.User;
 import com.cons.reporteya.service.UserService;
 import jakarta.servlet.http.HttpSession;

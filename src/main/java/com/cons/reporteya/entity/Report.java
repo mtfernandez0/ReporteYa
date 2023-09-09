@@ -1,18 +1,9 @@
 package com.cons.reporteya.entity;
 
 import java.util.Date;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,45 +17,49 @@ import lombok.Setter;
 @Builder
 public class Report {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotBlank
-    private String title;
+	@NotBlank
+	private String title;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+	@Column(columnDefinition = "TEXT")
+	private String description;
 
-    @NotBlank
-    private String municipality;
+  	private String additional_directions;
 
-    @NotBlank
-    private String location;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User creator;
 
-    private double budget; 
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "report")
+	private Marker marker;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User creator;
-    
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
-//    private List<Company> companies;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
+	private List<Company> companies;
 
-    @Column(nullable = false)
-    private Date created_at;
+	@OneToMany(mappedBy = "report")
+	private List<Comment> comments;
 
-    private Date updated_at;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "reports_tags", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
+	private List<Tag> tags;
 
-    @PrePersist
-    private void onCreate(){
-        this.created_at = new Date();
-        this.updated_at = new Date();
-    }
+	@Column(nullable = false)
+	private Date created_at;
 
-    @PreUpdate
-    private void onUpdate(){
-        this.updated_at = new Date();
-    }
+	private Date updated_at;
+
+	@PrePersist
+	private void onCreate() {
+		this.created_at = new Date();
+		this.updated_at = new Date();
+	}
+
+	@PreUpdate
+	private void onUpdate() {
+		this.updated_at = new Date();
+	}
 }

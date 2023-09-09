@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Reporte Ya!</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+
 <!--    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">-->
-    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>z
 </head>
 
 <body class = "main-home">
     <header>
-        <div class="header w-75 w-75 mt-5">
+        <div class="header w-75 mt-5">
             <div class = row>
                 <div class = "logo_section">
                     <div class = "full">
@@ -31,10 +35,7 @@
                                     <a class="nav-link" href="">Inicio</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">Servicios</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">Reportes</a>
+                                    <a class="nav-link" href="/reports">Reportes</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">Companias</a>
@@ -43,14 +44,11 @@
                                     <a class="nav-link" href=""> Contacto </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/profile"> My account </a>
+                                    <a class="nav-link" href="/profile"> Cuenta </a>
                                 </li>
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link" href=""></a>-->
-<!--                                </li>-->
-<!--                                <li class="nav-item">-->
-<!--                                    <a class="nav-link" href=""></a>-->
-<!--                                </li>-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/map"> Crear reporte </a>
+                                </li>
                             </ul>
                         </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -116,16 +114,112 @@
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-                <span class="sr-only">Anterior</span>
-            </a>
-            <a class="carousel-control-next"  role="button" data-slide="next">
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                <span class="sr-only">Siguiente</span>
-            </a>
         </div>
     </section>
+    <div id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="titlepage">
+                        <h2>About <span class="green">Us</span></h2>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>
+
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="about_img">
+<!--                        <figure><img src="images/about.png" alt="#"/></figure>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div id="about" class="about">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-5">-->
+<!--                    <div class="titlepage">-->
+<!--                        <h2>About <span class="green">Us</span></h2>-->
+<!--                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-7">-->
+<!--                    <div class="about_img">-->
+<!--                        &lt;!&ndash;                        <figure><img src="images/about.png" alt="#"/></figure>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div><div id="about" class="about">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-5">-->
+<!--                    <div class="titlepage">-->
+<!--                        <h2>About <span class="green">Us</span></h2>-->
+<!--                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-7">-->
+<!--                    <div class="about_img">-->
+<!--                        &lt;!&ndash;                        <figure><img src="images/about.png" alt="#"/></figure>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+<!--    <div id="about" class="about">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-5">-->
+<!--                    <div class="titlepage">-->
+<!--                        <h2>About <span class="green">Us</span></h2>-->
+<!--                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humourThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-7">-->
+<!--                    <div class="about_img">-->
+<!--                        &lt;!&ndash;                        <figure><img src="images/about.png" alt="#"/></figure>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    
+			<div th:if="${usuario.company==null}">
+					<a href="/company/new">New Company</a>
+			</div>
+			
+
+	
+    
+    <!-- end about -->
+    <div id="service" class="service">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Our <span class="green">Services</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="service_box">
+<!--                                <i><img src="images/service1.png" alt="#"/></i>-->
+
+                        </div>
+                        <div class="col-md-12">
+                            <a class="read_more" href="Javascript:void(0)"> Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="contact" class="contact">
         <div class="container">
             <div class="row">
@@ -215,6 +309,7 @@
             </div>
         </div>
     </footer>
+    </div>
 </body>
 
 </html>
