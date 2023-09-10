@@ -11,7 +11,7 @@
 
 <body>
 	<div class="container-fluid w-75 w-75 mt-5">
-		<h1>New report</h1>
+		<h1>Nuevo reporte</h1>
 		<form th:action="@{/reports/new}" method="post" th:object="${report}">
 			<input type="hidden" name="country" th:value="${marker.country}">
 			<input type="hidden" name="road" th:value="${marker.road}">
@@ -22,28 +22,28 @@
 			<input type="hidden" name="latitude" th:value="${marker.latitude}">
 			<input type="hidden" name="longitude" th:value="${marker.longitude}">
 
-			<p th:text="${'Location: ' + location}"></p>
-			<p th:text="${'Latitude: ' + marker.getLatitude()}"></p>
+			<p th:text="${'Ubicación: ' + location}"></p>
+			<p th:text="${'Latitud: ' + marker.getLatitude()}"></p>
 			<p th:text="${'Longitud: ' + marker.getLongitude()}"></p>
 
-			<label for="title">Problema</label>
-			<input type="text" name="title" id="title" th:value="${report.title}">
+			<label for="title">Problema</label><br>
+			<input type="text" name="title" id="title" th:value="${report.title}"> <br>
 
-			<label for="location">Ubicación</label>
-			<input type="text" name="location" id="location" th:value="${report.location}">
+			<label for="location">Ubicación</label><br>
+			<input type="text" name="location" id="location" th:value="${report.location}"><br>
 
-			<label for="municipality">Municipio</label>
-			<input type="text" name="municipality" id="municipality" th:value="${report.municipality}">
+			<label for="municipality">Municipio</label><br>
+			<input type="text" name="municipality" id="municipality" th:value="${report.municipality}"><br>
 
-			<label for="description">Descripción</label>
-			<input type="text" name="description" id="description" th:value="${report.description}">
+			<label for="description">Descripción del problema</label> <br>
+			<textarea id="description" name="description" th:value="${report.description}"> </textarea><br>
 
-			<label for="tags">Tags</label>
-			<input type="text" name="tags" id="tags" th:value="${tags}">
+			<label for="tags">Tags</label> <br>
+			<input type="text" name="tags" id="tags" th:value="${tags}"><br>
 
-			<label for="additional_directions">Direcciones Adicionales</label>
+			<label for="additional_directions">Direcciones Adicionales</label> <br>
 			<input type="text" name="additional_directions" id="additional_directions"
-				th:value="${report.additional_directions}">
+				th:value="${report.additional_directions}"><br>
 
 			<input type="submit" value="Crear Reporte">
 		</form>
