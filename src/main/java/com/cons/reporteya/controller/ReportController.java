@@ -59,9 +59,8 @@ public class ReportController {
         }
 
         report.setMarker(marker);
-        ReportService.finalLocation(report);
 
-        model.addAttribute("location", report);
+        model.addAttribute("location", ReportService.finalLocation(report));
 
         return "report/new";
     }
