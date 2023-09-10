@@ -24,7 +24,7 @@ public class CompanyController {
 		this.companyService = companyService;
 		this.userServ = uSer;		
 	}
-	@GetMapping("/company/new")
+	@GetMapping("/companies/new")
 	public String companynew(@ModelAttribute("company") Company company) {
 		
 		
@@ -32,7 +32,7 @@ public class CompanyController {
 		return "company/company";
 	}
 	
-	@PostMapping("/company/new")
+	@PostMapping("/companies/new")
 		public String company(@Valid @ModelAttribute("company") Company company,BindingResult bindingResult,Principal principal) {
 		if(bindingResult.hasErrors())
 		{

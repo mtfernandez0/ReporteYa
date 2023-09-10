@@ -27,6 +27,10 @@ public class UserController {
 	@GetMapping("/profile")
 	public String showProfile(@ModelAttribute("cont") Contact contact, Model model, Principal principal) {
 		
+		if(principal.getName()==null) {
+			//return "redirect"
+		}
+		
 		User us = userServ.findByEmail(principal.getName());
 		model.addAttribute("user", userServ.findByEmail(principal.getName()));
 		
@@ -58,7 +62,7 @@ public class UserController {
 		us.getContact().setEmail(contact.getEmail());
 		
 		contServ.editContact(us.getContact());
-		
+		model.addAttribute("usuario",us);
 		return "redirect:/profile";
 	}
 	

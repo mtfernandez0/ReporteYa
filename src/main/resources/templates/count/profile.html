@@ -27,7 +27,12 @@
 
 						<div class="d-flex justify-content-between">
 							<a href="/">Home</a> 
-							<a href="/companies/new">New Company</a>
+							
+							<div th:if="${usuario.company==null}">
+								<a href="/companies/new">New Company</a>
+							</div>
+							
+							
 							<a th:href="@{/reports/{id}(id=${user.id})}">My Reports</a>
 						</div>
 					</div>
@@ -104,27 +109,7 @@
 		</div>
 
 
-	<table>
-		<thead>
-			<tr>
-				<th>Email:</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td th:text="${user.email}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<div th:if="${user.contact==null}">
-		<form th:action="@{/profile}" th:object="${cont}" method="post">
-			<label for="number">Number:</label>
-			<input type="text" id="number" th:value="${cont.number}" />
-			<label for="email">Email:</label>
-			<input type="text" id="email" th:value="${cont.email}" />
-			<input type="submit" value="Save" />
-		</form>
-	</div>
-
+	
+	
 </body>
 </html>
