@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/styles.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Página</title>
 </head>
@@ -27,7 +26,6 @@
     <div class="carta">Carta 2</div>
     <div class="carta">Carta 3</div>
     <div class="carta">Carta 4</div>
-    <div class="carta">Carta 5</div>
 </div>
 <div>
     <h2 class="otro-h2">Segundo título</h2>
@@ -45,17 +43,117 @@
 </section>
 <section class="fondo-morado">
     <div class="carta">
-        <img src="/imagenes/818x460_240340_20170523160646.jpg" alt="Imagen 1">
+        <img src="/images/818x460_240340_20170523160646.jpg" th:src="@{/images/818x460_240340_20170523160646.jpg}">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae neque ullam officiis maxime incidunt cupiditate nostrum excepturi corporis ipsam beatae? Impedit, quae! Dolor soluta ipsa illo corporis modi error quas?</p>
     </div>
     <div class="carta">
-        <img src="/imagenes/20200226105543_1.jpg" alt="Imagen 2">
+        <img src="/images/818x460_240340_20170523160646.jpg" th:src="@{/images/818x460_240340_20170523160646.jpg}">
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, nulla quibusdam distinctio, possimus adipisci atque perspiciatis, quod similique animi ab dolor. Fugit molestiae quibusdam ipsa ut neque, dolore est minima!</p>
     </div>
     <div class="carta">
-        <img src="/imagenes/D5HPPW5JIZEWVPDPVTZTA4SVCU.webp" alt="Imagen 3">
+        <img src="/images/818x460_240340_20170523160646.jpg" th:src="@{/images/818x460_240340_20170523160646.jpg}">
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, in! Fugiat voluptate quibusdam, repellendus accusamus magnam, consequatur eaque laudantium doloribus maxime atque delectus minus debitis harum! Sit harum in vel.</p>
     </div>
 </section>
+<section class="about-us">
+    <div class="about-content">
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae urna vel arcu tincidunt rhoncus.</p>
+    </div>
+    <div class="about-image">
+        <img src="imagenes/818x460_240340_20170523160646.jpg" alt="Imagen de About Us">
+    </div>
+</section>
+<section class="contact-section">
+    <div class="contact-form">
+        <h2>Contacto</h2>
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono">
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <div class="patrocinadores">
+        <!-- Aquí puedes agregar las imágenes de los patrocinadores -->
+        <img src="patrocinador1.jpg" alt="Patrocinador 1">
+        <img src="patrocinador2.jpg" alt="Patrocinador 2">
+        <img src="patrocinador3.jpg" alt="Patrocinador 3">
+    </div>
+</section>
+
+<footer>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-3 col-sm-6">
+                    <ul class="social_icon">
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                    <p class="variat pad_roght2">There are many variat
+                        ions of passages of L
+                        orem Ipsum available
+                        , but the majority h
+                        ave suffered altera
+                        tion in some form, by
+                    </p>
+                </div>
+                <div class=" col-md-3 col-sm-6">
+                    <h3>LET US HELP YOU </h3>
+                    <p  class="variat pad_roght2">There are many variat
+                        ions of passages of L
+                        orem Ipsum available
+                        , but the majority h
+                        ave suffered altera
+                        tion in some form, by
+                    </p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h3>INFORMATION</h3>
+                    <ul class="link_menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html"> About</a></li>
+                        <li><a href="service.html">Services</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="testimonial.html">Testimonial</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h3>OUR Design</h3>
+                    <p  class="variat">There are many variat
+                        ions of passages of L
+                        orem Ipsum available
+                        , but the majority h
+                        ave suffered altera
+                        tion in some form, by
+                    </p>
+                </div>
+                <div class="col-md-6 offset-md-6">
+                    <form id="hkh" class="bottom_form">
+                        <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
+                        <button class="sub_btn">subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

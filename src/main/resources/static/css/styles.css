@@ -1,24 +1,27 @@
+/* Estilos globales */
 body {
     margin: 0;
     padding: 0;
-
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
 }
 
+/* Estilos de navegación */
 nav {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px 0;
+    display: flex;
+    justify-content: center;
 }
 
 ul {
     list-style-type: none;
-    text-align: center;
+    display: flex;
+    align-items: center;
 }
 
 li {
-    display: inline;
     margin: 0 20px;
 }
 
@@ -28,18 +31,13 @@ a {
     font-weight: bold;
 }
 
+/* Estilos de encabezado */
 header {
-    background-image: url('/'); /* Reemplaza 'imagen-de-fondo.jpg' con la ruta de tu imagen de fondo */
-    background-size: cover; /* Ajusta el tamaño de la imagen al encabezado */
-    background-position: center; /* Centra la imagen de fondo */
-    color: white; /* Cambia el color del texto para que se vea bien en la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    color: white;
     text-align: center;
     padding: 100px 0;
-}
-header {
-    text-align: center;
-    color: white;
-    margin-top: 50px;
 }
 
 h1 {
@@ -50,25 +48,21 @@ h1 {
 h2 {
     font-size: 24px;
 }
-/* ... Estilos anteriores ... */
 
+/* Estilos de cartas */
 .cartas {
-    position: absolute;
-    width: 1265.35px;
-    height: 255.36px;
-    top: 533.89px;
-    left: 319px;
-    border: 1px solid #000;
-    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .carta {
-    width: calc(20% - 10px);
+    flex: 0 0 calc(20% - 10px);
+    margin: 10px;
     background-color: #fff;
     padding: 20px;
     text-align: center;
@@ -76,35 +70,26 @@ h2 {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
+/* Estilos de segundo título */
 .otro-h2 {
-    width: 550px;
-    height: 72px;
-    flex-shrink: 0;
+    width: 100%;
     color: #225C85;
     font-family: Lexend;
-    font-size: 48px;
-    font-style: normal;
+    font-size: 24px;
     font-weight: 400;
-    line-height: normal;
     text-align: center;
     margin-top: 20px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -40px; /* Espacio entre el segundo h2 y las cartas */
 }
+
+/* Estilos de párrafo */
 .nuevo-div {
-    width: 1551px;
-    height: 200px;
-    flex-shrink: 0;
+    width: 100%;
     color: #00599A;
     text-align: center;
     font-family: Inter;
-    font-size: 32px;
-    font-style: normal;
+    font-size: 18px;
     font-weight: 400;
-    line-height: normal;
-    margin: 20px auto; /* Centrar el nuevo div horizontalmente con margen */
+    margin: 20px auto;
 }
 
 .parrafo {
@@ -112,58 +97,252 @@ h2 {
     padding: 10px;
 }
 
-.sectionParrafo{
-
-    margin-top: 40%;
-
+/* Estilos de sección de párrafo */
+.sectionParrafo {
+    margin-top: 5%;
 }
 
-.Destacados{
-
-    width: 550px;
-    height: 72px;
-    margin-left: 36%;
+/* Estilos de sección de destacados */
+.Destacados {
+    width: 100%;
     color: #225C85;
-    font-size: 48px;
-    font-style: normal;
+    font-size: 24px;
     font-weight: 400;
     text-align: center;
-    position: absolute;
-
+    margin: 20px auto;
 }
 
-
-
+/* Estilos de fondo morado */
 .fondo-morado {
-    margin-left: 70px;
-    margin-right: 70px;
-    margin-top: 20%;
-    background-color: #ccccff;;
+    margin: 20px;
+    background-color: #ccccff;
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
 }
 
-.carta {
-    margin-top: 5%;
+/* Estilos de carta dentro de fondo morado */
+.fondo-morado .carta {
+    margin: 10px;
     background-color: white;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 300px;
 }
 
-.carta img {
-
+.fondo-morado .carta img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
 
-.carta p {
-
+.fondo-morado .carta p {
     margin-top: 10px;
     font-size: 16px;
 }
+
+.about-us {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #f0f0f0;
+}
+
+.about-content {
+    flex: 1;
+    text-align: center;
+    margin-left: 7cm; /* Separación del borde izquierdo */
+}
+
+.about-content h2 {
+    color: #00599A; /* Color azul para el título */
+}
+
+.about-content p {
+    color: #000; /* Color negro para el texto */
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Estilos del formulario de contacto */
+/* Estilos para la sección de contacto */
+.contact-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Estilos para el formulario de contacto */
+.contact-form {
+    flex: 1;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-right: 20px; /* Espacio entre el formulario y los patrocinadores */
+}
+
+.contact-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #00599A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #003d6b;
+}
+
+/* Estilos para el espacio de los patrocinadores */
+.patrocinadores {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.patrocinadores img {
+    max-width: 100px; /* Ajusta el tamaño de las imágenes de los patrocinadores según tus necesidades */
+    margin: 10px;
+}
+
+/* Estilos del footer */
+
+
+footer {
+    background-color: #f0f0f0;
+    padding: 40px 0;
+}
+
+.footer {
+    color: #000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col-md-3 {
+    flex: 0 0 calc(25% - 20px);
+    margin-right: 20px;
+}
+
+.col-md-3:last-child {
+    margin-right: 0;
+}
+
+.social_icon {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.social_icon li {
+    margin-right: 20px;
+}
+
+.social_icon a {
+    color: #000;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.variat {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.link_menu {
+    list-style: none;
+    padding: 0;
+}
+
+.link_menu li {
+    margin-bottom: 10px;
+}
+
+.link_menu a {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+.bottom_form {
+    display: flex;
+    align-items: center;
+}
+
+.enter {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.sub_btn {
+    background-color: #00599A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sub_btn:hover {
+    background-color: #003d6b;
+}
+
