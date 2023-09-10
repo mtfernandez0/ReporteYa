@@ -1,12 +1,15 @@
 package com.cons.reporteya.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -35,6 +38,9 @@ public class Tag {
 	private Date created_at;
 
 	private Date updated_at;
+	
+	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+	private List<Report> reports;
 
 	@PrePersist
 	private void onCreate() {

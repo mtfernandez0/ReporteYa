@@ -1,9 +1,7 @@
 package com.cons.reporteya.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import java.util.Date;
 import java.util.List;
@@ -30,17 +28,18 @@ public class User {
 	@Size(max = 255)
 	private String last_name;
 
-//    @NotNull
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//    private Date date_of_birth;
-
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
+	private Date date_of_birth;
 
 	@NotBlank
 	@Email
 	private String email;
 
-	@Size(min = 8, max = 64)
+	@Column(name = "enabled", nullable = false)
+	private boolean enabled;
+
+	@Size(min = 6, max = 64)
 	@NotBlank
 	private String password;
 
@@ -54,8 +53,8 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
 
-	 @OneToOne(mappedBy="user", fetch=FetchType.LAZY)
-	 private Company company;
+	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
+	private Company company;
 
 	@Column(nullable = false)
 	private Date created_at;
@@ -74,3 +73,4 @@ public class User {
 	}
 
 }
+

@@ -1,8 +1,10 @@
 package com.cons.reporteya.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,10 +16,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,27 +44,38 @@ public class Report {
 	@NotBlank
 	private String title;
 
+	@NotBlank
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
-  private String additional_directions;
-
-	private double budget;
+	/*
+	 * @NotBlank private String municipality;
+	 * 
+	 * @NotBlank private String location; private String additional_directions;
+	 * 
+	 * private double budget;
+	 */
+	private String additional_directions;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User creator;
 
+	@OneToOne(mappedBy = "report", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Marker marker;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
 	private List<Company> companies;
 
-	@OneToMany(mappedBy = "report")
+	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
+	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reports_tags", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
-	private List<Tag> tags;
+	@Builder.Default
+	private List<Tag> tags = new ArrayList<>();
 
 	@Column(nullable = false)
 	private Date created_at;
