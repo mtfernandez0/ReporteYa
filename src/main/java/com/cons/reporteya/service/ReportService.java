@@ -27,35 +27,34 @@ public class ReportService {
 
 	// Crear Reporte
 	public void createReport(Report report, List<String> subjects) {
-	    List<Tag> tags = generateTagList(subjects);
+		List<Tag> tags = generateTagList(subjects);
 
-	    tags.forEach(tag -> {
-	        if (tag.getId() == null) {
-	            tagService.saveTag(tag);
-	        }
-	    });
+		tags.forEach(tag -> {
+			if (tag.getId() == null) {
+				tagService.saveTag(tag);
+			}
+		});
 
-	    report.setTags(tags);
-	    reportRepository.save(report);
+		report.setTags(tags);
+		reportRepository.save(report);
 	}
 
 	private List<Tag> generateTagList(List<String> subjects) {
-	    List<Tag> tags = new ArrayList<>();
+		List<Tag> tags = new ArrayList<>();
 
-	    subjects.forEach(subject -> {
-	        List<Tag> existingTags = tagService.findBySubject(subject);
+		subjects.forEach(subject -> {
+			List<Tag> existingTags = tagService.findBySubject(subject);
 
-	        if (existingTags.isEmpty()) {
-	            Tag newTag = Tag.builder().subject(subject).reports(new ArrayList<>()).build();
-	            tags.add(newTag);
-	        } else {
-	            tags.addAll(existingTags);
-	        }
-	    });
+			if (existingTags.isEmpty()) {
+				Tag newTag = Tag.builder().subject(subject).reports(new ArrayList<>()).build();
+				tags.add(newTag);
+			} else {
+				tags.addAll(existingTags);
+			}
+		});
 
-	    return tags;
+		return tags;
 	}
-
 
 	// Editar Reporte
 	public Report updateReport(Report existingReport, Report updatedReport) {
