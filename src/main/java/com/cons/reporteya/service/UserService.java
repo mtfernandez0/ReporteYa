@@ -1,24 +1,32 @@
 package com.cons.reporteya.service;
 
 import com.cons.reporteya.entity.User;
+import com.cons.reporteya.entity.VerificationToken;
 import com.cons.reporteya.repository.UserRepository;
+import com.cons.reporteya.repository.VerificationTokenRepository;
 import com.cons.reporteya.security.validator.UserValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
     private final UserValidator userValidator;
     private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
+                       VerificationTokenRepository verificationTokenRepository,
                        UserValidator userValidator,
                        PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.verificationTokenRepository = verificationTokenRepository;
         this.userValidator = userValidator;
         this.passwordEncoder = passwordEncoder;
     }
@@ -49,6 +57,7 @@ public class UserService {
     public boolean checkCredentialsExistance(User user){
         return Objects.nonNull(user) &
                 Objects.nonNull(user.getEmail()) &
+                Objects.nonNull(user.getDate_of_birth()) &
                 Objects.nonNull(user.getPassword()) &
                 Objects.nonNull(user.getPasswordConfirmation());
     }
@@ -70,5 +79,23 @@ public class UserService {
             );
 
         userValidator.validate(user, errors);
+    }
+
+    public User findUserByToken(String token){
+        return verificationTokenRepository.findByToken(token).getUser();
+    }
+
+    public VerificationToken getVerificationToken(String token) {
+        return verificationTokenRepository.findByToken(token);
+    }
+
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken(
+                null,
+                token,
+                user,
+                VerificationToken.calculateExpiryDate(60 * 24)
+        );
+        verificationTokenRepository.save(myToken);
     }
 }

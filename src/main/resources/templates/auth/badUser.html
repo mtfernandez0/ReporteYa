@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bad Request</title>
+</head>
+<body>
+    <h1 th:text="${param.message[0]}">Error Message</h1>
+        <a th:href=" @{/register}" th:text="${label.form.loginSignUp}">Registrarse</a>
+</body>
+</html>

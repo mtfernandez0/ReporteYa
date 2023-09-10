@@ -1,9 +1,18 @@
 package com.cons.reporteya.controller;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
 
+import com.cons.reporteya.entity.User;
+import com.cons.reporteya.service.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cons.reporteya.entity.Marker;
+import com.cons.reporteya.entity.Report;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +27,8 @@ import com.cons.reporteya.entity.Marker;
 import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.repository.ReportRepository;
 import com.cons.reporteya.service.ReportService;
+import com.cons.reporteya.service.ReportService;
+import com.cons.reporteya.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -25,13 +36,17 @@ import jakarta.validation.Valid;
 @RequestMapping("/reports")
 public class ReportController {
 
-	private final ReportService reportService;
-	private final ReportRepository reportRepository;
+    private final ReportService reportService;
+    private final UserService userService;
+    private final MarkerService markerService;
 
-	public ReportController(ReportService reportService, ReportRepository reportRepository) {
-		this.reportService = reportService;
-		this.reportRepository = reportRepository;
-	}
+    public ReportController(ReportService reportService,
+                            UserService userService,
+                            MarkerService markerService) {
+        this.reportService = reportService;
+        this.userService = userService;
+        this.markerService = markerService;
+    }
 
 	@GetMapping("/new")
 	public String newReport(@ModelAttribute("marker") Marker marker, @ModelAttribute("report") Report report,
@@ -41,24 +56,10 @@ public class ReportController {
 			return "redirect:/map";
 		}
 
-		String location = "";
+        report.setMarker(marker);
+        ReportService.finalLocation(report);
 
-		if (marker.getCity() != null)
-			location += marker.getCity();
-		else if (marker.getTown() != null)
-			location += marker.getTown();
-		else if (marker.getVillage() != null)
-			location += marker.getVillage();
-		else
-			location += marker.getSuburb();
-
-		String finalLocation = "";
-
-		if (marker.getRoad() != null)
-			finalLocation += marker.getRoad() + ", ";
-
-		finalLocation = String.format("%s%s, %s", finalLocation, location, marker.getCountry());
-		model.addAttribute("location", finalLocation);
+        model.addAttribute("location", report);
 
 		return "report/new";
 	}
@@ -78,5 +79,21 @@ public class ReportController {
 		model.addAttribute("reports", reportes);
 		return "report/reports";
 	}
+
+        User user = userService.findByEmail(principal.getName());
+
+        report.setCreator(user);
+        marker.setReport(reportService.createReport(report));
+        markerService.save(marker);
+
+        return "redirect:/reports";
+    }
+
+    @GetMapping("")
+    public String reports (Model model, Principal principal ) {
+    	model.addAttribute("reports",reportService.findAll());
+    	model.addAttribute("user",userService.findByEmail(principal.getName()));
+    	return "report/reports";
+    }
 
 }

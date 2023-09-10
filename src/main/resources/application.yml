@@ -2,9 +2,9 @@ rememberMe: test
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: root
+        password: ${MYSQL_P}
         url: jdbc:mysql://localhost:3306/reporteYa?createDatabaseIfNotExist=true
-        username: root
+        username: ${MYSQL_U}
     jpa:
         defer-datasource-initialization: true
         hibernate:
@@ -13,6 +13,20 @@ spring:
             hibernate:
                 format_sql: true
         show-sql: true
+    mail:
+        host: smtp.gmail.com
+        password: vwdhwbqhkywynemv
+        port: 465
+        properties:
+            mail:
+                smpt:
+                    auth: true
+                    starttls:
+                        enable: true
+                transport:
+                    protocol: smtps
+        protocol: smtps
+        username: matias.fernandez.17.06@gmail.com
     mvc:
         hiddenmethod:
             filter:
@@ -20,3 +34,5 @@ spring:
     sql:
         init:
             mode: always
+support:
+    email: matias.fernandez.17.06@gmail.com
