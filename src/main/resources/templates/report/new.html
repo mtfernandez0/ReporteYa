@@ -3,35 +3,51 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Nuevo Reporte</title>
 	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
-    <div class="container-fluid w-75 w-75 mt-5">
-        <h1>New report</h1>
-        <form th:action="@{/reports/new}" method="post" th:object="${report}">
-            <input type="hidden" name="country" th:value="${marker.country}">
-            <input type="hidden" name="road" th:value="${marker.road}">
-            <input type="hidden" name="town" th:value="${marker.town}">
-            <input type="hidden" name="city" th:value="${marker.city}">
-            <input type="hidden" name="village" th:value="${marker.village}">
-            <input type="hidden" name="suburb" th:value="${marker.suburb}">
-            <input type="hidden" name="latitude" th:value="${marker.latitude}">
-            <input type="hidden" name="longitude" th:value="${marker.longitude}">
-            <p th:text="${'Location: ' + location}"></p>
-            <p th:text="${'Latitude: ' + marker.getLatitude()}"></p>
-            <p th:text="${'Longitud: ' + marker.getLongitude()}"></p>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" th:value="${report.title}">
-            <label for="description">Description</label>
-            <input type="text" name="description" id="description" th:value="${report.description}">
-            <label for="additional_directions">Additional directions</label>
-            <input type="text" name="additional_directions" id="additional_directions" th:value="${report.additional_directions}">
-            <input type="submit" value="Crear Reporte">
-        </form>
-    </div>
+	<div class="container-fluid w-75 w-75 mt-5">
+		<h1>New report</h1>
+		<form th:action="@{/reports/new}" method="post" th:object="${report}">
+			<input type="hidden" name="country" th:value="${marker.country}">
+			<input type="hidden" name="road" th:value="${marker.road}">
+			<input type="hidden" name="town" th:value="${marker.town}">
+			<input type="hidden" name="city" th:value="${marker.city}">
+			<input type="hidden" name="village" th:value="${marker.village}">
+			<input type="hidden" name="suburb" th:value="${marker.suburb}">
+			<input type="hidden" name="latitude" th:value="${marker.latitude}">
+			<input type="hidden" name="longitude" th:value="${marker.longitude}">
+
+			<p th:text="${'Location: ' + location}"></p>
+			<p th:text="${'Latitude: ' + marker.getLatitude()}"></p>
+			<p th:text="${'Longitud: ' + marker.getLongitude()}"></p>
+
+			<label for="title">Problema</label>
+			<input type="text" name="title" id="title" th:value="${report.title}">
+
+			<label for="location">Ubicación</label>
+			<input type="text" name="location" id="location" th:value="${report.location}">
+
+			<label for="municipality">Municipio</label>
+			<input type="text" name="municipality" id="municipality" th:value="${report.municipality}">
+
+			<label for="description">Descripción</label>
+			<input type="text" name="description" id="description" th:value="${report.description}">
+
+			<label for="tags">Tags</label>
+			<input type="text" name="tags" id="tags" th:value="${tags}">
+
+			<label for="additional_directions">Direcciones Adicionales</label>
+			<input type="text" name="additional_directions" id="additional_directions"
+				th:value="${report.additional_directions}">
+
+			<input type="submit" value="Crear Reporte">
+		</form>
+	</div>
 </body>
 
 </html>

@@ -43,6 +43,8 @@ public class Marker {
 	private String city;
 
 	private String village;
+	
+	private String suburb;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "report_id")

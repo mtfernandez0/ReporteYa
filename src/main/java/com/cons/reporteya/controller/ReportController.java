@@ -1,9 +1,9 @@
 package com.cons.reporteya.controller;
 
-import com.cons.reporteya.entity.Marker;
-import com.cons.reporteya.entity.Report;
-import com.cons.reporteya.service.ReportService;
-import jakarta.validation.Valid;
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,58 +11,72 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
+import com.cons.reporteya.entity.Marker;
+import com.cons.reporteya.entity.Report;
+import com.cons.reporteya.repository.ReportRepository;
+import com.cons.reporteya.service.ReportService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/reports")
 public class ReportController {
 
-    private final ReportService reportService;
+	private final ReportService reportService;
+	private final ReportRepository reportRepository;
 
-    public ReportController(ReportService reportService) {
-        this.reportService = reportService;
-    }
+	public ReportController(ReportService reportService, ReportRepository reportRepository) {
+		this.reportService = reportService;
+		this.reportRepository = reportRepository;
+	}
 
-    @GetMapping("/new")
-    public String newReport(@ModelAttribute("marker") Marker marker,
-                            @ModelAttribute("report") Report report,
-                            RedirectAttributes attributes,
-                            Model model){
-        if (marker.getLatitude() == null || marker.getLongitude() == null){
-            attributes.addFlashAttribute(
-                    "mapInvalidCoo",
-                    true
-            );
-            return "redirect:/map";
-        }
+	@GetMapping("/new")
+	public String newReport(@ModelAttribute("marker") Marker marker, @ModelAttribute("report") Report report,
+			RedirectAttributes attributes, Model model) {
+		if (marker.getLatitude() == null || marker.getLongitude() == null) {
+			attributes.addFlashAttribute("mapInvalidCoo", true);
+			return "redirect:/map";
+		}
 
-        String location = "";
+		String location = "";
 
-        if (marker.getCity() != null) location += marker.getCity();
-        else if(marker.getTown() != null) location += marker.getTown();
-        else if(marker.getVillage() != null) location += marker.getVillage();
-        else location += marker.getSuburb();
+		if (marker.getCity() != null)
+			location += marker.getCity();
+		else if (marker.getTown() != null)
+			location += marker.getTown();
+		else if (marker.getVillage() != null)
+			location += marker.getVillage();
+		else
+			location += marker.getSuburb();
 
-        String finalLocation = "";
+		String finalLocation = "";
 
-        if (marker.getRoad() != null) finalLocation += marker.getRoad() + ", ";
+		if (marker.getRoad() != null)
+			finalLocation += marker.getRoad() + ", ";
 
-        finalLocation = String.format("%s%s, %s", finalLocation, location, marker.getCountry());
-        model.addAttribute("location", finalLocation);
+		finalLocation = String.format("%s%s, %s", finalLocation, location, marker.getCountry());
+		model.addAttribute("location", finalLocation);
 
-        return "report/new";
-    }
+		return "report/new";
+	}
 
-    @PostMapping("/new")
-    public String newReport(@ModelAttribute("marker") Marker marker,
-                            @Valid @ModelAttribute("report") Report report,
-                            BindingResult result,
-                            Principal principal){
+	@PostMapping("/new")
+	public String newReport(@ModelAttribute("marker") Marker marker, @Valid @ModelAttribute("report") Report report,
+			BindingResult result, Principal principal, @RequestParam String tags) {
+		List<String> tagList = Arrays.asList(tags.split(","));
+		reportService.createReport(report, tagList);
 
-        if (result.hasErrors()) return "report/new";
+		return "redirect:/map";
+	}
 
-        return "redirect:/map";
-    }
+	@GetMapping("/dashboard")
+	public String reports(Model model) {
+		List<Report> reportes = reportRepository.findAll();
+		model.addAttribute("reports", reportes);
+		return "report/reports";
+	}
+
 }

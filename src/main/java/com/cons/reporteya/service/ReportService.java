@@ -1,19 +1,23 @@
 package com.cons.reporteya.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.cons.reporteya.entity.Report;
+import com.cons.reporteya.entity.Tag;
 import com.cons.reporteya.repository.ReportRepository;
 
 @Service
 public class ReportService {
 
 	private final ReportRepository reportRepository;
+	private final TagService tagService;
 
-	public ReportService(ReportRepository reportRepository) {
+	public ReportService(ReportRepository reportRepository, TagService tagService) {
 		this.reportRepository = reportRepository;
+		this.tagService = tagService;
 	}
 
 	// Buscar todos
@@ -22,9 +26,36 @@ public class ReportService {
 	}
 
 	// Crear Reporte
-	public Report createReport(Report r) {
-		return reportRepository.save(r);
+	public void createReport(Report report, List<String> subjects) {
+	    List<Tag> tags = generateTagList(subjects);
+
+	    tags.forEach(tag -> {
+	        if (tag.getId() == null) {
+	            tagService.saveTag(tag);
+	        }
+	    });
+
+	    report.setTags(tags);
+	    reportRepository.save(report);
 	}
+
+	private List<Tag> generateTagList(List<String> subjects) {
+	    List<Tag> tags = new ArrayList<>();
+
+	    subjects.forEach(subject -> {
+	        List<Tag> existingTags = tagService.findBySubject(subject);
+
+	        if (existingTags.isEmpty()) {
+	            Tag newTag = Tag.builder().subject(subject).reports(new ArrayList<>()).build();
+	            tags.add(newTag);
+	        } else {
+	            tags.addAll(existingTags);
+	        }
+	    });
+
+	    return tags;
+	}
+
 
 	// Editar Reporte
 	public Report updateReport(Report existingReport, Report updatedReport) {

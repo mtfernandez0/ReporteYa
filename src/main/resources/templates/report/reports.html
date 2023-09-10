@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>asa</title>
+    <title>Dashboard de Reportes</title>
 </head>
 <body>
-    <h1>Hola</h1>
+    <div th:each="report : ${reports}">
+        <div class="report">
+            <h2 th:text="${report.title}"></h2>
+            <p th:text="${report.description}"></p>
+        </div>
+        <div class="comments">
+            <h3>commentsarios:</h3>
+            <ul>
+                <li th:each="comment : ${report.comments}" th:text="${comments.comment"></li>
+            </ul>
+        </div>
+        <div class="tags">
+            <h3>Tags:</h3>
+            <ul>
+                <li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>

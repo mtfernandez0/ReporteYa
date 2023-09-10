@@ -1,5 +1,6 @@
 package com.cons.reporteya.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -68,9 +70,11 @@ public class Report {
 	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
+	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "reports_tags", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
-	private List<Tag> tags;
+	@Builder.Default
+	private List<Tag> tags = new ArrayList<>();
 
 	@Column(nullable = false)
 	private Date created_at;
