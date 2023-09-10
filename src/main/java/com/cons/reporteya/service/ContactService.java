@@ -18,5 +18,9 @@ public class ContactService {
 	public Contact newContact(Contact cont) {
 		return contactRepository.save(cont);
 	}
+	
+	public Contact editContact(Contact cont) {
+		return contactRepository.save(cont);
+	}
 
 }

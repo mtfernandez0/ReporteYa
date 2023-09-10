@@ -3,42 +3,110 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>My account</title>
+
+<link rel="stylesheet"
+	href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
 <body>
+	<div class="container mt-5">
 
-	<h1>
-		Welcome <span th:text="${user.first_name+' '+user.last_name}"></span>
-	</h1>
+		<div class="">
+			<div class="row">
+				<div class="col text-center">
+					<h1>
+						Welcome <span th:text="${user.first_name+' '+user.last_name}"></span>
+						:)
+					</h1>
+				</div>
+			</div>
+			<br>
 
-	<table>
-		<thead>
-			<tr>
-				<th>Email:</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td th:text="${user.email}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<div th:if="${user.contact==null}">
-		<form th:action="@{/profile}" th:object="${cont}" method="post">
-			<label for="number">Number:</label>
-			<input type="text" id="number" th:value="${cont.number}" />
-			<label for="email">Email:</label>
-			<input type="text" id="email" th:value="${cont.email}" />
-			<input type="submit" value="Save" />
-		</form>
+			<div class="col text-center">
+				<div class="row ">
+					<div class="col-3">
+
+						<div class="d-flex justify-content-between">
+							<a href="/">Home</a> 
+							<a href="/companies/new">New Company</a>
+							<a th:href="@{/reports/{id}(id=${user.id})}">My Reports</a>
+						</div>
+					</div>
+					<div class="col-9">
+						<div class="d-flex justify-content-end align-item-center">
+							<form th:action="@{/logout}" method="post">
+								<input class="btn btn-link"type="submit" value="Logout" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="container mt-4">
+				<h3>Your information:</h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Email:</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="${user.email}"></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div th:if="${user.contact==null}" class="mt-4">
+					<form th:action="@{/profile}" th:object="${cont}" method="post">
+						<div class="mb-3">
+							<label for="number" class="form-label">Number:</label> <input
+								type="text" id="number" name="number" class="form-control"
+								th:value="${cont.number}" />
+						</div>
+						<div class="mb-3">
+							<label for="address" class="form-label">Address:</label> <input
+								type="text" id="address" name="address" class="form-control"
+								th:value="${cont.address}" />
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email:</label> <input
+								type="text" id="email" name="email" class="form-control"
+								th:value="${cont.email}" />
+						</div>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</form>
+				</div>
+
+				<div th:if="${user.contact!=null}" class="mt-4">
+					<form th:action="@{/profile}" th:object="${contact}"
+						th:method="put">
+						<div class="mb-3">
+							<label for="number" class="form-label">Number:</label> <input
+								type="text" id="number" name="number" class="form-control"
+								th:value="${contact.number}" />
+						</div>
+						<div class="mb-3">
+							<label for="address" class="form-label">Address:</label> <input
+								type="text" id="address" name="address" class="form-control"
+								th:value="${contact.address}" />
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email:</label> <input
+								type="text" id="email" name="email" class="form-control"
+								th:value="${contact.email}" />
+						</div>
+						<input type="submit" value="Save" class="btn btn-primary">
+					</form>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
 	</div>
-<!-- 	<div th:if="${user.contact!=null}"> -->
-
-<!-- 		<form action="/profile" th:object="${cont}" th:method="put"></form> -->
-<!-- 	</div> -->
-
-
-
-
 
 </body>
 </html>

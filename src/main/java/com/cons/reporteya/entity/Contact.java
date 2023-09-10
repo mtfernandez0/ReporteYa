@@ -33,7 +33,11 @@ public class Contact {
 	private Long id;
 
 	private String number;
-
+	
+	
+	private String address;
+	
+	
 	private String email;
 
 	@Column(nullable = false)

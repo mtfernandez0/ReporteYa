@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.cons.reporteya.entity.Contact;
 import com.cons.reporteya.entity.User;
@@ -47,8 +48,22 @@ public class UserController {
 		contact.setUser(us);
 		contServ.newContact(contact);
 		
-		return "count/profile";
+		return "redirect:/profile";
 		
 	}
+	
+	@PutMapping("/profile")
+	public String editProfile(@ModelAttribute ("cont")Contact contact, Model model, Principal principal) {
+		User us = userServ.findByEmail(principal.getName());
+
+		us.getContact().setAddress(contact.getAddress());
+		us.getContact().setNumber(contact.getNumber());
+		us.getContact().setEmail(contact.getEmail());
+		
+		contServ.editContact(us.getContact());
+		
+		return "redirect:/profile";
+	}
+	
 
 }
