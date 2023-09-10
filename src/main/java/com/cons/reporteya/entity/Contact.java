@@ -33,8 +33,14 @@ public class Contact {
 	private Long id;
 
 	private String number;
+	
+	private String country;
 
-	private String email;
+	private String town;
+
+	private String road;
+
+	private String city;
 
 	@Column(nullable = false)
 	private Date created_at;
@@ -44,8 +50,6 @@ public class Contact {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-
-
 
 	@PrePersist
 	private void onCreate() {
