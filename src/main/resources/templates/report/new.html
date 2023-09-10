@@ -28,18 +28,27 @@
 
 			<label for="title">Problema</label><br>
 			<input type="text" name="title" id="title" th:value="${report.title}"> <br>
+			<p class="text-danger" th:if="${#fields.hasErrors('title')}">
+				<span class="row" th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
+			</p>
 
-			<label for="location">Ubicación</label><br>
-			<input type="text" name="location" id="location" th:value="${report.location}"><br>
+			<!--			<label for="location">Ubicación</label><br>-->
+			<!--			<input type="text" name="location" id="location" th:value="${report.location}"><br>-->
 
-			<label for="municipality">Municipio</label><br>
-			<input type="text" name="municipality" id="municipality" th:value="${report.municipality}"><br>
+			<!--			<label for="municipality">Municipio</label><br>-->
+			<!--			<input type="text" name="municipality" id="municipality" th:value="${report.municipality}"><br>-->
 
 			<label for="description">Descripción del problema</label> <br>
 			<textarea id="description" name="description" th:value="${report.description}"> </textarea><br>
+			<p class="text-danger" th:if="${#fields.hasErrors('description')}">
+				<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
+			</p>
 
 			<label for="tags">Tags</label> <br>
-			<input type="text" name="tags" id="tags" th:value="${tags}"><br>
+			<input type="text" name="tag" id="tags" th:value="${tags}"><br>
+			<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
+				<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
+			</p>
 
 			<label for="additional_directions">Direcciones Adicionales</label> <br>
 			<input type="text" name="additional_directions" id="additional_directions"

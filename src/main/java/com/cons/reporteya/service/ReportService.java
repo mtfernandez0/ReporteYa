@@ -27,7 +27,7 @@ public class ReportService {
 	}
 
 	// Crear Reporte
-	public void createReport(Report report, List<String> subjects) {
+	public Report createReport(Report report, List<String> subjects) {
 		List<Tag> tags = generateTagList(subjects);
 
 		tags.forEach(tag -> {
@@ -37,7 +37,7 @@ public class ReportService {
 		});
 
 		report.setTags(tags);
-		reportRepository.save(report);
+		return reportRepository.save(report);
 	}
 
 	private List<Tag> generateTagList(List<String> subjects) {

@@ -33,10 +33,14 @@ public class Contact {
 	private Long id;
 
 	private String number;
+	
+	private String country;
 
-	private String address;
+	private String town;
 
-	private String email;
+	private String road;
+
+	private String city;
 
 	@Column(nullable = false)
 	private Date created_at;
