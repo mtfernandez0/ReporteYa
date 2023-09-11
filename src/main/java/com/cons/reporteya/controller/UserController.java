@@ -2,12 +2,11 @@ package com.cons.reporteya.controller;
 
 import java.security.Principal;
 
+import com.cons.reporteya.dto.ContactDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.cons.reporteya.entity.Contact;
 import com.cons.reporteya.entity.User;
@@ -25,7 +24,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
-	public String showProfile(@ModelAttribute("cont") Contact contact, Model model, Principal principal) {
+	public String showProfile(Model model,
+							  Principal principal) {
 		
 		User us = userServ.findByEmail(principal.getName());
 		model.addAttribute("user", userServ.findByEmail(principal.getName()));
@@ -37,30 +37,35 @@ public class UserController {
 	}
 	
 	@PostMapping("/profile")
-	public String formProfile(@ModelAttribute ("cont")Contact contact, Model model, Principal principal) {
+	public ResponseEntity<?> formProfile(@RequestBody ContactDto contactDto,
+										 Principal principal) {
+
 		User us = userServ.findByEmail(principal.getName());
-		
-//		us.setContact(contact);
-		
+
+		if (us.getContact() != null) return ResponseEntity.badRequest().build();
+
+		Contact contact = contactDto.contactDtoToContact();
+
 		contact.setUser(us);
 		contServ.newContact(contact);
 		
-		return "redirect:/profile";
-		
+		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/profile")
-	public String editProfile(@ModelAttribute ("cont")Contact contact, Model model, Principal principal) {
+	public ResponseEntity<?> editProfile(@RequestBody ContactDto contactDto,
+										 Principal principal) {
 		User us = userServ.findByEmail(principal.getName());
 
-		us.getContact().setAddress(contact.getAddress());
-		us.getContact().setNumber(contact.getNumber());
-		us.getContact().setEmail(contact.getEmail());
-		
+		if (us.getContact() == null) ResponseEntity.badRequest().build();
+
+		us.getContact().setCity(contactDto.getCity());
+		us.getContact().setCountry(contactDto.getCountry());
+		us.getContact().setTown(contactDto.getState());
+		us.getContact().setState_district(contactDto.getState_district());
+
 		contServ.editContact(us.getContact());
 		
-		return "redirect:/profile";
+		return ResponseEntity.ok().build();
 	}
-	
-
 }

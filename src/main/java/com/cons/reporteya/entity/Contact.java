@@ -13,6 +13,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class Contact {
 	private Long id;
 
 	private String number;
-	
+
 	private String country;
 
 	private String town;
@@ -41,6 +42,8 @@ public class Contact {
 	private String road;
 
 	private String city;
+
+	private String state_district;
 
 	@Column(nullable = false)
 	private Date created_at;

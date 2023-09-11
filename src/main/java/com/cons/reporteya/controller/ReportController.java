@@ -38,15 +38,25 @@ public class ReportController {
 	}
 
 	@GetMapping("/new")
-	public String newReport(@ModelAttribute("marker") Marker marker, @ModelAttribute("report") Report report,
-			RedirectAttributes attributes, Model model) {
+	public String newReport(@ModelAttribute("marker") Marker marker,
+							@ModelAttribute("report") Report report,
+							RedirectAttributes attributes,
+							Model model,
+							Principal principal) {
+
+		User user = userService.findByEmail(principal.getName());
+
+		if (user.getContact() == null){
+			attributes.addFlashAttribute("newReportNoContact", true);
+			return "redirect:/profile";
+		}
+
 		if (marker.getLatitude() == null || marker.getLongitude() == null) {
 			attributes.addFlashAttribute("mapInvalidCoo", true);
 			return "redirect:/map";
 		}
 
 		report.setMarker(marker);
-
 		model.addAttribute("location", ReportService.finalLocation(report));
 
 		return "report/new";
