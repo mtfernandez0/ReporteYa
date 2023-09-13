@@ -24,14 +24,12 @@ public class Contact {
 	private Long id;
 
 	private String number;
-	
+
 	private String country;
 
-	private String town;
+	private String postcode;
 
-	private String road;
-
-	private String city;
+	private String location_name;
 
 	@Column(nullable = false)
 	private Date created_at;

@@ -106,7 +106,7 @@ public class AuthController {
 
         redirectAttributes.addFlashAttribute(
                 "register",
-                "Registrado exitosamente!"
+                "Le hemos enviado un correo electrónico para confirmar su registro."
         );
 
         return "redirect:/login";

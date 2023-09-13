@@ -23,7 +23,7 @@ public class ReportDto {
                 .title(report.getTitle())
                 .lat(report.getMarker().getLatitude())
                 .lng(report.getMarker().getLongitude())
-                .location(ReportService.finalLocation(report))
+                .location(report.getMarker().getLocation_name())
                 .build();
     }
 }
