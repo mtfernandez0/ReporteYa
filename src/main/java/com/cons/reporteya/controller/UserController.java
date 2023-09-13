@@ -42,6 +42,8 @@ public class UserController {
 
 		User us = userServ.findByEmail(principal.getName());
 
+		System.out.println("PASO");
+
 		if (us.getContact() != null) return ResponseEntity.badRequest().build();
 
 		Contact contact = contactDto.contactDtoToContact();
@@ -59,10 +61,10 @@ public class UserController {
 
 		if (us.getContact() == null) ResponseEntity.badRequest().build();
 
-		us.getContact().setCity(contactDto.getCity());
+		us.getContact().setNumber(contactDto.getNumber());
 		us.getContact().setCountry(contactDto.getCountry());
-		us.getContact().setTown(contactDto.getState());
-		us.getContact().setState_district(contactDto.getState_district());
+		us.getContact().setPostcode(contactDto.getPostcode());
+		us.getContact().setLocation_name(contactDto.getLocation_name());
 
 		contServ.editContact(us.getContact());
 		

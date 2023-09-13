@@ -82,21 +82,4 @@ public class ReportService {
 			throw new IllegalArgumentException("No se encontró el reporte a eliminar.");
 		}
 	}
-
-	public static String finalLocation(Report report){
-		Marker marker = report.getMarker();
-		String location = "";
-
-		if (marker.getCity() != null) location += marker.getCity();
-		else if(marker.getTown() != null) location += marker.getTown();
-		else if(marker.getVillage() != null) location += marker.getVillage();
-		else location += marker.getSuburb();
-
-		String res = "";
-
-		if (marker.getRoad() != null) res += marker.getRoad() + ", ";
-
-		return String.format("%s%s, %s", res, location, marker.getCountry());
-	}
-
 }

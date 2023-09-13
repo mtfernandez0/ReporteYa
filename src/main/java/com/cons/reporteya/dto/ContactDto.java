@@ -1,28 +1,35 @@
 package com.cons.reporteya.dto;
 
 import com.cons.reporteya.entity.Contact;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter
+@Builder
 public class ContactDto {
+
+    private String number;
 
     private String country;
 
-    private String state;
+    private String postcode;
 
-    private String city;
-
-    private String state_district;
+    private String location_name;
 
     public Contact contactDtoToContact(){
         return Contact.builder()
-                .city(city)
+                .number(number)
                 .country(country)
-                .state_district(state_district)
-                .town(state)
+                .postcode(postcode)
+                .location_name(location_name)
+                .build();
+    }
+
+    public ContactDto contactToContactDto(Contact contact){
+        return ContactDto.builder()
+                .number(contact.getNumber())
+                .country(contact.getCountry())
+                .postcode(contact.getPostcode())
+                .location_name(contact.getLocation_name())
                 .build();
     }
 }
