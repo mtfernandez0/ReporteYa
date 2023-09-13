@@ -76,6 +76,10 @@ public class Report {
 	@JoinTable(name = "reports_tags", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
 	@Builder.Default
 	private List<Tag> tags = new ArrayList<>();
+	
+	 @OneToMany(mappedBy="reporte", fetch = FetchType.LAZY)
+	    private List<FileUp> imagenes;
+	
 
 	@Column(nullable = false)
 	private Date created_at;

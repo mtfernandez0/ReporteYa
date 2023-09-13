@@ -31,8 +31,15 @@ spring:
         hiddenmethod:
             filter:
                 enabled: true
+    servlet:
+        multipart:
+            max-file-size: 2000KB
+            max-request-size: 2000KB
     sql:
         init:
             mode: always
+    web:
+        resources:
+            static-locations: /src/main/resources/static/images
 support:
     email: matias.fernandez.17.06@gmail.com

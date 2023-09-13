@@ -57,9 +57,9 @@ public class UserController {
 	public String editProfile(@ModelAttribute ("cont")Contact contact, Model model, Principal principal) {
 		User us = userServ.findByEmail(principal.getName());
 
-		us.getContact().setAddress(contact.getAddress());
+		
 		us.getContact().setNumber(contact.getNumber());
-		us.getContact().setEmail(contact.getEmail());
+		
 		
 		contServ.editContact(us.getContact());
 		model.addAttribute("usuario",us);
