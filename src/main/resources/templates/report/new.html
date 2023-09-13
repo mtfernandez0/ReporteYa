@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
-    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Nuevo Reporte</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
-    <div class="container-fluid w-75 w-75 mt-5">
-        <h1>New report</h1>
-        <form th:action="@{/reports/new}" method="post" th:object="${report}">
-            <input type="hidden" name="country" th:value="${marker.country}">
-            <input type="hidden" name="road" th:value="${marker.road}">
-            <input type="hidden" name="town" th:value="${marker.town}">
-            <input type="hidden" name="city" th:value="${marker.city}">
-            <input type="hidden" name="village" th:value="${marker.village}">
-            <input type="hidden" name="suburb" th:value="${marker.suburb}">
-            <input type="hidden" name="latitude" th:value="${marker.latitude}">
-            <input type="hidden" name="longitude" th:value="${marker.longitude}">
-            <p th:text="${'Location: ' + location}"></p>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" th:value="${report.title}">
-            <label for="description">Description</label>
-            <input type="text" name="description" id="description" th:value="${report.description}">
-            <label for="additional_directions">Additional directions</label>
-            <input type="text" name="additional_directions" id="additional_directions" th:value="${report.additional_directions}">
-            <input type="submit" value="Crear Reporte">
-        </form>
-    </div>
+	<div class="container-fluid w-75 w-75 mt-5">
+		<h1>Nuevo reporte</h1>
+		<form th:action="@{/reports/new}" method="post" th:object="${report}">
+			<input type="hidden" name="country" th:value="${marker.country}">
+			<input type="hidden" name="postcode" th:value="${marker.postcode}">
+			<input type="hidden" name="location_name" th:value="${marker.location_name}">
+			<input type="hidden" name="latitude" th:value="${marker.latitude}">
+			<input type="hidden" name="longitude" th:value="${marker.longitude}">
+
+			<p th:text="${'Locación: ' + marker.location_name}"></p>
+
+			<label for="title">Problema</label><br>
+			<input type="text" name="title" id="title" th:value="${report.title}"> <br>
+			<p class="text-danger" th:if="${#fields.hasErrors('title')}">
+				<span class="row" th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
+			</p>
+			<label for="description">Descripción del problema</label> <br>
+			<textarea id="description" name="description" th:value="${report.description}"></textarea><br>
+			<p class="text-danger" th:if="${#fields.hasErrors('description')}">
+				<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
+			</p>
+
+			<label for="tags">Tags</label> <br>
+			<input type="text" name="tag" id="tags" th:value="${tags}"><br>
+			<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
+				<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
+			</p>
+
+			<label for="additional_directions">Direcciones Adicionales</label> <br>
+			<input type="text" name="additional_directions" id="additional_directions"
+				th:value="${report.additional_directions}"><br>
+
+			<input type="submit" value="Crear Reporte">
+		</form>
+	</div>
 </body>
+
 </html>

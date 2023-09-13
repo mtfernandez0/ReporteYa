@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Mapa</title>
     <!-- BOOTSTRAP  -->
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
@@ -18,9 +18,10 @@
 </head>
 <body>
     <div class="container-fluid w-75">
-        <h1>Map</h1>
+        <h1>Ubicación del problema</h1>
         <div id="map" style="height: 600px"></div>
         <div id="reports-data" th:text="${reports}" style="display:none;"></div>
+        <div id="contact-data" th:text="${contact}" style="display:none;"></div>
     </div>
 </body>
     <script>
@@ -29,42 +30,30 @@
         let map = null;
         let reportsDataElement = document.getElementById('reports-data');
         let reportsData = JSON.parse(reportsDataElement.textContent);
+        let contactDataElement = document.getElementById('contact-data');
+        let contactData = JSON.parse(contactDataElement.textContent);
 
         //create report
         let popup = L.popup();
         function onMapClick(e) {
-            let address = {town: undefined, road: undefined, country: undefined, village: undefined, city: undefined, suburb: undefined};
             $.getJSON("https://nominatim.openstreetmap.org/reverse?lat="+e.latlng.lat+"&lon="+e.latlng.lng+"&format=json",
                 (data) => {
                     let content ='<form action="/reports/new" method="get">' +
                     '           <input type="hidden" name="latitude" value='+e.latlng.lat+'>' +
                     '           <input type="hidden" name="longitude" value='+e.latlng.lng+'>';
-                    if (data.address !== undefined){
-                        for (let key in data.address)
-                            if (address.hasOwnProperty(key))
-                                address[key] = data.address[key];
-                        console.log(address);
+                    if (data.address !== undefined && data.address.postcode !== undefined &&
+                        (data.address.postcode.includes(contactData.postcode) || contactData.postcode.includes(data.address.postcode))
+                        && data.display_name !== undefined){
+                        content += '<input type="hidden" name="country" value="'+data.address.country+'">';
+                        content += '<input type="hidden" name="postcode" value="'+data.address.postcode+'">';
+                        content += '<input type="hidden" name="location_name" value="'+data.display_name+'">';
+                        content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
+                    } else if(data.address === undefined || data.address.postcode === undefined || data.display_name === undefined) {
+                        content = "Por favor elige un lugar válido";
+                    } else {
+                        content = "Por favor elige un lugar dentro de tu zona";
                     }
 
-                    if (address.city !== undefined)
-                        content += '<input type="hidden" name="city" value="'+address.city+'">';
-                    else if (address.village !== undefined)
-                        content += '<input type="hidden" name="village" value="'+address.village+'">';
-                    else if (address.town !== undefined)
-                        content += '<input type="hidden" name="town" value="'+address.town+'">';
-                    else if (address.suburb !== undefined)
-                        content += '<input type="hidden" name="town" value="'+address.town+'">';
-
-                    if (address.road !== undefined)
-                        content += '<input type="hidden" name="road" value="'+address.road+'">';
-
-                    if (address.country !== undefined)
-                        content += '<input type="hidden" name="country" value="'+address.country+'">';
-
-                    if (address.town === undefined && address.city === undefined && address.village === undefined && address.suburb === undefined)
-                        content = "Por favor elige un lugar válido"
-                    else
-                        content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
                     popup
                         .setLatLng(e.latlng)
                         .setContent(content)
@@ -75,7 +64,6 @@
         function getCoordinates() {
             return new Promise((resolve, reject) => {
                 if ("geolocation" in navigator) {
-                    console.log(navigator.geolocation)
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
                             lat = position.coords.latitude;
