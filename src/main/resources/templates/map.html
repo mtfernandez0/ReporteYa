@@ -48,8 +48,10 @@
                         content += '<input type="hidden" name="postcode" value="'+data.address.postcode+'">';
                         content += '<input type="hidden" name="location_name" value="'+data.display_name+'">';
                         content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
-                    } else {
+                    } else if(data.address === undefined || data.address.postcode === undefined || data.display_name === undefined) {
                         content = "Por favor elige un lugar válido";
+                    } else {
+                        content = "Por favor elige un lugar dentro de tu zona";
                     }
 
                     popup
@@ -59,11 +61,9 @@
             });
         }
 
-
         function getCoordinates() {
             return new Promise((resolve, reject) => {
                 if ("geolocation" in navigator) {
-                    console.log(navigator.geolocation)
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
                             lat = position.coords.latitude;

@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.cons.reporteya.dto.ContactDto;
 import com.cons.reporteya.dto.ReportDto;
-import com.cons.reporteya.dto.UserDto;
 import com.cons.reporteya.entity.Report;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.cons.reporteya.entity.User;
 import com.cons.reporteya.service.ReportService;
 import com.cons.reporteya.service.UserService;
-
-import com.cons.reporteya.repository.ReportRepository;
 
 @Controller
 public class HomeController {
@@ -55,9 +52,7 @@ public class HomeController {
 		User user = userService.findByEmail(principal.getName());
 
 		ContactDto contactDto = new ContactDto().contactToContactDto(user.getContact());
-//		UserDto userDto = new UserDto().userToUserDto(user);
 
-//		model.addAttribute("user", objectMapper.writeValueAsString(userDto));
 		model.addAttribute("contact", objectMapper.writeValueAsString(contactDto));
 		model.addAttribute("reports", objectMapper.writeValueAsString(reportDtos));
 		return "map";

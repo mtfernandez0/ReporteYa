@@ -12,13 +12,14 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -52,15 +53,13 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/login**",
                                 "/register**",
-                                "/home",
-                                "",
-                                "/",
+                                "/home", "", "/",
                                 "/map")
                         .permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .successHandler(successHandler())
                         .usernameParameter("email")
                         .permitAll()
                         .failureHandler(new CustomAuthFailureHandler(messageSource())))
@@ -82,6 +81,13 @@ public class SecurityConfig {
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
         return new TokenBasedRememberMeServices(rememberMePrivateKey, userDetailsService);
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
+        handler.setDefaultTargetUrl("/home");
+        return handler;
     }
 
     @Bean

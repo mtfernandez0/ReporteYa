@@ -7,13 +7,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container w-75 mt-3">
         <div class="col text-center">
             <div class="row">
                 <div class="col-3">
                     <div class="d-flex justify-content-between">
                         <a href="/">Inicio</a>
-                        <a href="/companies/new">Registrar compañía</a>
+                        <a href="/company/new">Registrar compañía</a>
                         <a th:href="@{/reports/{id}(id=${user.id})}">Mis reportes</a>
                     </div>
                 </div>
@@ -64,6 +64,7 @@
             </div>
         </div>
         <div th:if="${user.contact != null}" class="mt-4 border border-2 border-black rounded-4 p-2">
+            <h5>Tu información de contacto:</h5>
             <form id="form-put">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <div class="mb-3">
