@@ -2,6 +2,7 @@ package com.cons.reporteya.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.cons.reporteya.entity.Marker;
 import org.springframework.stereotype.Service;
@@ -63,8 +64,10 @@ public class ReportService {
 
 			existingReport.setTitle(updatedReport.getTitle());
 			existingReport.setDescription(updatedReport.getDescription());
-		/* existingReport.setMunicipality(updatedReport.getMunicipality());
-			existingReport.setLocation(updatedReport.getLocation());  */	
+			/*
+			 * existingReport.setMunicipality(updatedReport.getMunicipality());
+			 * existingReport.setLocation(updatedReport.getLocation());
+			 */
 
 			return reportRepository.save(existingReport);
 
@@ -83,20 +86,29 @@ public class ReportService {
 		}
 	}
 
-	public static String finalLocation(Report report){
+	public static String finalLocation(Report report) {
 		Marker marker = report.getMarker();
 		String location = "";
 
-		if (marker.getCity() != null) location += marker.getCity();
-		else if(marker.getTown() != null) location += marker.getTown();
-		else if(marker.getVillage() != null) location += marker.getVillage();
-		else location += marker.getSuburb();
+		if (marker.getCity() != null)
+			location += marker.getCity();
+		else if (marker.getTown() != null)
+			location += marker.getTown();
+		else if (marker.getVillage() != null)
+			location += marker.getVillage();
+		else
+			location += marker.getSuburb();
 
 		String res = "";
 
-		if (marker.getRoad() != null) res += marker.getRoad() + ", ";
+		if (marker.getRoad() != null)
+			res += marker.getRoad() + ", ";
 
 		return String.format("%s%s, %s", res, location, marker.getCountry());
+	}
+
+	public Optional<Report> findById(Long id) {
+		return reportRepository.findById(id);
 	}
 
 }

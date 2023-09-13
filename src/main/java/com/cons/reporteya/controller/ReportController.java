@@ -3,6 +3,7 @@ package com.cons.reporteya.controller;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cons.reporteya.entity.Comment;
 import com.cons.reporteya.entity.Marker;
 import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.entity.User;
+import com.cons.reporteya.service.CommentService;
 import com.cons.reporteya.service.MarkerService;
 import com.cons.reporteya.service.ReportService;
 import com.cons.reporteya.service.UserService;
@@ -30,11 +33,14 @@ public class ReportController {
 	private final ReportService reportService;
 	private final UserService userService;
 	private final MarkerService markerService;
+	private final CommentService commentService;
 
-	public ReportController(ReportService reportService, UserService userService, MarkerService markerService) {
+	public ReportController(ReportService reportService, UserService userService, MarkerService markerService,
+			CommentService commentService) {
 		this.reportService = reportService;
 		this.userService = userService;
 		this.markerService = markerService;
+		this.commentService = commentService;
 	}
 
 	@GetMapping("/new")
@@ -92,6 +98,30 @@ public class ReportController {
 		List<Report> reportes = reportService.findAll();
 		model.addAttribute("reports", reportes);
 		return "report/reports";
+	}
+
+	@PostMapping("/dashboard")
+	public String addComment(@RequestParam Long id, @RequestParam String comment, Model model, Principal principal) {
+		Optional<Report> reportOptional = reportService.findById(id);
+
+		if (reportOptional.isPresent()) {
+			Report report = reportOptional.get();
+
+			Comment newComment = Comment.builder().comment(comment).owner(userService.findByEmail(principal.getName()))
+					.report(report).build();
+
+			commentService.save(newComment);
+			report.getComments().add(newComment);
+			reportService.updateReport(report, report);
+
+			List<Comment> updatedComments = report.getComments();
+			model.addAttribute("comments", updatedComments);
+
+			return "redirect:/reports/dashboard";
+		} else {
+			model.addAttribute("errorMessage", "El informe no se encontró");
+			return "report/reports";
+		}
 	}
 
 	@GetMapping("")

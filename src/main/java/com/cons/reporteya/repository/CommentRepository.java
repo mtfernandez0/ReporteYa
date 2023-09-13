@@ -1,5 +1,9 @@
 package com.cons.reporteya.repository;
 
-public interface CommentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cons.reporteya.entity.Comment;
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 }

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>My account</title>
 
-<link rel="stylesheet"
-	href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>My account</title>
+
+	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
+
 <body>
 	<div class="container mt-5">
 
@@ -26,7 +27,7 @@
 					<div class="col-3">
 
 						<div class="d-flex justify-content-between">
-							<a href="/">Home</a> 
+							<a href="/">Home</a>
 							<a href="/companies/new">New Company</a>
 							<a th:href="@{/reports/{id}(id=${user.id})}">My Reports</a>
 						</div>
@@ -34,7 +35,7 @@
 					<div class="col-9">
 						<div class="d-flex justify-content-end align-item-center">
 							<form th:action="@{/logout}" method="post">
-								<input class="btn btn-link"type="submit" value="Logout" />
+								<input class="btn btn-link" type="submit" value="Logout" />
 							</form>
 						</div>
 					</div>
@@ -60,41 +61,41 @@
 				<div th:if="${user.contact==null}" class="mt-4">
 					<form th:action="@{/profile}" th:object="${cont}" method="post">
 						<div class="mb-3">
-							<label for="number" class="form-label">Number:</label> <input
-								type="text" id="number" name="number" class="form-control"
-								th:value="${cont.number}" />
+							<label for="country" class="form-label">País:</label> <input type="text" id="country"
+								name="country" class="form-control" th:value="${cont.country}" />
+						</div>
+
+						<div class="mb-3">
+							<label for="city" class="form-label">Ciudad:</label> <input type="text" id="city"
+								name="city" class="form-control" th:value="${cont.city}" />
+						</div>
+
+						<div class="mb-3">
+							<label for="localidad" class="form-label">Localidad:</label> <input type="text"
+								id="localidad" name="localidad" class="form-control" th:value="${cont.localidad}" />
 						</div>
 						<div class="mb-3">
-							<label for="address" class="form-label">Address:</label> <input
-								type="text" id="address" name="address" class="form-control"
-								th:value="${cont.address}" />
+							<label for="road" class="form-label">Dirección:</label> <input type="text" id="road"
+								name="road" class="form-control" th:value="${cont.road}" />
 						</div>
-						<div class="mb-3">
-							<label for="email" class="form-label">Email:</label> <input
-								type="text" id="email" name="email" class="form-control"
-								th:value="${cont.email}" />
-						</div>
-						<button type="submit" class="btn btn-primary">Save</button>
+
+						<button type="submit" class="btn btn-primary">Guardar datos</button>
 					</form>
 				</div>
 
 				<div th:if="${user.contact!=null}" class="mt-4">
-					<form th:action="@{/profile}" th:object="${contact}"
-						th:method="put">
+					<form th:action="@{/profile}" th:object="${contact}" th:method="put">
 						<div class="mb-3">
-							<label for="number" class="form-label">Number:</label> <input
-								type="text" id="number" name="number" class="form-control"
-								th:value="${contact.number}" />
+							<label for="number" class="form-label">Number:</label> <input type="text" id="number"
+								name="number" class="form-control" th:value="${contact.number}" />
 						</div>
 						<div class="mb-3">
-							<label for="address" class="form-label">Address:</label> <input
-								type="text" id="address" name="address" class="form-control"
-								th:value="${contact.address}" />
+							<label for="address" class="form-label">Address:</label> <input type="text" id="address"
+								name="address" class="form-control" th:value="${contact.address}" />
 						</div>
 						<div class="mb-3">
-							<label for="email" class="form-label">Email:</label> <input
-								type="text" id="email" name="email" class="form-control"
-								th:value="${contact.email}" />
+							<label for="email" class="form-label">Email:</label> <input type="text" id="email"
+								name="email" class="form-control" th:value="${contact.email}" />
 						</div>
 						<input type="submit" value="Save" class="btn btn-primary">
 					</form>
@@ -103,10 +104,8 @@
 
 		</div>
 
-
-
-
 	</div>
 
 </body>
+
 </html>

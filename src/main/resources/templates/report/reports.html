@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Dashboard de Reportes</title>
+	<title>Detalle del Reporte</title>
 </head>
+
 <body>
-    <div th:each="report : ${reports}">
-        <div class="report">
-            <h2 th:text="${report.title}"></h2>
-            <p th:text="${report.description}"></p>
-        </div>
-        <div class="comments">
-            <h3>comments:</h3>
-            <ul>
-                <li th:each="comment : ${report.comments}" th:text="${comments.comment"></li>
-            </ul>
-        </div>
-        <div class="tags">
-            <h3>Tags:</h3>
-            <ul>
-                <li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li>
-            </ul>
-        </div>
-    </div>
+
+	<div class="report">
+		<div th:each="report : ${reports}" class="report">
+			<h2 th:text="${report.title}"></h2>
+			<p th:text="${report.description}"></p>
+			<div class="comments">
+				<h3>Comentarios:</h3>
+				<ul>
+					<li th:each="comment : ${report.comments}" th:text="${comment.comment}"></li>
+				</ul>
+				<form th:action="@{'/reports/dashboard'}" method="post">
+					<input type="hidden" name="id" th:value="${report.id}" />
+					<textarea name="comment" rows="4" cols="50" required></textarea> <br>
+					<input type="submit" value="Comentar">
+				</form>
+
+			</div>
+			<div class="tags">
+				<h3>Etiquetas:</h3>
+				<ul>
+					<li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
 </body>
+
 </html>
