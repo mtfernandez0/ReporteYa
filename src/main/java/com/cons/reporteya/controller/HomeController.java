@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.cons.reporteya.entity.User;
 import com.cons.reporteya.service.ReportService;
 import com.cons.reporteya.service.UserService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomeController {
@@ -43,13 +44,21 @@ public class HomeController {
 
 	@GetMapping("/map")
 	public String map(Model model,
-					  Principal principal) throws JsonProcessingException {
+					  Principal principal,
+					  RedirectAttributes attributes) throws JsonProcessingException {
+
+		User user = userService.findByEmail(principal.getName());
+
+		if (user.getContact() == null){
+			attributes.addFlashAttribute("newReportNoContact", true);
+			return "redirect:/profile";
+		}
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ReportDto> reportDtos = new ArrayList<>();
 		List<Report> reports = reportService.findAll();
 		for (Report report : reports) reportDtos.add(ReportDto.ReportToDto(report));
 
-		User user = userService.findByEmail(principal.getName());
 
 		ContactDto contactDto = new ContactDto().contactToContactDto(user.getContact());
 
