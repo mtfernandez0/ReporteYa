@@ -13,7 +13,7 @@
                 <div class="col-3">
                     <div class="d-flex justify-content-between">
                         <a href="/">Inicio</a>
-                        <a href="/company/new">Registrar compañía</a>
+                        <a th:if="${user.getCompany() == null}" href="/companies/new">Registrar compañía</a>
                         <a th:href="@{/reports/{id}(id=${user.id})}">Mis reportes</a>
                     </div>
                 </div>

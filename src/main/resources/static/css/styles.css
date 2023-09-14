@@ -33,16 +33,22 @@ a {
 
 /* Estilos de encabezado */
 header {
+    background-image: url("../images/home_bg.jpg");
     background-size: cover;
     background-position: center;
-    color: white;
+    color: black;
     text-align: center;
     padding: 100px 0;
+}
+
+header h6{
+    font-weight: bolder;
 }
 
 h1 {
     font-size: 36px;
     margin-bottom: 20px;
+    font-weight: bolder;
 }
 
 h2 {
@@ -75,7 +81,7 @@ h2 {
     width: 100%;
     color: #225C85;
     font-family: Lexend;
-    font-size: 24px;
+    font-size: 1.6em;
     font-weight: 400;
     text-align: center;
     margin-top: 20px;
@@ -93,13 +99,14 @@ h2 {
 }
 
 .parrafo {
+    font-size: 1.5em;
     margin: 0;
     padding: 10px;
 }
 
 /* Estilos de sección de párrafo */
 .sectionParrafo {
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 /* Estilos de sección de destacados */

@@ -17,8 +17,9 @@
             crossorigin=""></script>
 </head>
 <body>
-    <div class="container-fluid w-75">
-        <h1>Ubicación del problema</h1>
+    <div class="container-fluid w-75 mx-auto m-4">
+        <a class="m-3" href="/">Inicio</a>
+        <h3>Seleccione el lugar del problema</h3>
         <div id="map" style="height: 600px"></div>
         <div id="reports-data" th:text="${reports}" style="display:none;"></div>
         <div id="contact-data" th:text="${contact}" style="display:none;"></div>
