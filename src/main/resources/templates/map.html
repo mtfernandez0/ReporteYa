@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 
     <!-- Leaflet imports   -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -19,6 +20,10 @@
 <body>
     <div class="container-fluid w-75">
         <h1>Ubicación del problema</h1>
+        <div><ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/profile">Cuenta</a></li>
+    </ul></div>
         <div id="map" style="height: 600px"></div>
         <div id="reports-data" th:text="${reports}" style="display:none;"></div>
         <div id="contact-data" th:text="${contact}" style="display:none;"></div>

@@ -10,14 +10,15 @@
     <div class="container w-75 mt-3">
         <div class="col text-center">
             <div class="row">
-                <div class="col-3">
+                <div class="col-5">
                     <div class="d-flex justify-content-between">
                         <a href="/">Inicio</a>
                         <a href="/company/new">Registrar compañía</a>
                         <a th:href="@{/reports/{id}(id=${user.id})}">Mis reportes</a>
+                        <a href="/map">Crear un reporte</a>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-7">
                     <div class="d-flex justify-content-end align-item-center">
                         <form th:action="@{/logout}" method="post">
                             <input class="btn btn-link" type="submit" value="Cerrar sesión"/>
