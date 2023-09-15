@@ -3,9 +3,9 @@ reporteya_p: ${REPORTEYA_P}
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: 0800
+        password: ${MYSQL_P}
         url: jdbc:mysql://localhost:3306/reporteYa?createDatabaseIfNotExist=true
-        username: root
+        username: ${MYSQL_U}
     jpa:
         defer-datasource-initialization: true
         hibernate:

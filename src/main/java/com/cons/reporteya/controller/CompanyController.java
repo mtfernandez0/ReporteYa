@@ -1,7 +1,10 @@
 package com.cons.reporteya.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.cons.reporteya.dto.CompanyDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +32,19 @@ public class CompanyController {
 
 	@GetMapping("/companies")
 	public String companies(Model model){
-		model.addAttribute("companies", companyService.findAll());
+
+		List<Company> companies = companyService.findAll();
+		List<List<CompanyDto>> companiesGroup = new ArrayList<>();
+
+		int i = 0;
+		for (int j = 0; j < companies.size(); j++) {
+			if (j % 4 == 0){
+				i++; companiesGroup.add(new ArrayList<>());
+			}
+			companiesGroup.get(i - 1).add(CompanyDto.companyToCompanyDto(companies.get(j)));
+		}
+
+		model.addAttribute("companiesGroup", companiesGroup);
 
 		return "company/dashboard";
 	}

@@ -33,10 +33,11 @@ a {
 
 /* Estilos de encabezado */
 header {
-    background-image: url("../images/home_bg.jpg");
+    /*background-image: url("../images/home_bg.jpg");*/
+    background-image: url("../images/home_bg_green.png");
     background-size: cover;
     background-position: center;
-    color: black;
+    color: white;
     text-align: center;
     padding: 100px 0;
 }

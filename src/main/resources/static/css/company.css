@@ -4,6 +4,35 @@
     box-sizing: border-box;
 }
 
+nav{
+    background-color: #26a085;
+    padding: 20px;
+
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{
+    font-size: 1.5em;
+}
+
+nav a{
+    font-size: 1.5em;
+    list-style: none;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav a:hover{
+    color: #326ecd;
+    font-weight: bold;
+}
+
 .company{
     display: flex;
     justify-content: center;

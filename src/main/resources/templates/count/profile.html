@@ -11,10 +11,12 @@
         <div class="col text-center">
             <div class="row">
                 <div class="col-3">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex gap-4">
                         <a href="/">Inicio</a>
-                        <a th:if="${user.getCompany() == null}" href="/companies/new">Registrar compañía</a>
                         <a th:href="@{/reports/{id}(id=${user.id})}">Mis reportes</a>
+                        <div th:if="${user.getCompany() == null}">
+                            <a href="/companies/new">Registrar compañía</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-9">
