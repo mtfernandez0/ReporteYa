@@ -35,7 +35,7 @@ spring:
     servlet:
         multipart:
             max-file-size: 2000KB
-            max-request-size: 2000KB
+            max-request-size: 10000KB
     sql:
         init:
             mode: always

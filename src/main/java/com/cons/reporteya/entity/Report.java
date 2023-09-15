@@ -78,7 +78,7 @@ public class Report {
 	private List<Tag> tags = new ArrayList<>();
 	
 	 @OneToMany(mappedBy="reporte", fetch = FetchType.LAZY)
-	    private List<FileUp> imagenes;
+	    private List<FileUp> imagenes= new ArrayList<>();
 	
 
 	@Column(nullable = false)

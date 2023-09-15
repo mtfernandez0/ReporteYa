@@ -14,7 +14,7 @@ public class FileUpService {
 		this.fileupRepo = fuR;
 	}
 	
-	public String subirArchivoABD(MultipartFile archivo) {
+	public FileUp subirArchivoABD(MultipartFile archivo) {
 		
 		FileUp nuevoArchivo = FileUp.builder()
 				.nombre(archivo.getOriginalFilename())
@@ -22,14 +22,15 @@ public class FileUpService {
 				.rutaArchivo("/src/main/resources/static/images/"+archivo.getOriginalFilename())
 				.build();
 		
-		fileupRepo.save(nuevoArchivo);
+		//fileupRepo.save(nuevoArchivo);
 		
-		if(nuevoArchivo != null) {
+		/*if(nuevoArchivo != null) {
 			System.out.println(archivo.getOriginalFilename());
 			return "Upload exitoso" + archivo.getOriginalFilename(); 
-		}
+		}*/
 		
-		return null;
+		return fileupRepo.save(nuevoArchivo);
+		
 	}
 	
 

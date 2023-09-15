@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -33,12 +34,15 @@
     <div>
      
     <label>Photos: </label>
-    <input type="file" name="imagen" accept="image/png, image/jpeg" />
+    <input type="file" name="imagen" accept="image/png, image/jpeg" multiple />
      
     </div>
     ...
     <input type="submit" value="Subir imagen">
 	</form>
+	<div th:if="${TamanioExedido!=null}">
+				<p class="text-danger"> Los archivos seleccionados superan el tamaño maximo permitido de 2000KB </p>
+	</div>
             <div class = "nav_section">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">

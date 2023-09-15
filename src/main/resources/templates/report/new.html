@@ -12,7 +12,7 @@
 <body>
 	<div class="container-fluid w-75 w-75 mt-5">
 		<h1>Nuevo reporte</h1>
-		<form th:action="@{/reports/new}" method="post" th:object="${report}">
+		<form th:action="@{/reports/new}" method="post" th:object="${report}" enctype="multipart/form-data">
 			<input type="hidden" name="country" th:value="${marker.country}">
 			<input type="hidden" name="postcode" th:value="${marker.postcode}">
 			<input type="hidden" name="location_name" th:value="${marker.location_name}">
@@ -41,6 +41,13 @@
 			<label for="additional_directions">Direcciones Adicionales</label> <br>
 			<input type="text" name="additional_directions" id="additional_directions"
 				th:value="${report.additional_directions}"><br>
+				
+				<div>
+	     
+				    <label>Photos: </label>
+				    <input type="file" name="imagen" accept="image/png, image/jpeg" multiple />
+			     
+			    </div>
 
 			<input type="submit" value="Crear Reporte">
 		</form>

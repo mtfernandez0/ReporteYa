@@ -25,12 +25,16 @@ public class FileUpController {
 	private String UPLOAD_FOLDER = "src/main/resources/static/images";
 	
 	@PostMapping("/subir")
-	public String subirArchivo(@RequestParam("imagen") MultipartFile archivo) 
-			throws IOException{
+	public String subirArchivo(@RequestParam("imagen") MultipartFile [] archivo) 
+			{
 		
 		if(archivo == null) {
 			throw new RuntimeException ("Por favor subir un archivo");
 		}
+		
+	
+		System.out.println("Tamaño del archivo" + archivo.length);
+		
 		
 		fileupService.subirArchivoABD(archivo);
 		
