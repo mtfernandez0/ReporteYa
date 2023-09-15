@@ -15,27 +15,28 @@ import com.cons.reporteya.service.UserService;
 
 @Controller
 public class UserController {
-	
+
 	private final UserService userServ;
 	private final ContactService contServ;
+
 	public UserController(UserService uSer, ContactService cServ) {
 		this.userServ = uSer;
 		this.contServ = cServ;
 	}
-	
+
 	@GetMapping("/profile")
 	public String showProfile(Model model,
 							  Principal principal) {
-		
+
 		User us = userServ.findByEmail(principal.getName());
 		model.addAttribute("user", userServ.findByEmail(principal.getName()));
-		
+
 		if (us.getContact() != null)
 			model.addAttribute("contact", us.getContact());
 
 		return "count/profile";
 	}
-	
+
 	@PostMapping("/profile")
 	public ResponseEntity<?> formProfile(@RequestBody ContactDto contactDto,
 										 Principal principal) {
@@ -50,10 +51,10 @@ public class UserController {
 
 		contact.setUser(us);
 		contServ.newContact(contact);
-		
+
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@PutMapping("/profile")
 	public ResponseEntity<?> editProfile(@RequestBody ContactDto contactDto,
 										 Principal principal) {
@@ -67,7 +68,7 @@ public class UserController {
 		us.getContact().setLocation_name(contactDto.getLocation_name());
 
 		contServ.editContact(us.getContact());
-		
+
 		return ResponseEntity.ok().build();
 	}
 }

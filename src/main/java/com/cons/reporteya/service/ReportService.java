@@ -2,6 +2,7 @@ package com.cons.reporteya.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.cons.reporteya.entity.Marker;
 import org.springframework.stereotype.Service;
@@ -63,8 +64,10 @@ public class ReportService {
 
 			existingReport.setTitle(updatedReport.getTitle());
 			existingReport.setDescription(updatedReport.getDescription());
-		/* existingReport.setMunicipality(updatedReport.getMunicipality());
-			existingReport.setLocation(updatedReport.getLocation());  */	
+			/*
+			 * existingReport.setMunicipality(updatedReport.getMunicipality());
+			 * existingReport.setLocation(updatedReport.getLocation());
+			 */
 
 			return reportRepository.save(existingReport);
 

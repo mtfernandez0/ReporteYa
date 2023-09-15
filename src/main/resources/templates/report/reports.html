@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,6 +63,7 @@ h1 {
 }
 </style>
 </head>
+
 <body>
 	<div class="top">
 		<div class="row justify-content-center">
@@ -90,7 +92,7 @@ h1 {
 				<div th:each="report : ${reports}">
 <!-- 					<nav class="d-flex justify-content-center"> -->
 						<!-- Cambia el texto dentro del enlace para tus necesidades -->
-					
+
 
 							<p th:each="tag : ${report.tags}" >
 								<a class="nav-link" href="#" th:text="${tag.subject}"></a>
@@ -130,6 +132,28 @@ h1 {
 
 					</div>
 				</div>
+
+	<div class="report">
+		<div th:each="report : ${reports}" class="report">
+			<h2 th:text="${report.title}"></h2>
+			<p th:text="${report.description}"></p>
+			<div class="comments">
+				<h3>Comentarios:</h3>
+				<ul>
+					<li th:each="comment : ${report.comments}" th:text="${comment.comment}"></li>
+				</ul>
+				<form th:action="@{'/reports/dashboard'}" method="post">
+					<input type="hidden" name="id" th:value="${report.id}" />
+					<textarea name="comment" rows="4" cols="50" required></textarea> <br>
+					<input type="submit" value="Comentar">
+				</form>
+
+			</div>
+			<div class="tags">
+				<h3>Etiquetas:</h3>
+				<ul>
+					<li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li>
+				</ul>
 			</div>
 		</div>
 	</div>
