@@ -44,18 +44,20 @@ public class HomeController {
 
 	@GetMapping("/map")
 	public String map(Model model,
-					  Principal principal, RedirectAttributes attributes) throws JsonProcessingException {
+					  Principal principal,
+					  RedirectAttributes attributes) throws JsonProcessingException {
+
 		User user = userService.findByEmail(principal.getName());
+
 		if (user.getContact() == null){
-            attributes.addFlashAttribute("newReportNoContact", true);
-            return "redirect:/profile";
-        }
+			attributes.addFlashAttribute("newReportNoContact", true);
+			return "redirect:/profile";
+		}
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ReportDto> reportDtos = new ArrayList<>();
 		List<Report> reports = reportService.findAll();
 		for (Report report : reports) reportDtos.add(ReportDto.ReportToDto(report));
-
 
 
 		ContactDto contactDto = new ContactDto().contactToContactDto(user.getContact());

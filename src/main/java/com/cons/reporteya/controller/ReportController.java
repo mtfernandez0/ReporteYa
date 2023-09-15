@@ -40,30 +40,22 @@ public class ReportController {
 	@GetMapping("/new")
 	public String newReport(@ModelAttribute("marker") Marker marker,
 							@ModelAttribute("report") Report report,
-							RedirectAttributes attributes,
-							Model model,
-							Principal principal) {
-
-		User user = userService.findByEmail(principal.getName());
-
-		if (user.getContact() == null){
-			attributes.addFlashAttribute("newReportNoContact", true);
-			return "redirect:/profile";
-		}
+							RedirectAttributes attributes) {
 
 		if (marker.getLatitude() == null || marker.getLongitude() == null) {
 			attributes.addFlashAttribute("mapInvalidCoo", true);
 			return "redirect:/map";
 		}
 
-		report.setMarker(marker);
-
 		return "report/new";
 	}
 
 	@PostMapping("/new")
-	public String newReport(@ModelAttribute("marker") Marker marker, @Valid @ModelAttribute("report") Report report,
-			BindingResult result, Principal principal, @RequestParam("tag") String tags) {
+	public String newReport(@ModelAttribute("marker") Marker marker,
+							@Valid @ModelAttribute("report") Report report,
+							BindingResult result,
+							Principal principal,
+							@RequestParam("tag") String tags) {
 
 		List<String> tagList = Arrays.asList(tags.split(","));
 		checkTagErrors(result, tagList);

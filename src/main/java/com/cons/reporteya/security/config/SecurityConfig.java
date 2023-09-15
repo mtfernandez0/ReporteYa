@@ -31,7 +31,7 @@ import java.util.Properties;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final String[] RESOURCES = {"/css/**", "/img/**", "/favicon/**", "/webjars/**"};
+    private final String[] RESOURCES = {"/css/**", "/img/**", "/favicon/**", "/webjars/**", "/images/**"};
     @Value("${rememberMe}")
     private String rememberMePrivateKey;
     @Value("${reporteya_p}")

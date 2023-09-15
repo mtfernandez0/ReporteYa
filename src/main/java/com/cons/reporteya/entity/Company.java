@@ -56,8 +56,6 @@ public class Company {
 	 @JoinColumn(name="user_id")
 	 private User user;
 	 
-	
-	 
 	@Column(nullable = false)
 	private Date created_at;
 
