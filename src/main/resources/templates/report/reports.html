@@ -22,7 +22,7 @@
 	background-color: #46219c;
 	padding: 20px; /* Espacio alrededor del contenido */
 	text-align: center; /* Centra el contenido horizontalmente */
-	margin-bottom: 50px;
+	margin-bottom: 18px;
 	border-radius: 5px;
 }
 
@@ -35,7 +35,7 @@ h1 {
 /* Añade estilo personalizado para el contenedor de navegación */
 .scrollable-navbar {
 	overflow-y: auto; /* Scroll vertical si es necesario */
-	max-height: 200px;
+	max-height: 400px;
 	width: 200px;
 	border-radius: 5px;
 	background-color: #46219c;
@@ -70,7 +70,7 @@ h1 {
 
 		</div>
 	</div>
-	<div class="d-flex justify-content-center align-items-start">
+	<div class="d-flex justify-content-center align-items-start mb-2">
 		<p class="m-2">
 			<a href="/">Inicio</a>
 		</p>
@@ -86,18 +86,17 @@ h1 {
 		<!-- Estructura de fila y columnas -->
 		<div class="row">
 			<!-- Columna para la navegación a la izquierda -->
-			<div class="col-md-2">
+			<div class="col-md-2 scrollable-navbar">
 				<div th:each="report : ${reports}">
-					<nav class="d-flex justify-content-center">
+<!-- 					<nav class="d-flex justify-content-center"> -->
 						<!-- Cambia el texto dentro del enlace para tus necesidades -->
-						<div class="scrollable-navbar">
+					
 
-							<p th:each="tag : ${report.tags}" th:text="${tag.subject}">
-								<a class="nav-link" href="#"></a>
+							<p th:each="tag : ${report.tags}" >
+								<a class="nav-link" href="#" th:text="${tag.subject}"></a>
 							</p>
 
-						</div>
-					</nav>
+<!-- 					</nav> -->
 				</div>
 			</div>
 
