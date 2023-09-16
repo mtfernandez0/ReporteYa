@@ -11,7 +11,7 @@
     <div class="container w-75 mt-3">
         <div class="col text-center">
             <div class="row">
-                <div class="col-3">
+                <div class="col-5">
                     <div class="d-flex gap-4">
                         <a href="/">Inicio</a>
                         <a th:href="@{/reports/{id}(id=${user.id})}">Mis reportes</a>
@@ -39,7 +39,8 @@
         </div>
         <div class="mb-3">
             <label for="date_of_birth" class="form-label">Fecha De Nacimiento:</label>
-            <input type="text" id="date_of_birth" class="form-control" disabled th:value="${user.date_of_birth}"/>
+            <input type="text" id="date_of_birth" class="form-control" disabled
+                   th:value="${#dates.format(user.date_of_birth, 'dd/MM/yyyy')}" />
         </div>
 
         <div class="container mt-4" th:if="${user.contact == null}">

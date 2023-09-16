@@ -20,10 +20,37 @@
 <style>
     #map{
         height: 100vh;
+        position: absolute;
     }
+
+    #nav-display{
+        position: absolute;
+        z-index: 1;
+        margin: 0 30px;
+        width: calc(100vw - 60px);
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        align-items: center;
+        text-decoration: none;
+        background-color: black;
+        border-radius: 0 0 5px 5px;
+    }
+
+    #nav-display a{
+        transition: 0.3s;
+    }
+
+    #cancel:hover{
+        color: #003d6b;
+    }
+
 </style>
 <body>
     <div>
+        <nav id="nav-display">
+            <a id="cancel" href="/home">Cancelar</a>
+        </nav>
         <div id="map"></div>
         <div id="reports-data" th:text="${reports}" style="display:none;"></div>
         <div id="contact-data" th:text="${contact}" style="display:none;"></div>
