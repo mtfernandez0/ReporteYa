@@ -13,63 +13,79 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="lightbox2/css/lightbox.min.css">
 <script src="lightbox2/js/lightbox.min.js"></script>
-<style>
-/* Estilo personalizado para el div con fondo púrpura */
-.container {
-	height: 800px;
-}
-
-.top {
-	background-color: #46219c;
-	padding: 20px; /* Espacio alrededor del contenido */
-	text-align: center; /* Centra el contenido horizontalmente */
-	margin-bottom: 18px;
-	border-radius: 5px;
-}
-
-/* Estilo para el h1 con espacio entre las letras */
-h1 {
-	letter-spacing: 4px; /* Ajusta el espacio entre letras */
-	color: white; /* Cambia el color del texto a blanco */
-}
-
-/* Añade estilo personalizado para el contenedor de navegación */
-.scrollable-navbar {
-	overflow-y: auto; /* Scroll vertical si es necesario */
-	max-height: 400px;
-	width: 200px;
-	border-radius: 5px;
-	background-color: #46219c;
-}
-
-.nav-link {
-	font-size: 20px;
-	text-align: center;
-	padding-top: 5px;
-}
-
-.custom-block {
-	background-color: #f5f5f5;
-	padding: 20px;
-	margin-bottom: 20px;
-	border-radius: 5px;
-}
-
-/* Añade estilo personalizado para el div de anuncios */
-.ad-container {
-	background-color: #f0f0f0;
-	padding: 20px;
-	border-radius: 5px;
-}
-</style>
 </head>
+<style>
+	/* Estilo personalizado para el div con fondo púrpura */
+	.container {
+		height: 800px;
+	}
 
+	.top {
+		background-color: #46219c;
+		padding: 20px; /* Espacio alrededor del contenido */
+		text-align: center; /* Centra el contenido horizontalmente */
+		margin-bottom: 18px;
+		border-radius: 5px;
+	}
+
+	/* Estilo para el h1 con espacio entre las letras */
+	h1 {
+		letter-spacing: 4px; /* Ajusta el espacio entre letras */
+		color: white; /* Cambia el color del texto a blanco */
+	}
+
+	/* Añade estilo personalizado para el contenedor de navegación */
+	/*.scrollable-navbar {*/
+	/*	max-height: 220px;*/
+	/*	overflow-y: auto; !* Scroll vertical si es necesario *!*/
+	/*	width: 200px;*/
+	/*	border-radius: 5px;*/
+	/*	background-color: #46219c;*/
+	/*}*/
+
+	.scrollable-navbar-container {
+		display: none; /* Hide the container by default */
+	}
+
+	.scrollable-navbar-container h3 {
+		padding-left: 5px;
+		font-size: 1.5em;
+	}
+
+	.scrollable-navbar {
+		max-height: 500px;
+		border-radius: 5px;
+		background-color: #46219c;
+		overflow-y: auto;
+	}
+
+	.scrollable-navbar-container:has(.scrollable-navbar) {
+		display: block; /* Show the container if it has .scrollable-navbar children */
+	}
+
+	.nav-link {
+		font-size: 20px;
+		padding: 5px;
+	}
+
+	.custom-block {
+		background-color: #f5f5f5;
+		padding: 20px;
+		margin-bottom: 20px;
+		border-radius: 5px;
+	}
+
+	/* Añade estilo personalizado para el div de anuncios */
+	.ad-container {
+		background-color: #f0f0f0;
+		padding: 20px;
+		border-radius: 5px;
+	}
+</style>
 <body>
 	<div class="top">
 		<div class="row justify-content-center">
-
 			<h1>REPORTES</h1>
-
 		</div>
 	</div>
 	<div class="d-flex justify-content-center align-items-start mb-2">
@@ -82,23 +98,18 @@ h1 {
 		<p class="m-2">
 			<a href="/profile">Cuenta</a>
 		</p>
-
 	</div>
 	<div class="container">
 		<!-- Estructura de fila y columnas -->
 		<div class="row">
 			<!-- Columna para la navegación a la izquierda -->
-			<div class="col-md-2 scrollable-navbar">
-				<div th:each="report : ${reports}">
-<!-- 					<nav class="d-flex justify-content-center"> -->
-						<!-- Cambia el texto dentro del enlace para tus necesidades -->
-
-
-							<p th:each="tag : ${report.tags}" >
-								<a class="nav-link" href="#" th:text="${tag.subject}"></a>
-							</p>
-
-<!-- 					</nav> -->
+			<div class="col-md-2 scrollable-navbar-container">
+				<h3>Popular</h3>
+				<div class="scrollable-navbar">
+					<!-- Cambia el texto dentro del enlace para tus necesidades -->
+					<a class="nav-link text-white" href="/reports">Todos</a>
+					<a th:each="tag : ${tagList}" class="nav-link text-white"
+					   th:href="@{/reports/tags/{id}(id=${tag.id})}" th:text="${tag.subject}"></a>
 				</div>
 			</div>
 
@@ -106,6 +117,7 @@ h1 {
 			<div class="col-md-8">
 				<div th:each="report : ${reports}">
 					<div class="custom-block">
+						<h5 th:text="${report.title}"></h5>
 						<div class="image-gallery">
 							<a href="ruta-a-imagen-1.jpg" data-lightbox="mi-galeria"
 								data-title="Descripción de la imagen 1"> <img
@@ -116,8 +128,25 @@ h1 {
 							</a>
 							<!-- Agrega más imágenes según sea necesario -->
 						</div>
-						<h5 th:text="${report.title}"></h5>
 						<p th:text="${report.description}"></p>
+
+						<div class="tags">
+							<h3>Etiquetas:</h3>
+							<ul>
+								<li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li>
+							</ul>
+						</div>
+
+						<h3>Comentarios:</h3>
+						<ul>
+							<li th:each="comment : ${report.comments}" th:text="${comment.comment}"></li>
+						</ul>
+						<form th:action="@{'/reports/dashboard'}" method="post">
+							<input type="hidden" name="id" th:value="${report.id}" />
+							<textarea name="comment" rows="4" cols="50" required></textarea> <br>
+							<input type="submit" value="Comentar">
+						</form>
+
 						<a href="#" class="btn btn-primary">Botón de Enlace 1</a>
 					</div>
 				</div>
@@ -129,53 +158,11 @@ h1 {
 						<!-- Contenido de anuncios -->
 						<h2>Anuncios</h2>
 						<img src="imagen1.jpg" alt="Imagen anuncio" class="img-fluid mb-3">
-
 					</div>
 				</div>
-
-	<div class="report">
-		<div th:each="report : ${reports}" class="report">
-			<h2 th:text="${report.title}"></h2>
-			<p th:text="${report.description}"></p>
-			<div class="comments">
-				<h3>Comentarios:</h3>
-				<ul>
-					<li th:each="comment : ${report.comments}" th:text="${comment.comment}"></li>
-				</ul>
-				<form th:action="@{'/reports/dashboard'}" method="post">
-					<input type="hidden" name="id" th:value="${report.id}" />
-					<textarea name="comment" rows="4" cols="50" required></textarea> <br>
-					<input type="submit" value="Comentar">
-				</form>
-
-			</div>
-			<div class="tags">
-				<h3>Etiquetas:</h3>
-				<ul>
-					<li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li>
-				</ul>
 			</div>
 		</div>
 	</div>
-
-
-	<!-- 		<div class="report"> -->
-	<!-- 			<h2 th:text="${report.title}"></h2> -->
-	<!-- 			<p th:text="${report.description}"></p> -->
-	<!-- 		</div> -->
-	<!-- 		<div class="comments"> -->
-	<!-- 			<h3>comments:</h3> -->
-	<!-- 	<ul> -->
-	<!-- 		<li th:each="comment : ${report.comments}" -->
-	<!-- 			th:text="${comments.comment"></li> -->
-	<!-- 	</ul> -->
-	<!-- 		</div> -->
-	<!-- 		<div class="tags"> -->
-	<!-- 			<h3>Tags:</h3> -->
-	<!-- 	<ul> -->
-	<!-- 		<li th:each="tag : ${report.tags}" th:text="${tag.subject}"></li> -->
-	<!-- 	</ul> -->
-	<!-- 		</div> -->
 </body>
 <script>
     lightbox.option({

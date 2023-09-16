@@ -1,7 +1,9 @@
 package com.cons.reporteya.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.cons.reporteya.entity.Tag;
@@ -21,6 +23,10 @@ public class TagService {
 		return tagRepository.save(newTag);
 	}
 
+	public Optional<Tag> findById(Long id){
+		return tagRepository.findById(id);
+	}
+
 	public Iterable<Tag> saveAll(List<Tag> tags) {
 		return tagRepository.saveAll(tags);
 	}
@@ -33,4 +39,7 @@ public class TagService {
 		tagRepository.save(tag);
 	}
 
+	public List<Tag> findAllOrderBySubjectCount() {
+		return tagRepository.findAllOrderBySubjectCount();
+	}
 }

@@ -6,9 +6,26 @@
 	<title>Nuevo Reporte</title>
 	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+	<style>
+		#tag-input{
+			resize: none;
+		}
 
+		.tags-checks{
+			display: flex;
+			align-items: center;
+			padding: 0 7px;
+			border-radius: 8px;
+			background-color: black;
+			color: white;
+			font-size: 20px;
+		}
+
+		.custom-checkbox {
+			display: none;
+		}
+	</style>
 </head>
-
 <body>
 	<div class="container-fluid w-75 w-75 mt-5">
 		<h1>Nuevo reporte</h1>
@@ -31,12 +48,17 @@
 			<p class="text-danger" th:if="${#fields.hasErrors('description')}">
 				<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
 			</p>
-
-			<label for="tags">Tags</label> <br>
-			<input type="text" name="tag" id="tags" th:value="${tags}"><br>
+<!--			<input type="text" name="tag" id="tags" th:value="${tags}"><br>-->
 			<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
 				<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
 			</p>
+			<p>Tags</p>
+			<div id="tags-div" class="d-flex gap-2">
+				<div id="tag-input-container" style="display: none;">
+					<textarea class="px-2 rounded-3 bg-dark text-white" type="text" id="tag-input" rows="1"></textarea>
+				</div>
+				<p id="tag" class="tags-checks">&#43;</p>
+			</div>
 
 			<label for="additional_directions">Direcciones Adicionales</label> <br>
 			<input type="text" name="additional_directions" id="additional_directions"
@@ -46,5 +68,49 @@
 		</form>
 	</div>
 </body>
+<script>
 
+	const tagContainer = document.getElementById('tags-div');
+	const tagButton = document.getElementById('tag');
+	const tagInputContainer = document.getElementById('tag-input-container');
+	const tagInput = document.getElementById('tag-input');
+
+	tagButton.addEventListener('click', () => {
+		if (document.getElementsByName('tags').length === 5) return;
+		if (tagInputContainer.style.display === 'none') {
+			tagInputContainer.style.display = 'block';
+			tagInput.focus();
+		} else {
+			addTag(tagInput.value.trim());
+		}
+	});
+
+	tagInput.addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') {
+			addTag(tagInput.value.trim());
+		}
+	});
+
+	function addTag(tagText) {
+		if (tagText !== '') {
+			const checkbox = document.createElement('input');
+			checkbox.type = 'checkbox';
+			checkbox.name = 'tag';
+			checkbox.value = tagText;
+			checkbox.className = 'custom-checkbox';
+			checkbox.checked = true;
+
+			const p = document.createElement('p');
+			p.className = 'tags-checks checks';
+			p.textContent = '#' + tagText;
+
+			tagContainer.insertAdjacentElement('afterbegin', checkbox);
+			tagContainer.insertAdjacentElement('afterbegin', p);
+
+			tagInput.value = '';
+			tagInputContainer.style.display = 'none';
+		}
+	}
+
+</script>
 </html>

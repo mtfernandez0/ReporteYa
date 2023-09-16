@@ -17,11 +17,14 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
 </head>
+<style>
+    #map{
+        height: 100vh;
+    }
+</style>
 <body>
-    <div class="container-fluid w-75 mx-auto m-4">
-        <a class="m-3" href="/">Inicio</a>
-        <h3>Seleccione el lugar del problema</h3>
-        <div id="map" style="height: 600px"></div>
+    <div>
+        <div id="map"></div>
         <div id="reports-data" th:text="${reports}" style="display:none;"></div>
         <div id="contact-data" th:text="${contact}" style="display:none;"></div>
     </div>
@@ -72,7 +75,7 @@
                             lng = position.coords.longitude;
                             resolve();
                         },
-                        (error) => resolve()
+                        (error) => resolve(new Error("Hola, soy error"))
                     );
                 } else {
                     reject(new Error("Geolocation is not supported"));

@@ -4,25 +4,15 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.cons.reporteya.entity.*;
+import com.cons.reporteya.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.cons.reporteya.entity.Comment;
-import com.cons.reporteya.entity.Marker;
-import com.cons.reporteya.entity.Report;
-import com.cons.reporteya.entity.User;
-import com.cons.reporteya.service.CommentService;
-import com.cons.reporteya.service.MarkerService;
-import com.cons.reporteya.service.ReportService;
-import com.cons.reporteya.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -34,13 +24,18 @@ public class ReportController {
 	private final UserService userService;
 	private final MarkerService markerService;
 	private final CommentService commentService;
+	private final TagService tagService;
 
-	public ReportController(ReportService reportService, UserService userService, MarkerService markerService,
-			CommentService commentService) {
+	public ReportController(ReportService reportService,
+							UserService userService,
+							MarkerService markerService,
+							CommentService commentService,
+							TagService tagService) {
 		this.reportService = reportService;
 		this.userService = userService;
 		this.markerService = markerService;
 		this.commentService = commentService;
+		this.tagService = tagService;
 	}
 
 	@GetMapping("/new")
@@ -63,7 +58,10 @@ public class ReportController {
 							Principal principal,
 							@RequestParam("tag") String tags) {
 
-		List<String> tagList = Arrays.asList(tags.split(","));
+		List<String> tagList =
+				Arrays.stream(tags.split(","))
+				.map(String::trim).collect(Collectors.toList());
+
 		checkTagErrors(result, tagList);
 
 		if (result.hasErrors()) {
@@ -129,6 +127,21 @@ public class ReportController {
 	public String reports(Model model, Principal principal) {
 		model.addAttribute("reports", reportService.findAll());
 		model.addAttribute("user", userService.findByEmail(principal.getName()));
+		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+		return "report/reports";
+	}
+
+	@GetMapping("/tags/{id}")
+	public String reportsByTag(@PathVariable Long id,
+							   Model model,
+							   Principal principal) {
+
+		if (tagService.findById(id).isEmpty()) return "redirect:/reports";
+
+		model.addAttribute("reports", reportService.findAllByTagsId(id));
+		model.addAttribute("user", userService.findByEmail(principal.getName()));
+		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+
 		return "report/reports";
 	}
 

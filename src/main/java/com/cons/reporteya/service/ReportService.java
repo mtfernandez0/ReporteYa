@@ -27,6 +27,10 @@ public class ReportService {
 		return reportRepository.findAll();
 	}
 
+	public List<Report> findAllByTagsId(Long id){
+		return reportRepository.findAllByTagsId(id);
+	}
+
 	// Crear Reporte
 	public Report createReport(Report report, List<String> subjects) {
 		List<Tag> tags = generateTagList(subjects);
@@ -56,6 +60,10 @@ public class ReportService {
 		});
 
 		return tags;
+	}
+
+	public Optional<Report> findById(Long aLong) {
+		return reportRepository.findById(aLong);
 	}
 
 	// Editar Reporte
