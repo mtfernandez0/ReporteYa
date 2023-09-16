@@ -43,6 +43,26 @@
                    th:value="${#dates.format(user.date_of_birth, 'dd/MM/yyyy')}" />
         </div>
 
+        <div th:if="${user.getCompany() != null}">
+            <h5>Datos de la Compañía</h5>
+            <div class="mb-3">
+                <label for="company-name" class="form-label">Nombre:</label>
+                <input type="text" id="company-name" class="form-control" th:value="${user.company.name}"/>
+            </div>
+            <div class="mb-3">
+                <label for="company-description" class="form-label">Descripción:</label>
+                <input type="text" id="company-description" class="form-control" th:value="${user.company.description}"/>
+            </div>
+            <div class="mb-3">
+                <label for="company-location" class="form-label">Ubicación:</label>
+                <input type="text" id="company-location" class="form-control" th:value="${user.company.location}"/>
+            </div>
+            <div class="mb-3">
+                <label for="company-website" class="form-label">Website:</label>
+                <input type="text" id="company-website" class="form-control link-info" th:value="${user.company.website}"/>
+            </div>
+        </div>
+
         <div class="container mt-4" th:if="${user.contact == null}">
             <p class="text-bg-info p-2" th:if="${newReportNoContact != null}">
                 Antes de poder crear un reporte, es necesario que completes tu información de usuario.
