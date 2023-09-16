@@ -20,24 +20,25 @@
 <style>
     #map{
         height: 100vh;
-        position: absolute;
+        z-index: 0;
     }
 
     #nav-display{
         position: absolute;
         z-index: 1;
-        margin: 0 30px;
-        width: calc(100vw - 60px);
+        margin: 0 50px;
+        width: calc(100vw - 100px);
         display: flex;
         justify-content: center;
         gap: 8px;
         align-items: center;
         text-decoration: none;
-        background-color: black;
+        background-color: white;
         border-radius: 0 0 5px 5px;
     }
 
     #nav-display a{
+        color: black;
         transition: 0.3s;
     }
 
@@ -95,7 +96,9 @@
 
         function getCoordinates() {
             return new Promise((resolve, reject) => {
+                console.log("passed")
                 if ("geolocation" in navigator) {
+                    console.log("passed-yes")
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
                             lat = position.coords.latitude;
@@ -111,6 +114,7 @@
         }
 
         function setMapView() {
+            console.log("passed-yes-map-view")
             map = L.map('map').setView([lat, lng], 13);
             L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
                 maxZoom: 20,
