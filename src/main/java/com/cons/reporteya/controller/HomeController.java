@@ -37,8 +37,8 @@ public class HomeController {
 
 	@GetMapping("/home")
 	public String home(Model model,Principal principal ) {
-		User us = userService.findByEmail(principal.getName());
-		model.addAttribute("usuario",us);
+		/*User us = userService.findByEmail(principal.getName());
+		model.addAttribute("usuario",us);*/
 		return "home";
 	}
 
