@@ -15,11 +15,7 @@ import com.cons.reporteya.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -75,28 +71,25 @@ public class ReportController {
 	}
 
 	@PostMapping("/new")
-	public String newReport(@ModelAttribute("marker") Marker marker, @Valid @ModelAttribute("report") Report report,
-			BindingResult result, Principal principal, @RequestParam("tag") String tags, @RequestParam("imagen") MultipartFile [] files) {
+	public String newReport(@ModelAttribute("marker") Marker marker,
+							@Valid @ModelAttribute("report") Report report,
+							BindingResult result,
+							Principal principal,
+							@RequestParam(value = "tag", required = false) String tags,
+							@RequestParam(value = "imagen", required = false) MultipartFile[] files) {
 
-		if(files.length>5) 
-			result.rejectValue("imagen", "Maximo de 5 imagenes", "Solo podes ingresar 5 imagenes");
-		
-		else if(files.length==0) 
-			result.rejectValue("imagen", "Minimo una imagen", "Debes incluir al menos una imagen");
-		
 		List<String> tagList =
 				Arrays.stream(tags.split(","))
 				.map(String::trim).collect(Collectors.toList());
 
+		checkImgErrors(result, files);
 		checkTagErrors(result, tagList);
 
-		if (result.hasErrors()) {
-			return "report/new";
-		}
-		
+		if (result.hasErrors()) return "report/new";
+
 		User user = userService.findByEmail(principal.getName());
 		
-		for (MultipartFile file:files ) {
+		for (MultipartFile file : files) {
 			report.getImagenes().add(fileupService.subirArchivoABD(file));
 			try {
 				byte[] bytes = file.getBytes();
@@ -114,6 +107,22 @@ public class ReportController {
 		markerService.save(marker);
 		
 		return "redirect:/reports";
+	}
+
+	private void checkImgErrors(BindingResult result, MultipartFile[] files){
+		if(files.length>5)
+			result.rejectValue(
+					"imagen",
+					"Maximo de 5 imagenes",
+					"Solo podes ingresar hasta 5 imágenes"
+			);
+
+		else if(files.length==0)
+			result.rejectValue(
+					"imagen",
+					"Minimo una imagen",
+					"Debes de incluir al menos una imagen"
+			);
 	}
 
 	private void checkTagErrors(BindingResult result, List<String> subjects) {

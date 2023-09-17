@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mapa</title>
-    <!-- BOOTSTRAP  -->
-    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
-    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 
     <!-- Leaflet imports   -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -18,6 +14,12 @@
             crossorigin=""></script>
 </head>
 <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     #map{
         height: 100vh;
         z-index: 0;
@@ -27,17 +29,19 @@
         position: absolute;
         z-index: 1;
         margin: 0 50px;
+        padding: 10px 0;
         width: calc(100vw - 100px);
         display: flex;
         justify-content: center;
         gap: 8px;
         align-items: center;
-        text-decoration: none;
         background-color: white;
         border-radius: 0 0 5px 5px;
     }
 
     #nav-display a{
+        font-size: 20px;
+        text-decoration: none;
         color: black;
         transition: 0.3s;
     }
@@ -45,17 +49,14 @@
     #cancel:hover{
         color: #003d6b;
     }
-
 </style>
 <body>
-    <div>
-        <nav id="nav-display">
-            <a id="cancel" href="/home">Cancelar</a>
-        </nav>
-        <div id="map"></div>
-        <div id="reports-data" th:text="${reports}" style="display:none;"></div>
-        <div id="contact-data" th:text="${contact}" style="display:none;"></div>
-    </div>
+    <nav id="nav-display">
+        <a id="cancel" href="/home">Cancelar</a>
+    </nav>
+    <div id="map"></div>
+    <div id="reports-data" th:text="${reports}" style="display:none;"></div>
+    <div id="contact-data" th:text="${contact}" style="display:none;"></div>
 </body>
     <script>
         let lat = -34.34884;
@@ -96,9 +97,7 @@
 
         function getCoordinates() {
             return new Promise((resolve, reject) => {
-                console.log("passed")
                 if ("geolocation" in navigator) {
-                    console.log("passed-yes")
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
                             lat = position.coords.latitude;
@@ -114,7 +113,6 @@
         }
 
         function setMapView() {
-            console.log("passed-yes-map-view")
             map = L.map('map').setView([lat, lng], 13);
             L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
                 maxZoom: 20,

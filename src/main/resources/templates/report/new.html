@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8">
 	<title>Nuevo Reporte</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 	<style>
@@ -39,12 +39,12 @@
 			<p th:text="${'Locación: ' + marker.location_name}"></p>
 
 			<label for="title">Problema</label><br>
-			<input type="text" name="title" id="title" th:value="${report.title}"> <br>
+			<input type="text" name="title" id="title" required th:value="${report.title}"> <br>
 			<p class="text-danger" th:if="${#fields.hasErrors('title')}">
 				<span class="row" th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
 			</p>
 			<label for="description">Descripción del problema</label> <br>
-			<textarea id="description" name="description" th:value="${report.description}"></textarea><br>
+			<textarea id="description" name="description" required th:value="${report.description}"></textarea><br>
 			<p class="text-danger" th:if="${#fields.hasErrors('description')}">
 				<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
 			</p>
@@ -59,24 +59,35 @@
 				</div>
 				<p id="tag" class="tags-checks">&#43;</p>
 			</div>
-
 			<label for="additional_directions">Direcciones Adicionales</label> <br>
 			<input type="text" name="additional_directions" id="additional_directions"
 				th:value="${report.additional_directions}"><br>
-				
-				<div>
-	     
-				    <label>Photos: </label>
-				    <input type="file" name="imagen" accept="image/png, image/jpeg" multiple />
-			     
-			    </div>
-
+			<br>
+			<div class="d-flex gap-3 align-items-center">
+				<p class="text-danger" th:if="${#fields.hasErrors('imagen')}">
+					<span class="row" th:each="error : ${#fields.errors('imagen')}" th:text="${error}"></span>
+				</p>	     		<label class="btn btn-outline-secondary" for="files">Subir fotos</label>
+				<input type="file" id="files" name="imagen" style="display:none;" accept="image/png, image/jpeg" multiple />
+				<p id="text-files-space" class="m-0" ></p>
+			</div>
+			<br>
 			<input type="submit" value="Crear Reporte">
 		</form>
 	</div>
 	
 </body>
 <script>
+	$(document).ready(function () {
+		$('#files').change(() => {
+			let i = $(this).prev('label').clone();
+			let files = $('#files')[0].files;
+			let text = "";
+			if (files.length === 1) text = files[0].name;
+			else if (files.length > 5) text = "Solo puede seleccionar hasta 5 archivos."
+			else text = files.length + ' archivos seleccionados.';
+			document.getElementById("text-files-space").innerHTML = text;
+		});
+	});
 
 	const tagContainer = document.getElementById('tags-div');
 	const tagButton = document.getElementById('tag');

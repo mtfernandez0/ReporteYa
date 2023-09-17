@@ -39,8 +39,8 @@ spring:
     sql:
         init:
             mode: always
-    web:
-        resources:
-            static-locations: /src/main/resources/static/images
+#    web:
+#        resources:
+#            static-locations: /src/main/resources/static/images
 support:
     email: matias.fernandez.17.06@gmail.com

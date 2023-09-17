@@ -12,8 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cons.reporteya.service.FileUpService;
 
-
-
 @RestController
 public class FileUpController {
 	
@@ -24,31 +22,27 @@ public class FileUpController {
 	
 	private String UPLOAD_FOLDER = "src/main/resources/static/images";
 	
-	@PostMapping("/subir")
-	public String subirArchivo(@RequestParam("imagen") MultipartFile [] archivo) 
-			{
-		
-		if(archivo == null) {
-			throw new RuntimeException ("Por favor subir un archivo");
-		}
-		
-	
-		System.out.println("Tamaño del archivo" + archivo.length);
-		
-		
-		fileupService.subirArchivoABD(archivo);
-		
-		try {
-			byte[] bytes = archivo.getBytes();
-			Path ruta = Paths.get(UPLOAD_FOLDER, archivo.getOriginalFilename());
-			Files.write(ruta, bytes);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-			
-		
-		return "TODO SALIO BIEN!!";
-		
-	}
+//	@PostMapping("/subir")
+//	public String subirArchivo(@RequestParam("imagen") MultipartFile [] archivo) {
+//		if(archivo == null) {
+//			throw new RuntimeException ("Por favor subir un archivo");
+//		}
+//
+//		System.out.println("Tamaño del archivo" + archivo.length);
+//
+//		fileupService.subirArchivoABD(archivo);
+//
+//		try {
+//			byte[] bytes = archivo.getBytes();
+//			Path ruta = Paths.get(UPLOAD_FOLDER, archivo.getOriginalFilename());
+//			Files.write(ruta, bytes);
+//		}catch(IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//
+//		return "TODO SALIO BIEN!!";
+//
+//	}
 
 }
