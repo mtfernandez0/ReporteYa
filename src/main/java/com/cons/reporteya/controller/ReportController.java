@@ -55,7 +55,8 @@ public class ReportController {
 		this.fileupService = fuS;
 
 	}
-	private String UPLOAD_FOLDER = "src/main/resources/static/images";
+
+	private String UPLOAD_FOLDER = "src/main/resources/static/images/reports";
 
 	@GetMapping("/new")
 	public String newReport(@ModelAttribute("marker") Marker marker,
@@ -76,7 +77,7 @@ public class ReportController {
 							BindingResult result,
 							Principal principal,
 							@RequestParam(value = "tag", required = false) String tags,
-							@RequestParam(value = "imagen", required = false) MultipartFile[] files) {
+							@RequestParam(value = "files", required = false) MultipartFile[] files) {
 
 		List<String> tagList =
 				Arrays.stream(tags.split(","))
@@ -88,21 +89,21 @@ public class ReportController {
 		if (result.hasErrors()) return "report/new";
 
 		User user = userService.findByEmail(principal.getName());
-		
+
+		report.setCreator(user);
+		report = reportService.createReport(report, tagList);
+
 		for (MultipartFile file : files) {
-			report.getImagenes().add(fileupService.subirArchivoABD(file));
+			FileUp fileUp =  fileupService.subirArchivoABD(file, report, UPLOAD_FOLDER);
 			try {
 				byte[] bytes = file.getBytes();
-				Path ruta = Paths.get(UPLOAD_FOLDER, file.getOriginalFilename());
+				Path ruta = Paths.get(UPLOAD_FOLDER, fileUp.getNombre());
 				Files.write(ruta, bytes);
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		report.setCreator(user);
 
-		report = reportService.createReport(report, tagList);
 		marker.setReport(report);
 		markerService.save(marker);
 		
@@ -110,16 +111,16 @@ public class ReportController {
 	}
 
 	private void checkImgErrors(BindingResult result, MultipartFile[] files){
-		if(files.length>5)
+		if(files.length > 5)
 			result.rejectValue(
-					"imagen",
+					"images",
 					"Maximo de 5 imagenes",
 					"Solo podes ingresar hasta 5 imágenes"
 			);
 
-		else if(files.length==0)
+		else if(files.length == 0)
 			result.rejectValue(
-					"imagen",
+					"images",
 					"Minimo una imagen",
 					"Debes de incluir al menos una imagen"
 			);
@@ -162,11 +163,10 @@ public class ReportController {
 			List<Comment> updatedComments = report.getComments();
 			model.addAttribute("comments", updatedComments);
 
-			return "redirect:/reports/dashboard";
 		} else {
 			model.addAttribute("errorMessage", "El informe no se encontró");
-			return "report/reports";
 		}
+		return "redirect:/reports";
 	}
 
 	@GetMapping("")

@@ -37,63 +37,63 @@ import lombok.Setter;
 @Builder
 public class Report {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank
-	private String title;
+    @NotBlank
+    private String title;
 
-	@NotBlank
-	@Column(columnDefinition = "TEXT")
-	private String description;
+    @NotBlank
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-	/*
-	 * @NotBlank private String municipality;
-	 * 
-	 * @NotBlank private String location; private String additional_directions;
-	 * 
-	 * private double budget;
-	 */
-	private String additional_directions;
+    /*
+     * @NotBlank private String municipality;
+     *
+     * @NotBlank private String location; private String additional_directions;
+     *
+     * private double budget;
+     */
+    private String additional_directions;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User creator;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User creator;
 
-	@OneToOne(mappedBy = "report", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Marker marker;
+    @OneToOne(mappedBy = "report", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Marker marker;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
-	private List<Company> companies;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "company_id"))
+    private List<Company> companies;
 
-	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
-	private List<Comment> comments;
+    @OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
-	@NotNull
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "reports_tags", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
-	@Builder.Default
-	private List<Tag> tags = new ArrayList<>();
-	
-	 @OneToMany(mappedBy="reporte", fetch = FetchType.LAZY)
-	    private List<FileUp> imagenes= new ArrayList<>();
-	
+    @NotNull
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "reports_tags", joinColumns = @JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
+    @Builder.Default
+    private List<Tag> tags = new ArrayList<>();
 
-	@Column(nullable = false)
-	private Date created_at;
+    @OneToMany(mappedBy = "reporte", fetch = FetchType.LAZY)
+    private List<FileUp> images = new ArrayList<>();
 
-	private Date updated_at;
 
-	@PrePersist
-	private void onCreate() {
-		this.created_at = new Date();
-		this.updated_at = new Date();
-	}
+    @Column(nullable = false)
+    private Date created_at;
 
-	@PreUpdate
-	private void onUpdate() {
-		this.updated_at = new Date();
-	}
+    private Date updated_at;
+
+    @PrePersist
+    private void onCreate() {
+        this.created_at = new Date();
+        this.updated_at = new Date();
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updated_at = new Date();
+    }
 }
