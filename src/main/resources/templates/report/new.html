@@ -64,10 +64,13 @@
 				th:value="${report.additional_directions}"><br>
 			<br>
 			<div class="d-flex gap-3 align-items-center">
-				<p class="text-danger" th:if="${#fields.hasErrors('imagen')}">
-					<span class="row" th:each="error : ${#fields.errors('imagen')}" th:text="${error}"></span>
+				<p class="text-danger" th:if="${maxUploadSizeExceeded != null}">
+					Imagen muy pesada. (hasta 2000KB por imagen)
+				</p>
+				<p class="text-danger" th:if="${#fields.hasErrors('images')}">
+					<span class="row" th:each="error : ${#fields.errors('images')}" th:text="${error}"></span>
 				</p>	     		<label class="btn btn-outline-secondary" for="files">Subir fotos</label>
-				<input type="file" id="files" name="imagen" style="display:none;" accept="image/png, image/jpeg" multiple />
+				<input type="file" id="files" name="files" style="display:none;" accept="image/png, image/jpeg" multiple />
 				<p id="text-files-space" class="m-0" ></p>
 			</div>
 			<br>
