@@ -56,6 +56,9 @@ public class Company {
 	 @JoinColumn(name="user_id")
 	 private User user;
 	 
+	 @OneToOne(mappedBy="company", fetch=FetchType.LAZY)
+	    private FileUp logoCompania;
+	 
 	@Column(nullable = false)
 	private Date created_at;
 
