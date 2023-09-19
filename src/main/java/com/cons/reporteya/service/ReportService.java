@@ -28,6 +28,10 @@ public class ReportService {
 		return reportRepository.findAll();
 	}
 
+	public List<Report> findAllByCreatorContactPostcode(String postcode){
+		return reportRepository.findAllByCreatorContactPostcode(postcode);
+	}
+
 	public List<Report> findAllByTagsId(Long id){
 		return reportRepository.findAllByTagsId(id);
 	}

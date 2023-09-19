@@ -2,33 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Nuevo Reporte</title>
+	<title>Reporte</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/newReport.css}"/>
 	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-	<style>
-		#tag-input{
-			resize: none;
-		}
-
-		.tags-checks{
-			display: flex;
-			align-items: center;
-			padding: 0 7px;
-			border-radius: 8px;
-			background-color: black;
-			color: white;
-			font-size: 20px;
-		}
-
-		.custom-checkbox {
-			display: none;
-		}
-	</style>
 </head>
-<body>
-	<div class="container-fluid w-75 w-75 mt-5">
-		<h1>Nuevo reporte</h1>
+<body style="background-image: url('/images/newBackground.png')">
+	<nav>
+		<a href="/home">Inicio</a>
+		<a href="/reports">Reportes</a>
+		<a href="/map">Crear reporte</a>
+		<a href="/profile">Cuenta</a>
+		<a href="/companies">Compañías</a>
+	</nav>
+	<div class="main-container">
+		<h1>Reporte</h1>
 		<form th:action="@{/reports/new}" method="post" th:object="${report}" enctype="multipart/form-data">
 			<input type="hidden" name="country" th:value="${marker.country}">
 			<input type="hidden" name="postcode" th:value="${marker.postcode}">
@@ -36,48 +25,54 @@
 			<input type="hidden" name="latitude" th:value="${marker.latitude}">
 			<input type="hidden" name="longitude" th:value="${marker.longitude}">
 
-			<p th:text="${'Locación: ' + marker.location_name}"></p>
-
-			<label for="title">Problema</label><br>
-			<input type="text" name="title" id="title" required th:value="${report.title}"> <br>
-			<p class="text-danger" th:if="${#fields.hasErrors('title')}">
-				<span class="row" th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
-			</p>
-			<label for="description">Descripción del problema</label> <br>
-			<textarea id="description" name="description" required th:value="${report.description}"></textarea><br>
-			<p class="text-danger" th:if="${#fields.hasErrors('description')}">
-				<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
-			</p>
-<!--			<input type="text" name="tag" id="tags" th:value="${tags}"><br>-->
-			<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
-				<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
-			</p>
-			<p>Tags</p>
-			<div id="tags-div" class="d-flex gap-2">
-				<div id="tag-input-container" style="display: none;">
-					<textarea class="px-2 rounded-3 bg-dark text-white" type="text" id="tag-input" rows="1"></textarea>
-				</div>
-				<p id="tag" class="tags-checks">&#43;</p>
+			<div class="my-3 normal">
+				<label for="title">Encabezado <span class="text-danger">*</span></label>
+				<input type="text" name="title" id="title" required th:value="${report.title}" autofocus>
+				<p class="text-danger" th:if="${#fields.hasErrors('title')}">
+					<span class="row" th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
+				</p>
 			</div>
-			<label for="additional_directions">Direcciones Adicionales</label> <br>
-			<input type="text" name="additional_directions" id="additional_directions"
-				th:value="${report.additional_directions}"><br>
-			<br>
-			<div class="d-flex gap-3 align-items-center">
+
+			<div class="mb-3 normal">
+				<label for="description">Detalles del reporte <span class="text-danger">*</span></label>
+				<textarea id="description" name="description" required rows="4" th:value="${report.description}"></textarea>
+				<p class="text-danger" th:if="${#fields.hasErrors('description')}">
+					<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
+				</p>
+			</div>
+
+			<div class="mb-3 normal">
+				<label for="additional_directions">Direcciones Adicionales</label>
+				<input type="text" name="additional_directions" id="additional_directions"
+					   th:value="${report.additional_directions == null ? marker.location_name : report.additional_directions}">
+			</div>
+
+			<div class="mb-3">
+				<p>Tags</p>
+				<div id="tags-div" class="d-flex gap-2">
+					<div id="tag-input-container" style="display: none;">
+						<textarea class="px-2 rounded-3 bg-dark text-white" type="text" id="tag-input" rows="1"></textarea>
+					</div>
+					<p id="tag" class="tags-checks">&#43;</p>
+				</div>
+				<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
+					<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
+				</p>
+			</div>
+
+			<div class="d-flex gap-3 align-items-center mb-3">
 				<p class="text-danger" th:if="${maxUploadSizeExceeded != null}">
 					Imagen muy pesada. (hasta 2000KB por imagen)
 				</p>
 				<p class="text-danger" th:if="${#fields.hasErrors('images')}">
 					<span class="row" th:each="error : ${#fields.errors('images')}" th:text="${error}"></span>
-				</p>	     		<label class="btn btn-outline-secondary" for="files">Subir fotos</label>
+				</p>	     		<label class="btn btn-outline-dark text-white" for="files">Subir fotos</label>
 				<input type="file" id="files" name="files" style="display:none;" accept="image/png, image/jpeg" multiple />
 				<p id="text-files-space" class="m-0" ></p>
 			</div>
-			<br>
-			<input type="submit" value="Crear Reporte">
+			<input class="btnSubmit text-center" type="submit" value="Reportar!">
 		</form>
 	</div>
-	
 </body>
 <script>
 	$(document).ready(function () {
@@ -125,6 +120,11 @@
 			const p = document.createElement('p');
 			p.className = 'tags-checks checks';
 			p.textContent = '#' + tagText;
+
+			p.addEventListener('click', () => {
+				checkbox.remove();
+				p.remove();
+			});
 
 			tagContainer.insertAdjacentElement('afterbegin', checkbox);
 			tagContainer.insertAdjacentElement('afterbegin', p);

@@ -56,9 +56,8 @@ public class HomeController {
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ReportDto> reportDtos = new ArrayList<>();
-		List<Report> reports = reportService.findAll();
+		List<Report> reports = reportService.findAllByCreatorContactPostcode(user.getContact().getPostcode());
 		for (Report report : reports) reportDtos.add(ReportDto.ReportToDto(report));
-
 
 		ContactDto contactDto = new ContactDto().contactToContactDto(user.getContact());
 

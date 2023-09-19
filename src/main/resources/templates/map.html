@@ -114,7 +114,7 @@
 
         function setMapView() {
             map = L.map('map').setView([lat, lng], 13);
-            L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+            L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
                 maxZoom: 20,
                 attribution: '&copy; <a href="http://google.com/copyright">Google Maps</a>',
                 subdomains:['mt0','mt1','mt2','mt3']

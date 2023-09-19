@@ -171,7 +171,6 @@ public class ReportController {
 
 	@GetMapping("")
 	public String reports(Model model, Principal principal) {
-		List<Report> reports = reportService.findAll();
 		model.addAttribute("reports", reportService.findAll());
 		model.addAttribute("user", userService.findByEmail(principal.getName()));
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());

@@ -12,6 +12,8 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 
 	List<Report> findAll();
 
+	List<Report> findAllByCreatorContactPostcode(String postcode);
+
 	List<Report> findAllByTagsId(Long id);
 
 	boolean existsById(Long id);
