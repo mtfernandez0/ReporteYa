@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Mapa</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 
     <!-- Leaflet imports   -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -12,45 +13,44 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #map {
+            height: 100vh;
+            z-index: 0;
+        }
+
+        #nav-display {
+            position: absolute;
+            z-index: 1;
+            margin: 0 50px;
+            padding: 10px 0;
+            width: calc(100vw - 100px);
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            align-items: center;
+            background-color: white;
+            border-radius: 0 0 5px 5px;
+        }
+
+        #nav-display a {
+            font-size: 20px;
+            text-decoration: none;
+            color: black;
+            transition: 0.3s;
+        }
+
+        #cancel:hover {
+            color: #003d6b;
+        }
+    </style>
 </head>
-<style>
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    #map{
-        height: 100vh;
-        z-index: 0;
-    }
-
-    #nav-display{
-        position: absolute;
-        z-index: 1;
-        margin: 0 50px;
-        padding: 10px 0;
-        width: calc(100vw - 100px);
-        display: inline-block;
-        position: static;
-        justify-content: center;
-        gap: 8px;
-        align-items: center;
-        background-color: white;
-        border-radius: 0 0 5px 5px;
-    }
-
-    #nav-display a{
-        font-size: 20px;
-        text-decoration: none;
-        color: black;
-        transition: 0.3s;
-    }
-
-    #cancel:hover{
-        color: #003d6b;
-    }
-</style>
 <body>
     <nav id="nav-display">
         <a id="cancel" href="/home">Cancelar</a>
@@ -59,89 +59,91 @@
     <div id="reports-data" th:text="${reports}" style="display:none;"></div>
     <div id="contact-data" th:text="${contact}" style="display:none;"></div>
 </body>
-    <script>
-        let lat = -34.34884;
-        let lng = -58.801811;
-        let map = null;
-        let reportsDataElement = document.getElementById('reports-data');
-        let reportsData = JSON.parse(reportsDataElement.textContent);
-        let contactDataElement = document.getElementById('contact-data');
-        let contactData = JSON.parse(contactDataElement.textContent);
+<script>
+    let lat = -34.34884;
+    let lng = -58.801811;
+    let map = null;
+    let reportsDataElement = document.getElementById('reports-data');
+    let reportsData = JSON.parse(reportsDataElement.textContent);
+    let contactDataElement = document.getElementById('contact-data');
+    let contactData = JSON.parse(contactDataElement.textContent);
 
-        //create report
-        let popup = L.popup();
-        function onMapClick(e) {
-            $.getJSON("https://nominatim.openstreetmap.org/reverse?lat="+e.latlng.lat+"&lon="+e.latlng.lng+"&format=json",
-                (data) => {
-                    let content ='<form action="/reports/new" method="get">' +
-                    '           <input type="hidden" name="latitude" value='+e.latlng.lat+'>' +
-                    '           <input type="hidden" name="longitude" value='+e.latlng.lng+'>';
-                    if (data.address !== undefined && data.address.postcode !== undefined &&
-                        (data.address.postcode.includes(contactData.postcode) || contactData.postcode.includes(data.address.postcode))
-                        && data.display_name !== undefined){
-                        content += '<input type="hidden" name="country" value="'+data.address.country+'">';
-                        content += '<input type="hidden" name="postcode" value="'+data.address.postcode+'">';
-                        content += '<input type="hidden" name="location_name" value="'+data.display_name+'">';
-                        content += '<button class="btn btn-link link-dark" type="submit">Make a new report!</button></form>';
-                    } else if(data.address === undefined || data.address.postcode === undefined || data.display_name === undefined) {
-                        content = "Por favor elige un lugar válido";
-                    } else {
-                        content = "Por favor elige un lugar dentro de tu zona";
-                    }
+    //create report
+    let popup = L.popup();
 
-                    popup
-                        .setLatLng(e.latlng)
-                        .setContent(content)
-                        .openOn(map);
-            });
-        }
-
-        function getCoordinates() {
-            return new Promise((resolve, reject) => {
-                if ("geolocation" in navigator) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            lat = position.coords.latitude;
-                            lng = position.coords.longitude;
-                            resolve();
-                        },
-                        (error) => resolve(new Error("Hola, soy error"))
-                    );
+    function onMapClick(e) {
+        $.getJSON("https://nominatim.openstreetmap.org/reverse?lat=" + e.latlng.lat + "&lon=" + e.latlng.lng + "&format=json",
+            (data) => {
+                let content = '<form action="/reports/new" method="get">' +
+                    '           <input type="hidden" name="latitude" value=' + e.latlng.lat + '>' +
+                    '           <input type="hidden" name="longitude" value=' + e.latlng.lng + '>';
+                if (data.address !== undefined && data.address.postcode !== undefined &&
+                    (data.address.postcode.includes(contactData.postcode) || contactData.postcode.includes(data.address.postcode))
+                    && data.display_name !== undefined) {
+                    content += '<input type="hidden" name="country" value="' + data.address.country + '">';
+                    content += '<input type="hidden" name="postcode" value="' + data.address.postcode + '">';
+                    content += '<input type="hidden" name="location_name" value="' + data.display_name + '">';
+                    content += '<button style="border: none; font-size: 18px" type="submit">Make a new report!</button></form>';
+                } else if (data.address === undefined || data.address.postcode === undefined || data.display_name === undefined) {
+                    content = '<p style="font-size: 18px">Por favor elige un lugar válido</p>';
                 } else {
-                    reject(new Error("Geolocation is not supported"));
+                    content = '<p style="font-size: 18px">Por favor elige un lugar dentro de tu zona</p>';
                 }
+
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent(content)
+                    .openOn(map);
             });
-        }
+    }
 
-        function setMapView() {
-            map = L.map('map').setView([lat, lng], 13);
-            L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-                maxZoom: 20,
-                attribution: '&copy; <a href="http://google.com/copyright">Google Maps</a>',
-                subdomains:['mt0','mt1','mt2','mt3']
-            }).addTo(map);
-        }
+    function getCoordinates() {
+        return new Promise((resolve, reject) => {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        lat = position.coords.latitude;
+                        lng = position.coords.longitude;
+                        resolve();
+                    },
+                    (error) => resolve(new Error("Hola, soy error"))
+                );
+            } else {
+                reject(new Error("Geolocation is not supported"));
+            }
+        });
+    }
 
-        function mapEvent() {
-            map.on('click', onMapClick);
-        }
+    function setMapView() {
+        map = L.map('map').setView([lat, lng], 13);
+        L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            attribution: '&copy; <a href="http://google.com/copyright">Google Maps</a>',
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);
+    }
 
-        // Usage: Execute the functions in order using promises
-        getCoordinates()
-            .then(() => setMapView())
-            .then(() => mapEvent())
-            .then(() => setReportsOnMap(reportsData))
-            .catch((error) => {});
+    function mapEvent() {
+        map.on('click', onMapClick);
+    }
 
-        function setReportsOnMap(reports){
-            for (let i = 0; i < reports.length; i++)
-                setMarker(reports[i]);
-        }
+    // Usage: Execute the functions in order using promises
+    getCoordinates()
+        .then(() => setMapView())
+        .then(() => mapEvent())
+        .then(() => setReportsOnMap(reportsData))
+        .catch((error) => {
+        });
 
-        function setMarker(report){
-            L.marker([report.lat, report.lng])
-                .bindPopup("<p>"+report.title+"</p><p>"+report.location+"</p>")
-                .addTo(map);
-        }
-    </script>
+    function setReportsOnMap(reports) {
+        for (let i = 0; i < reports.length; i++)
+            setMarker(reports[i]);
+    }
+
+    function setMarker(report) {
+        L.marker([report.lat, report.lng])
+            .bindPopup("<p>" + report.title + "</p><p>" + report.location + "</p>")
+            .addTo(map);
+    }
+</script>
 </html>
