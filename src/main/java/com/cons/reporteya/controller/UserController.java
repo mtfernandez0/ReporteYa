@@ -1,8 +1,11 @@
 package com.cons.reporteya.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 import com.cons.reporteya.dto.ContactDto;
+import com.cons.reporteya.entity.Report;
+import com.cons.reporteya.service.ReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +21,12 @@ public class UserController {
 
 	private final UserService userServ;
 	private final ContactService contServ;
+	private final ReportService reportService;
 
-	public UserController(UserService uSer, ContactService cServ) {
+	public UserController(UserService uSer, ContactService cServ, ReportService reportService) {
 		this.userServ = uSer;
 		this.contServ = cServ;
+		this.reportService = reportService;
 	}
 
 	@GetMapping("/profile")
@@ -68,6 +73,10 @@ public class UserController {
 		us.getContact().setLocation_name(contactDto.getLocation_name());
 
 		contServ.editContact(us.getContact());
+
+		reportService.deleteAllByCreatorId(us.getId());
+
+		us.getReports().clear();
 
 		return ResponseEntity.ok().build();
 	}

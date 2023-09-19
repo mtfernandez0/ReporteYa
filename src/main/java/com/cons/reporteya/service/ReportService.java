@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.entity.Tag;
 import com.cons.reporteya.repository.ReportRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReportService {
@@ -85,7 +86,11 @@ public class ReportService {
 		}
 	}
 
-	// Borrar Reporte
+	@Transactional
+	public void deleteAllByCreatorId(Long id){
+		reportRepository.deleteAllByCreatorId(id);
+	}
+
 	public void deleteReport(Long id) {
 		if (reportRepository.existsById(id)) {
 			reportRepository.deleteById(id);

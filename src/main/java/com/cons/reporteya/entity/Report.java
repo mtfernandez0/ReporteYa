@@ -77,9 +77,8 @@ public class Report {
     @Builder.Default
     private List<Tag> tags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reporte", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "reporte", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FileUp> images = new ArrayList<>();
-
 
     @Column(nullable = false)
     private Date created_at;

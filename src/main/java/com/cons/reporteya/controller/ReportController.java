@@ -5,9 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.cons.reporteya.entity.*;
@@ -79,8 +77,7 @@ public class ReportController {
 							@RequestParam(value = "tag", required = false) String tags,
 							@RequestParam(value = "files", required = false) MultipartFile[] files) {
 
-		List<String> tagList =
-				Arrays.stream(tags.split(","))
+		List<String> tagList = tags == null ? new ArrayList<>() : Arrays.stream(tags.split(","))
 				.map(String::trim).collect(Collectors.toList());
 
 		checkImgErrors(result, files);
@@ -94,6 +91,9 @@ public class ReportController {
 		report = reportService.createReport(report, tagList);
 
 		for (MultipartFile file : files) {
+
+			if (Objects.equals(file.getOriginalFilename(), "")) break;
+
 			FileUp fileUp =  fileupService.subirArchivoABD(file, report, UPLOAD_FOLDER);
 			try {
 				byte[] bytes = file.getBytes();
@@ -171,6 +171,7 @@ public class ReportController {
 
 	@GetMapping("")
 	public String reports(Model model, Principal principal) {
+		List<Report> reports = reportService.findAll();
 		model.addAttribute("reports", reportService.findAll());
 		model.addAttribute("user", userService.findByEmail(principal.getName()));
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
@@ -190,5 +191,4 @@ public class ReportController {
 
 		return "report/reports";
 	}
-
 }

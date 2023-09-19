@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import com.cons.reporteya.entity.Report;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ReportRepository extends CrudRepository<Report, Long> {
 
 	List<Report> findAll();
@@ -14,4 +16,5 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 
 	boolean existsById(Long id);
 
+	void deleteAllByCreatorId(Long id);
 }
