@@ -133,6 +133,8 @@ ul {
 
 .scrollable-navbar a{
     text-align: center;
+    font-size: 18px;
+    padding: 5px 2px;
 }
 
 .scrollable-navbar-container:has(.scrollable-navbar) {
