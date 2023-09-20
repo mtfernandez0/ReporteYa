@@ -1,9 +1,9 @@
 rememberMe: test
-reporteya_p: ${REPORTEYA_P}
+reporteya_p: vwdhwbqhkywynemv #${REPORTEYA_P}
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: 0800
+        password: root
         url: jdbc:mysql://localhost:3306/reporteYa?createDatabaseIfNotExist=true
         username: root
     jpa:
@@ -16,7 +16,7 @@ spring:
         show-sql: true
     mail:
         host: smtp.gmail.com
-        password: ${REPORTEYA_P}
+        password:  vwdhwbqhkywynemv # ${REPORTEYA_P}
         port: 465
         properties:
             mail:
