@@ -3,6 +3,7 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -58,6 +60,9 @@ public class Company {
 	 
 	 @OneToOne(mappedBy="company", fetch=FetchType.LAZY)
 	    private FileUp logoCompania;
+	 
+	 @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+	    private List<Comment> comments;
 	 
 	@Column(nullable = false)
 	private Date created_at;

@@ -168,6 +168,29 @@ public class ReportController {
 		}
 		return "redirect:/reports";
 	}
+	@PostMapping("/dashboardEmp")
+	public String addCommentEmpresa(@RequestParam Long id, @RequestParam String comment, Model model, Principal principal) {
+		Optional<Report> reportOptional = reportService.findById(id);
+
+		if (reportOptional.isPresent()) {
+			Report report = reportOptional.get();
+			User usu = userService.findByEmail(principal.getName());
+			Comment newComment = Comment.builder().comment(comment).owner(usu)
+					.report(report).build();
+			newComment.setCompany(usu.getCompany());
+
+			commentService.save(newComment);
+			report.getComments().add(newComment);
+			reportService.updateReport(report, report);
+
+			List<Comment> updatedComments = report.getComments();
+			model.addAttribute("comments", updatedComments);
+
+		} else {
+			model.addAttribute("errorMessage", "El informe no se encontró");
+		}
+		return "redirect:/reports";
+	}
 
 	@GetMapping("")
 	public String reports(Model model, Principal principal) {

@@ -154,6 +154,12 @@
                             <br>
                             <input class="btn btn-outline-dark" type="submit" value="Comentar">
                         </form>
+                          <form th:action="@{'/reports/dashboardEmp'}" method="post">
+                            <input type="hidden" name="id" th:value="${report.id}"/>
+                            <textarea name="comment" rows="4" cols="50" required></textarea>
+                            <br>
+                            <input class="btn btn-outline-dark" type="submit" value="Comentar">
+                        </form>
                     </div>
                 </div>
             </div>
