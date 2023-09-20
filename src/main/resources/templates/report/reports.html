@@ -2,97 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportes</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reportes</title>
 	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 
-	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+	<!--	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" /> -->
 </head>
 <style>
-/*body{*/
-/* 	background-image: url("/images/map.jpg");*/
-/*}*/
+	/*body{*/
+	/* 	background-image: url("/images/map.jpg");*/
+	/*}*/
+	body {
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
 
-textarea{
-background-color: #104b69;
-}
+	textarea {
+		background-color: #104b69;
+	}
 
-.container {
+	.container {
 
-	height: 800px;
-}
+		height: 800px;
+	}
 
-.image-gallery img {
-	width: 100px;
-	height: 100px;
-}
+	.image-gallery img {
+		width: 375px;
+		height: 345px;
+	}
 
-ul {
-	list-style-type: none;
-}
+	ul {
+		list-style-type: none;
+	}
 
-.tags {
-	font-weight: bolder;
-}
+	.tags {
+		font-weight: bolder;
+	}
 
-/* Estilo para el h1 con espacio entre las letras */
-h1 {
-	letter-spacing: 4px; /* Ajusta el espacio entre letras */
-	color: white; /* Cambia el color del texto a blanco */
-}
+	/* Estilo para el h1 con espacio entre las letras */
+	h1 {
+		letter-spacing: 4px;
+		/* Ajusta el espacio entre letras */
+		color: white;
+		/* Cambia el color del texto a blanco */
+	}
 
-/* Añade estilo personalizado para el contenedor de navegación */
-/*.scrollable-navbar {*/
-/*	max-height: 220px;*/
-/*	overflow-y: auto; !* Scroll vertical si es necesario *!*/
-/*	width: 200px;*/
-/*	border-radius: 5px;*/
-/*	background-color: #46219c;*/
-/*}*/
-.scrollable-navbar-container {
-	display: none; /* Hide the container by default */
-}
+	Añade estilo personalizado para el contenedor de navegación .scrollable-navbar {
+		background-color: #46219c;
+	}
 
-.scrollable-navbar-container h3 {
-	padding-left: 5px;
-	font-size: 1.5em;
-
-}
-
-.scrollable-navbar {
-	max-height: 500px;
+	/* .scrollable-navbar-container {
+		max-height: 220px;
+	overflow-y: auto; 
+	width: 200px;
 	border-radius: 5px;
-	background-color: #051c26;
-	overflow-y: auto;
-}
+} */
 
-.scrollable-navbar-container:has(.scrollable-navbar) {
-	display: block;
-	/* Show the container if it has .scrollable-navbar children */
-}
+	.scrollable-navbar-container h3 {
+		padding-left: 5px;
+		font-size: 1.5em;
 
-.nav-link {
-	font-size: 20px;
-	padding: 5px 7px;
-	text-align: center;
-}
+	}
 
-.custom-block {
-	background-color: #153e4e;
-	padding: 20px;
-	margin-bottom: 20px;
-	border-radius: 5px;
-}
+	.scrollable-navbar {
+		max-height: 500px;
+		border-radius: 5px;
+		background-color: #051c26;
+		overflow-y: auto;
+	}
 
-/* Añade estilo personalizado para el div de anuncios */
-.ad-container {
-	background-color: #f0f0f0;
-	padding: 20px;
-	border-radius: 5px;
-}
+	.scrollable-navbar-container:has(.scrollable-navbar) {
+		display: block;
+		/* Show the container if it has .scrollable-navbar children */
+	}
+
+	.nav-link {
+		font-size: 20px;
+		padding: 5px 7px;
+		text-align: center;
+	}
+
+	.custom-block {
+		background-color: #153e4e;
+		padding: 20px;
+		margin-bottom: 20px;
+		border-radius: 5px;
+	}
+
+	/* Añade estilo personalizado para el div de anuncios */
+	.ad-container {
+		background-color: #f0f0f0;
+		padding: 20px;
+		border-radius: 5px;
+	}
 </style>
-<body style="background-image: url('/images/map.jpg')">
+
+<body style="background-image: url('/images/AdobeStock_638760385.jpeg')">
 	<nav>
 		<ul class="pt-2">
 			<li><a href="/">Inicio</a></li>
@@ -108,9 +115,8 @@ h1 {
 			<div class="col-md-2 scrollable-navbar-container">
 				<div class="scrollable-navbar">
 					<!-- Cambia el texto dentro del enlace para tus necesidades -->
-					<a class="nav-link text-white" href="/reports">TAGS</a> <a
-						th:each="tag : ${tagList}" class="nav-link text-white"
-						th:href="@{/reports/tags/{id}(id=${tag.id})}"
+					<a class="nav-link text-white" href="/reports">TAGS</a> <a th:each="tag : ${tagList}"
+						class="nav-link text-white" th:href="@{/reports/tags/{id}(id=${tag.id})}"
 						th:text="${tag.subject}"></a>
 				</div>
 			</div>
@@ -122,8 +128,7 @@ h1 {
 						<h4 th:text="${report.title}" class="text-white"></h4>
 						<div class="image-gallery">
 							<img th:each="image : ${report.images}"
-								th:src="@{/images/reports/{name}(name=${image.nombre})}"
-								alt="img"></img>
+								th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
 						</div>
 						<br>
 						<p th:text="${report.description}" class="text-white"></p>
@@ -142,8 +147,7 @@ h1 {
 						<form th:action="@{'/reports/dashboard'}" method="post">
 							<input type="hidden" name="id" th:value="${report.id}" />
 							<textarea name="comment" rows="4" cols="50" required></textarea>
-							<br> <input class="btn btn-outline-dark text-white" type="submit"
-								value="Comentar">
+							<br> <input class="btn btn-outline-dark text-white" type="submit" value="Comentar">
 						</form>
 					</div>
 				</div>
@@ -163,8 +167,9 @@ h1 {
 </body>
 <script>
 	lightbox.option({
-		'resizeDuration' : 200,
-		'wrapAround' : true
+		'resizeDuration': 200,
+		'wrapAround': true
 	});
 </script>
+
 </html>

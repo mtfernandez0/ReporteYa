@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.cons.reporteya.entity.Marker;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.entity.Tag;
 import com.cons.reporteya.repository.ReportRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReportService {
