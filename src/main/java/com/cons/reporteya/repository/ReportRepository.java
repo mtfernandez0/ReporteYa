@@ -13,6 +13,8 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 
 	List<Report> findAll();
 
+//	List<Report> findAllByOrderByCommentsNumber();
+
 	List<Report> findAllByCreatorContactPostcode(String postcode);
 
 	@Query("SELECT r FROM Report AS r ORDER BY r.created_at DESC")
@@ -21,7 +23,7 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 	@Query(value =
 			"SELECT r.* FROM reports AS r " +
 			"RIGHT JOIN reports_tags AS rt ON r.id = rt.report_id " +
-					"WHERE rt.tags_id = 9 ORDER BY r.created_at DESC", nativeQuery = true)
+					"WHERE rt.tags_id = ?1 ORDER BY r.created_at DESC", nativeQuery = true)
 	List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId);
 
 	List<Report> findAllByTagsId(Long id);

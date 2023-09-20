@@ -23,14 +23,14 @@
 
                 <div class="input-box">
                     <h6>+ + + + + + + </h6>
-                    <input type="text" placeholder="Nombre" id="first_name" name="first_name" required>
+                    <input type="text" placeholder="Nombre" id="first_name" name="first_name" required
+                           th:value="${user.first_name}">
                 </div>
 
                 <div class="input-box">
                     <h6>+ + + + + + + </h6>
                     <input type="text" placeholder="Apellido" id="last_name" name="last_name"
-                           required th:value="${user.first_name}">
-
+                           required th:value="${user.last_name}">
                 </div>
 
                 <div class="input-box">

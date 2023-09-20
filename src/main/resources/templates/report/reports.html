@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/reports.css}"/>
 </head>
-<body style="background-image: url('/images/map.jpg')">
+<body style="background-image: url('/images/AdobeStock_638760385.jpeg')">
     <nav>
         <a href="/home">Inicio</a>
         <a href="/map">Crear reporte</a>
@@ -34,28 +34,17 @@
                 <div th:each="report : ${reports}">
                     <div class="custom-block">
                         <h3 th:text="${report.title}" class="text-white"></h3>
+                        <h5 th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></h5>
 
                         <div class="image-gallery">
                             <div class="swiper">
-                                <!-- Additional required wrapper -->
                                 <div class="swiper-wrapper">
-                                    <!-- Slides -->
-<!--                                    <img th:each="image : ${report.images}"-->
-<!--                                         th:src="@{/images/reports/{name}(name=${image.nombre})}"-->
-<!--                                         alt="img"></img>-->
                                     <div class="swiper-slide" th:each="image : ${report.images}">
                                         <img th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
                                     </div>
                                 </div>
-                                <!-- If we need pagination -->
-<!--                                <div class="swiper-pagination"></div>-->
-
-                                <!-- If we need navigation buttons -->
                                 <div class="swiper-button-prev"></div>
                                 <div class="swiper-button-next"></div>
-
-                                <!-- If we need scrollbar -->
-<!--                                <div class="swiper-scrollbar"></div>-->
                             </div>
                         </div>
                         <br>
@@ -71,8 +60,6 @@
                                       th:text="${comment.company != null ?
                                       comment.company.name :
                                       comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>
-<!--                                <span class="comment-name" th:if="${comment.company == null}"-->
-<!--                                      th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>-->
                                 <br>
                                 <span th:text="${comment.comment}"></span>
                             </p>

@@ -39,7 +39,6 @@ public class ReportService {
 
 	public List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId){
 		return reportRepository.findAllByTagsIdOrderByCreationDesc(tagId);
-//		return reportRepository.findAllByTagsId(tagId);
 	}
 
 	public List<Report> findAllByTagsId(Long id){
