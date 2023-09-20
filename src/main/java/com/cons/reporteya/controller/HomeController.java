@@ -36,10 +36,10 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String home(Model model,
-					   Principal principal ) {
-		/*User us = userService.findByEmail(principal.getName());
-		model.addAttribute("usuario",us);*/
+	public String home(Model model) {
+		List<Report> reports = reportService.findAllByOrderByCreationDesc();
+
+		model.addAttribute("reports", reports.subList(0, Math.min(3, reports.size())));
 		return "home";
 	}
 

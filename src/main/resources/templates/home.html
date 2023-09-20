@@ -42,32 +42,37 @@
 	<div class="wrappDestacados">
 		<section class="destacados">
 			<div>
-				<h2 id="top3">Reportes destacados</h2>
+				<h2 id="top3">Últimos Reportes</h2>
 			</div>
 		</section>
 		<section class="fondo-morado">
-			<div class="carta">
-				<img src="/images/818x460_240340_20170523160646.jpg"
-					th:src="@{/images/818x460_240340_20170523160646.jpg}">
-				<h4>Calle rota</h4>
-				<p>Calle que presenta daños y agujeros en su superficie, lo que representa un riesgo para la circulación
-					y seguridad de los transeúntes y vehículos. Se requiere atención y reparación inmediata.</p>
+			<div class="carta" th:each="report : ${reports}">
+				<img th:src="@{/images/reports/{name}(name=${report.images.get(0).nombre})}" alt="img"></img>
+				<h4 th:text="${report.title}"></h4>
+				<p th:text="${report.description}"></p>
 			</div>
-			<div class="carta">
-				<img src="/images/818x460_240340_20170523160646.jpg" th:src="@{/images/20200226105543_1.jpg}">
-				<h4>Avances en pozos</h4>
-				<p>Información sobre el progreso y estado actual de los trabajos en pozos, incluyendo detalles sobre
-					excavaciones, revestimiento y otros aspectos relevantes. Ofrece una visión detallada del avance en
-					la construcción o mantenimiento de pozos.</p>
-			</div>
-			<div class="carta">
-				<img src="/images/818x460_240340_20170523160646.jpg"
-					th:src="@{/images/D5HPPW5JIZEWVPDPVTZTA4SVCU.webp}">
-				<h4>Reconstrucción de veredas</h4>
-				<p>Este reporte se enfoca en el proceso de reconstrucción y mejora de las veredas en una determinada
-					área. Contiene información sobre el alcance del proyecto, los materiales utilizados y el progreso
-					general de la obra, con el objetivo de mejorar la infraestructura peatonal.</p>
-			</div>
+<!--			<div class="carta">-->
+<!--				<img src="/images/818x460_240340_20170523160646.jpg"-->
+<!--					th:src="@{/images/818x460_240340_20170523160646.jpg}">-->
+<!--				<h4>Calle rota</h4>-->
+<!--				<p>Calle que presenta daños y agujeros en su superficie, lo que representa un riesgo para la circulación-->
+<!--					y seguridad de los transeúntes y vehículos. Se requiere atención y reparación inmediata.</p>-->
+<!--			</div>-->
+<!--			<div class="carta">-->
+<!--				<img src="/images/818x460_240340_20170523160646.jpg" th:src="@{/images/20200226105543_1.jpg}">-->
+<!--				<h4>Avances en pozos</h4>-->
+<!--				<p>Información sobre el progreso y estado actual de los trabajos en pozos, incluyendo detalles sobre-->
+<!--					excavaciones, revestimiento y otros aspectos relevantes. Ofrece una visión detallada del avance en-->
+<!--					la construcción o mantenimiento de pozos.</p>-->
+<!--			</div>-->
+<!--			<div class="carta">-->
+<!--				<img src="/images/818x460_240340_20170523160646.jpg"-->
+<!--					th:src="@{/images/D5HPPW5JIZEWVPDPVTZTA4SVCU.webp}">-->
+<!--				<h4>Reconstrucción de veredas</h4>-->
+<!--				<p>Este reporte se enfoca en el proceso de reconstrucción y mejora de las veredas en una determinada-->
+<!--					área. Contiene información sobre el alcance del proyecto, los materiales utilizados y el progreso-->
+<!--					general de la obra, con el objetivo de mejorar la infraestructura peatonal.</p>-->
+<!--			</div>-->
 		</section>
 	</div>
 
