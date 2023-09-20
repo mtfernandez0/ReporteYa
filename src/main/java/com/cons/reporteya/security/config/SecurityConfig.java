@@ -53,8 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/login**",
                                 "/register**",
-                                "/home", "", "/",
-                                "/map")
+                                "/home", "", "/")
                         .permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login

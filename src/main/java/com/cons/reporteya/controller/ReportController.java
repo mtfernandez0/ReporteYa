@@ -147,7 +147,10 @@ public class ReportController {
 	}
 
 	@PostMapping("/dashboard")
-	public String addComment(@RequestParam Long id, @RequestParam String comment, Model model, Principal principal) {
+	public String addComment(@RequestParam Long id,
+							 @RequestParam String comment,
+							 Model model,
+							 Principal principal) {
 		Optional<Report> reportOptional = reportService.findById(id);
 
 		if (reportOptional.isPresent()) {
@@ -171,7 +174,7 @@ public class ReportController {
 
 	@GetMapping("")
 	public String reports(Model model, Principal principal) {
-		model.addAttribute("reports", reportService.findAll());
+		model.addAttribute("reports", reportService.findAllByOrderByCreationDesc());
 		model.addAttribute("user", userService.findByEmail(principal.getName()));
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 		return "report/reports";
@@ -184,7 +187,7 @@ public class ReportController {
 
 		if (tagService.findById(id).isEmpty()) return "redirect:/reports";
 
-		model.addAttribute("reports", reportService.findAllByTagsId(id));
+		model.addAttribute("reports", reportService.findAllByTagsIdOrderByCreationDesc(id));
 		model.addAttribute("user", userService.findByEmail(principal.getName()));
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 

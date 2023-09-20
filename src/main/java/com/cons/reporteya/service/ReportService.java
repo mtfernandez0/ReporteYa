@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cons.reporteya.entity.Marker;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.cons.reporteya.entity.Report;
@@ -32,11 +33,18 @@ public class ReportService {
 		return reportRepository.findAllByCreatorContactPostcode(postcode);
 	}
 
+	public List<Report> findAllByOrderByCreationDesc(){
+		return reportRepository.findAllByOrderByCreationDesc();
+	}
+
+	public List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId){
+		return reportRepository.findAllByTagsIdOrderByCreationDesc(tagId);
+//		return reportRepository.findAllByTagsId(tagId);
+	}
+
 	public List<Report> findAllByTagsId(Long id){
 		return reportRepository.findAllByTagsId(id);
 	}
-
-	// Crear Reporte
 	public Report createReport(Report report, List<String> subjects) {
 		List<Tag> tags = generateTagList(subjects);
 

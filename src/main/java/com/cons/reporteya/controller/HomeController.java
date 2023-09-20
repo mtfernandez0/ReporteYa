@@ -36,7 +36,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String home(Model model,Principal principal ) {
+	public String home(Model model,
+					   Principal principal ) {
 		/*User us = userService.findByEmail(principal.getName());
 		model.addAttribute("usuario",us);*/
 		return "home";
@@ -53,6 +54,11 @@ public class HomeController {
 			attributes.addFlashAttribute("newReportNoContact", true);
 			return "redirect:/profile";
 		}
+
+//		if (user.getReports().size() == 3){
+//			attributes.addFlashAttribute("newReportNoContact", true);
+//			return "redirect:/profile";
+//		}
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ReportDto> reportDtos = new ArrayList<>();
