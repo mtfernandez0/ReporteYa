@@ -5,166 +5,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
-	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 
-	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reports.css}"/>
 </head>
-<style>
-/*body{*/
-/* 	background-image: url("/images/map.jpg");*/
-/*}*/
-
-textarea{
-background-color: #104b69;
-}
-
-.container {
-
-	height: 800px;
-}
-
-.image-gallery img {
-	width: 100px;
-	height: 100px;
-}
-
-ul {
-	list-style-type: none;
-}
-
-.tags {
-	font-weight: bolder;
-}
-
-/* Estilo para el h1 con espacio entre las letras */
-h1 {
-	letter-spacing: 4px; /* Ajusta el espacio entre letras */
-	color: white; /* Cambia el color del texto a blanco */
-}
-
-/* Añade estilo personalizado para el contenedor de navegación */
-/*.scrollable-navbar {*/
-/*	max-height: 220px;*/
-/*	overflow-y: auto; !* Scroll vertical si es necesario *!*/
-/*	width: 200px;*/
-/*	border-radius: 5px;*/
-/*	background-color: #46219c;*/
-/*}*/
-.scrollable-navbar-container {
-	display: none; /* Hide the container by default */
-}
-
-.scrollable-navbar-container h3 {
-	padding-left: 5px;
-	font-size: 1.5em;
-
-}
-
-.scrollable-navbar {
-	max-height: 500px;
-	border-radius: 5px;
-	background-color: #051c26;
-	overflow-y: auto;
-}
-
-.scrollable-navbar-container:has(.scrollable-navbar) {
-	display: block;
-	/* Show the container if it has .scrollable-navbar children */
-}
-
-.nav-link {
-	font-size: 20px;
-	padding: 5px 7px;
-	text-align: center;
-}
-
-.custom-block {
-	background-color: #153e4e;
-	padding: 20px;
-	margin-bottom: 20px;
-	border-radius: 5px;
-}
-
-/* Añade estilo personalizado para el div de anuncios */
-.ad-container {
-	background-color: #f0f0f0;
-	padding: 20px;
-	border-radius: 5px;
-}
-</style>
 <body style="background-image: url('/images/map.jpg')">
-	<nav>
-		<ul class="pt-2">
-			<li><a href="/">Inicio</a></li>
-			<li><a href="/map">Crear reporte</a></li>
-			<li><a href="/profile">Cuenta</a></li>
-			<li><a href="/companies">Compañías</a></li>
-		</ul>
-	</nav>
-	<div class="container mt-3">
-		<!-- Estructura de fila y columnas -->
-		<div class="row">
-			<!-- Columna para la navegación a la izquierda -->
-			<div class="col-md-2 scrollable-navbar-container">
-				<div class="scrollable-navbar">
-					<!-- Cambia el texto dentro del enlace para tus necesidades -->
-					<a class="nav-link text-white" href="/reports">TAGS</a> <a
-						th:each="tag : ${tagList}" class="nav-link text-white"
-						th:href="@{/reports/tags/{id}(id=${tag.id})}"
-						th:text="${tag.subject}"></a>
-				</div>
-			</div>
+<nav>
+    <a href="/home">Inicio</a>
+    <a href="/map">Crear reporte</a>
+    <a href="/profile">Cuenta</a>
+    <a href="/companies">Compañías</a>
+</nav>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-2 scrollable-navbar-container">
+                <div class="scrollable-navbar">
+                    <a class="nav-link text-white" href="/reports">TAGS</a> <a
+                        th:each="tag : ${tagList}" class="nav-link text-white"
+                        th:href="@{/reports/tags/{id}(id=${tag.id})}"
+                        th:text="${tag.subject}"></a>
+                </div>
+            </div>
 
-			<!-- Columna para los bloques de reportes -->
-			<div class="col-md-8">
-				<div th:each="report : ${reports}">
-					<div class="custom-block">
-						<h4 th:text="${report.title}" class="text-white"></h4>
-						<div class="image-gallery">
-							<img th:each="image : ${report.images}"
-								th:src="@{/images/reports/{name}(name=${image.nombre})}"
-								alt="img"></img>
-						</div>
-						<br>
-						<p th:text="${report.description}" class="text-white"></p>
-						<div class="tags">
-							<ul class="p-0 d-flex gap-2">
-								<li th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}" class="text-white"></li>
-							</ul>
-						</div>
+            <div class="col-md-8">
+                <div th:each="report : ${reports}">
+                    <div class="custom-block">
+                        <h3 th:text="${report.title}" class="text-white"></h3>
 
-						<h3 class="text-white">Comentarios:</h3>
-						<ul class="p-0 text-white">
-							<li class="mb-1" th:each="comment : ${report.comments}"
-								th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': ' +  comment.comment}">
-							</li>
-						</ul>
-						<form th:action="@{'/reports/dashboard'}" method="post">
-							<input type="hidden" name="id" th:value="${report.id}" />
-							<textarea name="comment" rows="4" cols="50" required></textarea>
-							<br> <input class="btn btn-outline-dark text-white" type="submit"
-								value="Comentar">
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- Columna para el div de anuncios a la derecha -->
-			<div class="col-md-2">
-				<div class="d-flex justify-content-end">
-					<div class="ad-container ">
-						<!-- Contenido de anuncios -->
-						<h2>Anuncios</h2>
-						<!--                        <img src="imagen1.jpg" alt="Imagen anuncio" class="img-fluid mb-3">-->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="image-gallery">
+                            <div class="swiper">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+<!--                                    <img th:each="image : ${report.images}"-->
+<!--                                         th:src="@{/images/reports/{name}(name=${image.nombre})}"-->
+<!--                                         alt="img"></img>-->
+                                    <div class="swiper-slide" th:each="image : ${report.images}">
+                                        <img th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
+                                    </div>
+                                </div>
+                                <!-- If we need pagination -->
+<!--                                <div class="swiper-pagination"></div>-->
+
+                                <!-- If we need navigation buttons -->
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+
+                                <!-- If we need scrollbar -->
+<!--                                <div class="swiper-scrollbar"></div>-->
+                            </div>
+                        </div>
+                        <br>
+                        <p th:text="${report.description}" class="text-white"></p>
+                        <div class="tags">
+                            <ul class="p-0 d-flex gap-2">
+                                <li th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}" class="text-white"></li>
+                            </ul>
+                        </div>
+                        <div class="comments-box">
+                            <p class="text-white comments" th:each="comment : ${report.comments}">
+                                <span class="comment-name" th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>
+                                <br>
+                                <span th:text="${comment.comment}"></span>
+                            </p>
+
+                            <form th:action="@{'/reports/dashboard'}" method="post">
+                                <input type="hidden" name="id" th:value="${report.id}"/>
+                                <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>
+                                <br> <input class="btn btn-outline-dark text-white" type="submit"
+                                            value="Comentar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="d-flex justify-content-end">
+                    <div class="ad-container ">
+                        <h2>Anuncios</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
-	lightbox.option({
-		'resizeDuration' : 200,
-		'wrapAround' : true
-	});
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        // pagination: {
+        //     el: '.swiper-pagination',
+        // },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        // scrollbar: {
+        //     el: '.swiper-scrollbar',
+        // },
+    });
 </script>
 </html>
