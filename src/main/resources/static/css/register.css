@@ -10,28 +10,54 @@
 
 body{
 	background:blue;
-    display: flex;
-    align-items: center;
-    background:url("../images/mim.jpg") no-repeat;
-    justify-content: center;
     min-height: 100vh;
+    background: url("../images/mim.jpg") no-repeat;
     background-size: cover;
     background-position: center;
+}
 
+nav{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    padding: 15px;
+    margin-right: 20px;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+
+    padding: 12px;
+    border: 2px solid white;
+    border-radius: 7px;
+
+    transition: 0.3s;
+}
+
+nav a:hover{
+    background: #0b5359;
+}
+
+.register-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .wrapper{
-width: 500px;
-height: 700px;
-border: 2px solid rgba(236, 227, 227, 0.2);
-background: transparent;
-backdrop-filter: blur(20px);
-box-shadow: 0 0 10px  rgba(0, 0, 0, .1);
-color: #fff;
-justify-content: center;
-border-radius: 10px;
-padding: 30px 40px;
-
+    width: 500px;
+    height: 700px;
+    border: 2px solid rgba(236, 227, 227, 0.2);
+    background: transparent;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px  rgba(0, 0, 0, .1);
+    color: #fff;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 30px 40px;
 }
 
 .wrapper h1{
@@ -59,9 +85,6 @@ padding: 30px 40px;
     color: white;
     border-radius: 40px;
     background-color: var(--text-white);
-    
-
-
 }
 
 .input-box input::placeholder{

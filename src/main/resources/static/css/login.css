@@ -7,15 +7,43 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body{
 
+body{
+  min-height: 100vh;
+  background: url("../images/mim.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+nav{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  padding: 15px;
+  margin-right: 20px;
+}
+
+nav a{
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+
+  padding: 12px;
+  border: 2px solid white;
+  border-radius: 7px;
+
+  transition: 0.3s;
+}
+
+nav a:hover{
+  background: #0b5359;
+}
+
+.login-container{
   display:flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background:url("../images/mim.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
 }
 
 .wrapper{
@@ -32,7 +60,7 @@ body{
 
 .wrapper h1{
   font-size: 40px;
-  font-weight:10px;
+  /*font-weight:10px;*/
   text-align: center;
   color:black;
 

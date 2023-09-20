@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,58 +10,57 @@
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
-
-
-</head>
 <body>
-    
-  <body>
-    
-    <div class="wrapper">
-        <form  th:action="@{/register}" method="post" th:obeject="${user}"  >
-        <h1>Registrarse</h1>
-        <div  th:if="${register}">       
-        </div>
-    
-      <div class="input-box"  >
-        <h6>+ + + + + + +  </h6>
-        <input type="text" placeholder="Nombre"  id="first_name" name="first_name" required >
-      </div>
-    
-      <div class="input-box" >
-        <h6>+ + + + + + + </h6>
-        <input type="text" placeholder="Apellido" id="last_name" name="last_name"
-        required th:value="${user.first_name}">
+    <nav>
+        <a href="/home">Inicio</a>
+    </nav>
+    <div class="register-container">
+        <div class="wrapper">
+            <form th:action="@{/register}" method="post" th:obeject="${user}">
+                <h1>Registrarse</h1>
+                <div th:if="${register}">
+                </div>
 
-         </div>
-    
-    <div class="input-box" >
-        <h6> + + + + + + +  </h6>
-        <input type="email" placeholder="Email" id="email" name="email"
-        required th:value="${user.email}"/>
-    </div>
-    <div class="input-box"  >
-        <h6>Fecha de nacimiento:</h6>
-        <input type="date"   id="date_of_birth" name="date_of_birth"
-        required th:value="${user.date_of_birth}">
-    </div>
-    <div class="input-box" >
-        <h6> + + + + + + + </h6>
-        <input type="password" placeholder="Contraseña" id="password" name="password"
-        required>      
-    </div>
-    <div class="input-box" >
-        <h6> + + + + + + + </h6>
-        <input type="password" placeholder="Confirmar contraseña" id="passwordConfirmation"
-        required name="passwordConfirmation">
-    </div>
-    <div>
-    <button type="submit" value="Registrarse" id="button" >Registrarse</button>
-    </div> 
-    <div class="url">
-    <a th:href="@{/login}"> <p>¿Ya tienes una cuenta?</p> </a>
-    </div>
-        </form>
+                <div class="input-box">
+                    <h6>+ + + + + + + </h6>
+                    <input type="text" placeholder="Nombre" id="first_name" name="first_name" required>
+                </div>
+
+                <div class="input-box">
+                    <h6>+ + + + + + + </h6>
+                    <input type="text" placeholder="Apellido" id="last_name" name="last_name"
+                           required th:value="${user.first_name}">
+
+                </div>
+
+                <div class="input-box">
+                    <h6> + + + + + + + </h6>
+                    <input type="email" placeholder="Email" id="email" name="email"
+                           required th:value="${user.email}"/>
+                </div>
+                <div class="input-box">
+                    <h6>Fecha de nacimiento:</h6>
+                    <input type="date" id="date_of_birth" name="date_of_birth"
+                           required th:value="${user.date_of_birth}">
+                </div>
+                <div class="input-box">
+                    <h6> + + + + + + + </h6>
+                    <input type="password" placeholder="Contraseña" id="password" name="password"
+                           required>
+                </div>
+                <div class="input-box">
+                    <h6> + + + + + + + </h6>
+                    <input type="password" placeholder="Confirmar contraseña" id="passwordConfirmation"
+                           required name="passwordConfirmation">
+                </div>
+                <div>
+                    <button type="submit" value="Registrarse" id="button">Registrarse</button>
+                </div>
+                <div class="url">
+                    <a th:href="@{/login}"><p>¿Ya tienes una cuenta?</p></a>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

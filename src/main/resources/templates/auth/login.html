@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -15,43 +14,45 @@
 </head>
 
 <body>
-    <div class="wrapper">
-    <form th:action="@{/login}" method="post">
-        <div class="d-flex justify-content-center text-center"   th:if="${param.error}"> 
-        <p class="bg-danger p-2 text-white rounded-3" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}"  >
-        </p>
-</div>
+    <nav>
+        <a href="/home">Inicio</a>
+    </nav>
+    <div class="login-container">
+        <div class="wrapper">
+            <form th:action="@{/login}" method="post">
+                <div class="d-flex justify-content-center text-center" th:if="${param.error}">
+                    <p class="bg-danger p-2 text-white rounded-3" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">
+                    </p>
+                </div>
 
-<div  th:if="${register}">
-    <p  th:text="${register}"></p>
-</div>
+                <div th:if="${register}">
+                    <p th:text="${register}"></p>
+                </div>
 
-        <h1>Login</h1>
-        <div class="input-box"  >
-            
-            <input type="email"  placeholder="Email" id="email" name="email" autofocus th:value="${email}"
-            requerid> 
-            <i class='bx bxl-gmail'></i>
-        </div>
-        <div class="input-box">
-            <input type="password"
-            placeholder="Password" id="password" name="password"
-            required>
-            <i class='bx bx-lock' ></i>
-        </div>
-        <div class="remember-forgot">
-        <label><input type="checkbox">Recuerdame
-        </label>
-        
-        </div>
-        <button type="submit" id="button" value="Acceder">Login</button>
-        <div class="register-link">
-            <p>Aún no tienes cuenta?  <a th:href="@{/register}">Registrate</a></p>
+                <h1>Login</h1>
+                <div class="input-box">
 
+                    <input type="email" placeholder="Email" id="email" name="email" autofocus th:value="${email}"
+                           requerid>
+                    <i class='bx bxl-gmail'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password"
+                           placeholder="Password" id="password" name="password"
+                           required>
+                    <i class='bx bx-lock'></i>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Recuerdame</label>
+
+                </div>
+                <button type="submit" id="button" value="Acceder">Login</button>
+                <div class="register-link">
+                    <p>Aún no tienes cuenta? <a th:href="@{/register}">Registrate</a></p>
+
+                </div>
+            </form>
         </div>
     </div>
-    </form>
-
 </body>
-
 </html>
