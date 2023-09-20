@@ -172,14 +172,19 @@ public class ReportController {
 		return "redirect:/reports";
 	}
 	@PostMapping("/dashboardEmp")
-	public String addCommentEmpresa(@RequestParam Long id, @RequestParam String comment, Model model, Principal principal) {
+	public String addCommentEmpresa(@RequestParam Long id,
+									@RequestParam String comment,
+									Model model,
+									Principal principal) {
 		Optional<Report> reportOptional = reportService.findById(id);
 
 		if (reportOptional.isPresent()) {
 			Report report = reportOptional.get();
 			User usu = userService.findByEmail(principal.getName());
-			Comment newComment = Comment.builder().comment(comment).owner(usu)
-					.report(report).build();
+
+			if (usu.getCompany() == null) return "redirect:/home";
+
+			Comment newComment = Comment.builder().comment(comment).owner(usu).report(report).build();
 			newComment.setCompany(usu.getCompany());
 
 			commentService.save(newComment);

@@ -68,36 +68,29 @@
                         </div>
                         <div class="comments-box">
                             <p class="text-white comments" th:each="comment : ${report.comments}">
-                                <span class="comment-name" th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>
+                                <span class="comment-name"
+                                      th:text="${comment.company != null ?
+                                      comment.company.name :
+                                      comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>
+<!--                                <span class="comment-name" th:if="${comment.company == null}"-->
+<!--                                      th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>-->
                                 <br>
                                 <span th:text="${comment.comment}"></span>
                             </p>
-
-                            <!-- <form th:action="@{'/reports/dashboard'}" method="post">
-                                <input type="hidden" name="id" th:value="${report.id}"/>
+                            <form id="commentForm" th:action="@{'/reports/dashboard'}" method="post">
+                                <input type="hidden" name="id" th:value="${report.id}" />
                                 <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>
-                                <br> <input class="btn btn-outline-dark text-white" type="submit"
-                                            value="Comentar">
-                            </form> -->
+                                <div class="input-comments">
+                                    <div th:if="${user.getCompany() != null}">
+                                        <button type="button" class="btn btn-outline-dark text-white mt-2"
+                                                onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>
+                                        <button type="button" class="btn btn-outline-dark text-white mt-2"
+                                                onclick="setAction(this, '/reports/dashboardEmp')"
+                                        th:text="${'Comenta como ' + user.getCompany().name}"></button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <h3>Comentarios:</h3>
-                        <ul class="p-0">
-                            <li class="mb-1" th:each="comment : ${report.comments}"
-                                th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': ' +  comment.comment}">
-                            </li>
-                        </ul>
-                        <form th:action="@{'/reports/dashboard'}" method="post">
-                            <input type="hidden" name="id" th:value="${report.id}"/>
-                            <textarea name="comment" rows="4" cols="50" required></textarea>
-                            <br>
-                            <input class="btn btn-outline-dark" type="submit" value="Comentar">
-                        </form>
-                          <form th:action="@{'/reports/dashboardEmp'}" method="post">
-                            <input type="hidden" name="id" th:value="${report.id}"/>
-                            <textarea name="comment" rows="4" cols="50" required></textarea>
-                            <br>
-                            <input class="btn btn-outline-dark" type="submit" value="Comentar">
-                        </form>
                     </div>
                 </div>
             </div>
@@ -112,6 +105,11 @@
     </div>
 </body>
 <script>
+    function setAction(formElement, action) {
+        formElement.form.action = action;
+        formElement.form.submit();
+    }
+
     const swiper = new Swiper('.swiper', {
         // Optional parameters
         direction: 'horizontal',
