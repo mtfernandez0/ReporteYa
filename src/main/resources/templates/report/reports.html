@@ -73,13 +73,31 @@
                                 <span th:text="${comment.comment}"></span>
                             </p>
 
-                            <form th:action="@{'/reports/dashboard'}" method="post">
+                            <!-- <form th:action="@{'/reports/dashboard'}" method="post">
                                 <input type="hidden" name="id" th:value="${report.id}"/>
                                 <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>
                                 <br> <input class="btn btn-outline-dark text-white" type="submit"
                                             value="Comentar">
-                            </form>
+                            </form> -->
                         </div>
+                        <h3>Comentarios:</h3>
+                        <ul class="p-0">
+                            <li class="mb-1" th:each="comment : ${report.comments}"
+                                th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': ' +  comment.comment}">
+                            </li>
+                        </ul>
+                        <form th:action="@{'/reports/dashboard'}" method="post">
+                            <input type="hidden" name="id" th:value="${report.id}"/>
+                            <textarea name="comment" rows="4" cols="50" required></textarea>
+                            <br>
+                            <input class="btn btn-outline-dark" type="submit" value="Comentar">
+                        </form>
+                          <form th:action="@{'/reports/dashboardEmp'}" method="post">
+                            <input type="hidden" name="id" th:value="${report.id}"/>
+                            <textarea name="comment" rows="4" cols="50" required></textarea>
+                            <br>
+                            <input class="btn btn-outline-dark" type="submit" value="Comentar">
+                        </form>
                     </div>
                 </div>
             </div>
