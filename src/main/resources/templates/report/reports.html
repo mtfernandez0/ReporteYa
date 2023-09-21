@@ -67,6 +67,9 @@
                                 <input type="hidden" name="id" th:value="${report.id}" />
                                 <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>
                                 <div class="input-comments">
+                                    <div th:if="${user.getCompany() == null}">
+                                        <button type="button" class="btn btn-outline-dark text-white mt-2">Comentar</button>
+                                    </div>
                                     <div th:if="${user.getCompany() != null}">
                                         <button type="button" class="btn btn-outline-dark text-white mt-2"
                                                 onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>

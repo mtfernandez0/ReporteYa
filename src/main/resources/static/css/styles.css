@@ -12,6 +12,9 @@ nav {
 	padding: 10px 0;
 	display: flex;
 	justify-content: center;
+
+	position: fixed;
+	width: 100%;
 }
 
 nav a {
@@ -108,29 +111,30 @@ h2 {
 	width: 100%;
 	font-weight: 400;
 	text-align: center;
-	margin-top: 5%;
+	margin-top: 3%;
 }
 
 #top3 {
 	font-size: 30px;
 	color: #f0f0f0;
-	padding-top: 40px;
+	/*padding-top: 10px;*/
 }
 
 .wrappDestacados {
-
 	background-color: #225C85;
 	padding-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Estilos de fondo morado */
 .fondo-morado {
-	margin: 20px;
-	display: flex;
+	margin: 30px;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	grid-gap: 20px;
-	margin-left: 20%;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-gap: 100px;
 }
 
 /* Estilos de carta dentro de fondo morado */
@@ -141,7 +145,6 @@ h2 {
 	padding: 15px;
 	text-align: center;
 	box-shadow: 0 1px 10px 0 rgb(128, 128, 128);
-
 }
 
 .fondo-morado .carta img {
