@@ -13,7 +13,10 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 
 	List<Report> findAll();
 
-//	List<Report> findAllByOrderByCommentsNumber();
+	@Query( "SELECT r FROM Report AS r " +
+			"LEFT JOIN Comment AS c ON r.id = c.report.id " +
+			"GROUP BY r.id ORDER BY COUNT(c.report.id) DESC, r.created_at DESC LIMIT 3")
+	List<Report> findAllHighlightedReports();
 
 	List<Report> findAllByCreatorContactPostcode(String postcode);
 
@@ -25,10 +28,6 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 			"RIGHT JOIN reports_tags AS rt ON r.id = rt.report_id " +
 					"WHERE rt.tags_id = ?1 ORDER BY r.created_at DESC", nativeQuery = true)
 	List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId);
-
-	List<Report> findAllByTagsId(Long id);
-
-	boolean existsById(Long id);
 
 	void deleteAllByCreatorId(Long id);
 }

@@ -33,6 +33,10 @@ public class ReportService {
 		return reportRepository.findAllByCreatorContactPostcode(postcode);
 	}
 
+	public List<Report> findAllHighlightedReports(){
+		return reportRepository.findAllHighlightedReports();
+	}
+
 	public List<Report> findAllByOrderByCreationDesc(){
 		return reportRepository.findAllByOrderByCreationDesc();
 	}
@@ -41,9 +45,6 @@ public class ReportService {
 		return reportRepository.findAllByTagsIdOrderByCreationDesc(tagId);
 	}
 
-	public List<Report> findAllByTagsId(Long id){
-		return reportRepository.findAllByTagsId(id);
-	}
 	public Report createReport(Report report, List<String> subjects) {
 		List<Tag> tags = generateTagList(subjects);
 
@@ -84,15 +85,8 @@ public class ReportService {
 
 			existingReport.setTitle(updatedReport.getTitle());
 			existingReport.setDescription(updatedReport.getDescription());
-			/*
-			 * existingReport.setMunicipality(updatedReport.getMunicipality());
-			 * existingReport.setLocation(updatedReport.getLocation());
-			 */
-
 			return reportRepository.save(existingReport);
-
 		} else {
-
 			throw new IllegalArgumentException("El reporte no puede ser nulo.");
 		}
 	}

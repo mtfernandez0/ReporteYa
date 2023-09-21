@@ -39,6 +39,8 @@ public class ReportController {
 	private final TagService tagService;
 	private final FileUpService fileupService;
 
+	private String UPLOAD_FOLDER = "src/main/resources/static/images/reports";
+
 	public ReportController(ReportService reportService,
 							UserService userService,
 							MarkerService markerService,
@@ -53,8 +55,6 @@ public class ReportController {
 		this.fileupService = fuS;
 
 	}
-
-	private String UPLOAD_FOLDER = "src/main/resources/static/images/reports";
 
 	@GetMapping("/new")
 	public String newReport(@ModelAttribute("marker") Marker marker,
@@ -129,14 +129,13 @@ public class ReportController {
 	private void checkTagErrors(BindingResult result, List<String> subjects) {
 		boolean areSizeCorrect = true;
 
-		for (String subject : subjects)
-			areSizeCorrect &= subject.length() < 140;
+		for (String subject : subjects) areSizeCorrect &= subject.length() < 40;
 
 		if (!areSizeCorrect)
-			result.rejectValue("tags", "size", "Tags must have at most 140 characters");
+			result.rejectValue("tags", "size", "Los tags deben tener como mucho 40 carácteres");
 
 		if (subjects.size() > 5)
-			result.rejectValue("tags", "Maximum of 5 tags", "You can only include up to 5 tags");
+			result.rejectValue("tags", "Maximum of 5 tags", "Solo puedes incluir hasta 5 tags");
 	}
 
 	@GetMapping("/dashboard")

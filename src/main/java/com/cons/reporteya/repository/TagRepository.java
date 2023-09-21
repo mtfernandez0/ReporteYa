@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cons.reporteya.entity.Tag;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
 	List<Tag> findAll();

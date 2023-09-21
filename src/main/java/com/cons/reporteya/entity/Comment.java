@@ -51,5 +51,4 @@ public class Comment {
 	private void onUpdate() {
 		this.updated_at = new Date();
 	}
-
 }

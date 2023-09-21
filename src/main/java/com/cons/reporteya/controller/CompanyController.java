@@ -34,14 +34,14 @@ public class CompanyController {
 	private final UserService userServ;
 	private final FileUpService fileupService;
 	public CompanyController(CompanyService companyService,
-							 UserService uSer,
-							 FileUpService fuS) {
+							 UserService user,
+							 FileUpService fileupService) {
 		this.companyService = companyService;
-		this.userServ = uSer;		
-		this.fileupService = fuS;
+		this.userServ = user;
+		this.fileupService = fileupService;
 	}
 	
-	private String UPLOAD_FOLDER = "src/main/resources/static/images/imagenesPerfilCompanias";
+	private String UPLOAD_FOLDER = "src/main/resources/static/images/companyLogos";
 
 	@GetMapping("/companies")
 	public String companies(Model model){
@@ -69,15 +69,12 @@ public class CompanyController {
 	
 	@PostMapping("/companies/new")
 		public String company(@Valid @ModelAttribute("company") Company company,BindingResult bindingResult,Principal principal, @RequestParam(value = "files", required = false) MultipartFile file) {
-		if(bindingResult.hasErrors())
-		{
-			return "company/company";
-		}
-		User us = userServ.findByEmail(principal.getName());	
+		if(bindingResult.hasErrors()) return "company/company";
+
+		User us = userServ.findByEmail(principal.getName());
 		company.setUser(us);
 		companyService.save(company);
-		User usercomp = userServ.findByEmail(principal.getName());
-		
+
 		FileUp fileUp =  fileupService.subirFotoDePerfil(file, company, UPLOAD_FOLDER);
 		try {
 			byte[] bytes = file.getBytes();
@@ -90,9 +87,4 @@ public class CompanyController {
 		return "redirect:/home";
 		
 		}
-	
-	
-	
 	}
-	
-

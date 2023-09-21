@@ -30,7 +30,7 @@ nav{
     font-size: 22px;
     font-weight: 400;
 
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 10px 0;
 }
 
@@ -132,9 +132,14 @@ ul {
 }
 
 .scrollable-navbar a{
-    text-align: center;
+    /*text-align: center;*/
     font-size: 18px;
-    padding: 5px 2px;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+.scrollable-navbar a:hover{
+    background-color: #0b3a50;
 }
 
 .scrollable-navbar-container:has(.scrollable-navbar) {

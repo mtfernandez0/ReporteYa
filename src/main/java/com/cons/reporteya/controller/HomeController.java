@@ -37,9 +37,7 @@ public class HomeController {
 
 	@GetMapping("/home")
 	public String home(Model model) {
-		List<Report> reports = reportService.findAllByOrderByCreationDesc();
-
-		model.addAttribute("reports", reports.subList(0, Math.min(3, reports.size())));
+		model.addAttribute("reports", reportService.findAllHighlightedReports());
 		return "home";
 	}
 
@@ -71,5 +69,4 @@ public class HomeController {
 		model.addAttribute("reports", objectMapper.writeValueAsString(reportDtos));
 		return "map";
 	}
-
 }

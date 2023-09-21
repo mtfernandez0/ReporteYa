@@ -26,7 +26,7 @@
                     <a class="nav-link text-white" href="/reports">TAGS</a> <a
                         th:each="tag : ${tagList}" class="nav-link text-white"
                         th:href="@{/reports/tags/{id}(id=${tag.id})}"
-                        th:text="${tag.subject}"></a>
+                        th:text="${'#' + tag.subject}"></a>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
                                 <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>
                                 <div class="input-comments">
                                     <div th:if="${user.getCompany() == null}">
-                                        <button type="button" class="btn btn-outline-dark text-white mt-2">Comentar</button>
+                                        <button type="submit" class="btn btn-outline-dark text-white mt-2">Comentar</button>
                                     </div>
                                     <div th:if="${user.getCompany() != null}">
                                         <button type="button" class="btn btn-outline-dark text-white mt-2"
