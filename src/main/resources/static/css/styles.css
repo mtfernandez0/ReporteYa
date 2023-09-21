@@ -3,7 +3,6 @@ body {
 	padding: 0;
 	background-size: cover;
 	background-position: center;
-	font-family: sans-serif;
 }
 
 nav {
@@ -11,6 +10,7 @@ nav {
 	box-shadow: 0px 5px 0px #dedede;
 	display: flex;
 	justify-content: center;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 
