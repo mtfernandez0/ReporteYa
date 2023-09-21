@@ -3,73 +3,75 @@ body {
 	padding: 0;
 	background-size: cover;
 	background-position: center;
-	font-family: Arial, sans-serif;
+	font-family: sans-serif;
 }
 
 nav {
-	background-color: #071952;
-	padding: 10px 0;
+	background: #071952;
+	box-shadow: 0px 5px 0px #dedede;
 	display: flex;
 	justify-content: center;
 }
 
-ul {
-	list-style-type: none;
-	display: flex;
-}
 
-li {
-	margin: 0 50px;
+nav ul {
+  list-style: none;
+  text-align: center;
 }
-
-a {
-	text-decoration: none;
-	color: white;
-	font-weight: bold;
+nav ul li {
+  display: inline-block;
 }
-
+nav ul li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 10px;
+}
 nav ul li a,
-nav.fill ul li a {
-  position: relative;
-}
 nav ul li a:after,
-nav.fill ul li a:after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 0%;
-  content: '.';
-  color: transparent;
-  background: #aaa;
-  height: 1px;
+nav ul li a:before {
+  transition: all .5s;
 }
-nav ul li a:hover:after {
-  width: 100%;
+nav ul li a:hover {
+  color: #555;
 }
 
-nav.fill ul li a {
-  transition: all 2s;
+nav.shift ul li a {
+	position: relative;
+	z-index: 1;
 }
 
-nav.fill ul li a:after {
-  text-align: left;
-  content: '.';
-  margin: 0;
-  opacity: 0;
+nav.shift ul li a:hover {
+	color: #dedede;
 }
-nav.fill ul li a:hover {
-  color: #fff;
-  z-index: 1;
+
+nav.shift ul li a:after {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	width: 100%;
+	height: 1px;
+	content: '.';
+	color: transparent;
+	background: #2240a2;
+	visibility: none;
+	opacity: 0;
+	z-index: -1;
 }
-nav.fill ul li a:hover:after {
-  z-index: -10;
-  animation: fill 1s forwards;
-  -webkit-animation: fill 1s forwards;
-  -moz-animation: fill 1s forwards;
-  opacity: 1;
+
+nav.shift ul li a:hover:after {
+	opacity: 1;
+	visibility: visible;
+	height: 100%;
 }
+
 
 header {
 	background-image: url("../images/AdobeStock_614864168.jpeg");
@@ -227,7 +229,7 @@ h2 {
 }
 
 .about-content p {
-	color: #1c2f4f;
+	color: rgb(9, 33, 91);
 	width: 800px;
 	margin-left: 27%;
 	font-size: larger;
