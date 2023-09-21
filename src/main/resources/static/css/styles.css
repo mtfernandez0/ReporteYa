@@ -3,46 +3,87 @@ body {
 	padding: 0;
 	background-size: cover;
 	background-position: center;
-	font-family: Arial, sans-serif;
 }
 
-/* Estilos de navegación */
 nav {
-	background-color: #1c2f4f;
-	padding: 10px 0;
+	background: #071952;
+	box-shadow: 0px 5px 0px #dedede;
 	display: flex;
 	justify-content: center;
 
 	position: fixed;
 	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-nav a {
-	justify-content: space-between;
+
+nav ul {
+	list-style: none;
+	text-align: center;
 }
 
-ul {
-	list-style-type: none;
-	display: flex;
-	align-items: center;
+nav ul li {
+	display: inline-block;
 }
 
-li {
-	margin: 0 20px;
-}
-
-a {
+nav ul li a {
+	display: block;
+	padding: 15px;
 	text-decoration: none;
-	color: white;
-	font-weight: bold;
+	color: rgb(255, 255, 255);
+	font-weight: 800;
+	text-transform: uppercase;
+	margin: 0 10px;
 }
 
-/* Estilos de encabezado */
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+	transition: all .5s;
+}
+
+nav ul li a:hover {
+	color: #555;
+}
+
+nav.shift ul li a {
+	position: relative;
+	z-index: 1;
+}
+
+nav.shift ul li a:hover {
+	color: #dedede;
+}
+
+nav.shift ul li a:after {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	width: 100%;
+	height: 1px;
+	content: '.';
+	color: transparent;
+	background: #2240a2;
+	visibility: none;
+	opacity: 0;
+	z-index: -1;
+}
+
+nav.shift ul li a:hover:after {
+	opacity: 1;
+	visibility: visible;
+	height: 100%;
+}
+
+
 header {
 	background-image: url("../images/AdobeStock_614864168.jpeg");
 	background-size: cover;
 	background-position: center;
-
 	background-attachment: fixed;
 	color: white;
 	text-align: center;
@@ -75,17 +116,23 @@ h2 {
 	padding: 3%;
 }
 
-/* Estilos de segundo título */
+.content {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	margin-right: 8%;
+}
+
 .otro-h2 {
 	width: 100%;
-	color: #1c2f4f;
-	font-size: 1.9em;
+	color: #00599A;
+	font-size: 45px;
 	font-weight: 400;
 	text-align: center;
 	margin-top: 40px;
+	margin-left: 15%;
 }
 
-/* Estilos de párrafo */
 .nuevo-div {
 	width: 100%;
 	color: #00599A;
@@ -96,17 +143,18 @@ h2 {
 }
 
 .parrafo {
-	font-size: 1.4em;
+	font-size: larger;
 	margin: 0;
 	padding: 10px;
+	color: rgb(34, 58, 98);
+	max-width: 70%;
+	margin-left: 30%;
 }
 
-/* Estilos de sección de párrafo */
 .sectionParrafo {
 	margin-top: 2%;
 }
 
-/* Estilos de sección de destacados */
 .destacados {
 	width: 100%;
 	font-weight: 400;
@@ -121,7 +169,7 @@ h2 {
 }
 
 .wrappDestacados {
-	background-color: #225C85;
+	background-color: #071952;
 	padding-bottom: 30px;
 	display: flex;
 	flex-direction: column;
@@ -129,7 +177,6 @@ h2 {
 	align-items: center;
 }
 
-/* Estilos de fondo morado */
 .fondo-morado {
 	margin: 30px;
 	display: grid;
@@ -137,14 +184,19 @@ h2 {
 	grid-gap: 100px;
 }
 
-/* Estilos de carta dentro de fondo morado */
 .fondo-morado .carta {
 	margin: 10px;
 	background-color: rgb(255, 255, 255);
 	border-radius: 5px;
 	padding: 15px;
 	text-align: center;
-	box-shadow: 0 1px 10px 0 rgb(128, 128, 128);
+	box-shadow: 0 1px 10px 0 rgb(68, 68, 68);
+
+	--bg-color: #B8F9D3;
+	--bg-color-light: #e2fced;
+	--text-color-hover: #4C5656;
+	--box-shadow-color: rgba(184, 249, 211, 0.48);
+
 }
 
 .fondo-morado .carta img {
@@ -165,27 +217,33 @@ h2 {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 40px;
-	background-color: #f0f0f0;
+	padding: 90px;
+	background-color: transparent;
+	background-image: url('/images/Allura Background Cityscapes.png');
+	background-position: 0 130%;
+	height: 600px;
 }
 
 .about-content {
 	flex: 1;
 	text-align: center;
-	/*	margin-left: 10%;*/
-	/* Separación del borde izquierdo */
+	margin-top: 10%;
+	padding: 30px;
+	padding-bottom: 25%;
 }
 
 .about-content h2 {
 	color: #00599A;
-	/* Color azul para el título */
+	font-size: 1.9em;
+	margin-bottom: 30px;
+	font-weight: 600;
 }
 
 .about-content p {
-	color: #000;
-	/* Color negro para el texto */
+	color: rgb(9, 33, 91);
 	width: 800px;
-	margin-left: 28%;
+	margin-left: 27%;
+	font-size: larger;
 }
 
 .about-image img {
@@ -199,15 +257,16 @@ h2 {
 	padding: 40px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	background-color: #fff;
+	background-color: #225C85;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	margin-right: 20px;
-	height: 440px;
+	height: 400px;
 	width: 40%;
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 100px;
 	margin-bottom: 30px;
 	padding: 20px;
+	color: #f0f0f0;
 }
 
 .contact-form h2 {
@@ -233,7 +292,7 @@ h2 {
 }
 
 button[type="submit"] {
-	background-color: #00599A;
+	background-color: #1c2f4f;
 	color: white;
 	border: none;
 	padding: 10px 20px;
@@ -246,27 +305,12 @@ button[type="submit"]:hover {
 	background-color: #003d6b;
 }
 
-.patrocinadores {
-	flex: 1;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: center;
-}
-
-.patrocinadores img {
-	max-width: 100px;
-	margin: 10px;
-}
-
-
 footer {
 	background-color: #f0f0f0;
-	padding: 20px 0;
-}
-
-.footer {
-	color: #000;
+	padding: 40px;
+	color: rgb(255, 255, 255);
+	background-color: #345063;
+	margin-top: 80px;
 }
 
 .container {
@@ -278,7 +322,7 @@ footer {
 .row {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
 .col-md-3 {
