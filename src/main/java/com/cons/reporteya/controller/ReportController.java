@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import com.cons.reporteya.entity.*;
 import com.cons.reporteya.service.*;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -201,7 +203,7 @@ public class ReportController {
 
 	@GetMapping("")
 	public String reports(Model model, Principal principal) {
-		model.addAttribute("reports", reportService.findAllByOrderByCreationDesc());
+		model.addAttribute("reports", reportService.reportsPerPage(0));
 		model.addAttribute("user", userService.findByEmail(principal.getName()));
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 		return "report/reports";
@@ -219,5 +221,18 @@ public class ReportController {
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 
 		return "report/reports";
+	}
+
+	/**
+	 * Endpoint that returns the i-th page of reports
+	 * @param i
+	 * @return
+	 */
+	@GetMapping("/{i}")
+	private ResponseEntity<Page<Report>> reportsPerPage(@PathVariable Integer i){
+
+		if (i == null || i < 0) return ResponseEntity.badRequest().build();
+
+		return ResponseEntity.ok(reportService.reportsPerPage(i));
 	}
 }

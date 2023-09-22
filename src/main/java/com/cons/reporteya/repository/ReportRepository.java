@@ -2,14 +2,18 @@ package com.cons.reporteya.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.cons.reporteya.entity.Report;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReportRepository extends CrudRepository<Report, Long> {
+public interface ReportRepository extends CrudRepository<Report, Long>,
+		PagingAndSortingRepository<Report, Long> {
 
 	List<Report> findAll();
 
@@ -21,7 +25,7 @@ public interface ReportRepository extends CrudRepository<Report, Long> {
 	List<Report> findAllByCreatorContactPostcode(String postcode);
 
 	@Query("SELECT r FROM Report AS r ORDER BY r.created_at DESC")
-	List<Report> findAllByOrderByCreationDesc();
+	Page<Report> findAllByOrderByCreationDesc(PageRequest pageRequest);
 
 	@Query(value =
 			"SELECT r.* FROM reports AS r " +

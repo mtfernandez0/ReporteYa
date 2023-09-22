@@ -1,7 +1,5 @@
 package com.cons.reporteya.security.config;
 
-
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -61,7 +57,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .successHandler(successHandler())
+                        .defaultSuccessUrl("/home")
                         .usernameParameter("email")
                         .permitAll()
                         .failureHandler(new CustomAuthFailureHandler(messageSource())))
@@ -83,13 +79,6 @@ public class SecurityConfig {
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
         return new TokenBasedRememberMeServices(rememberMePrivateKey, userDetailsService);
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-        handler.setDefaultTargetUrl("/home");
-        return handler;
     }
 
     @Bean

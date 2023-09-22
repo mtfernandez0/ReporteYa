@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cons.reporteya.entity.Marker;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +20,13 @@ public class ReportService {
 
 	private final ReportRepository reportRepository;
 	private final TagService tagService;
+	private static final int PAGE_SIZE = 3;
 
 	public ReportService(ReportRepository reportRepository, TagService tagService) {
 		this.reportRepository = reportRepository;
 		this.tagService = tagService;
 	}
 
-	// Buscar todos
 	public List<Report> findAll() {
 		return reportRepository.findAll();
 	}
@@ -35,10 +37,6 @@ public class ReportService {
 
 	public List<Report> findAllHighlightedReports(){
 		return reportRepository.findAllHighlightedReports();
-	}
-
-	public List<Report> findAllByOrderByCreationDesc(){
-		return reportRepository.findAllByOrderByCreationDesc();
 	}
 
 	public List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId){
@@ -79,7 +77,6 @@ public class ReportService {
 		return reportRepository.findById(aLong);
 	}
 
-	// Editar Reporte
 	public Report updateReport(Report existingReport, Report updatedReport) {
 		if (existingReport != null && updatedReport != null) {
 
@@ -102,5 +99,13 @@ public class ReportService {
 		} else {
 			throw new IllegalArgumentException("No se encontró el reporte a eliminar.");
 		}
+	}
+
+	public Page<Report> reportsPerPage(int pageNumber){
+		PageRequest pageRequest = PageRequest.of(
+				pageNumber,
+				PAGE_SIZE);
+
+		return reportRepository.findAllByOrderByCreationDesc(pageRequest);
 	}
 }
