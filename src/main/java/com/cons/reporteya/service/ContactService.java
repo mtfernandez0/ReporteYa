@@ -7,20 +7,16 @@ import com.cons.reporteya.repository.ContactRepository;
 
 @Service
 public class ContactService {
-	
+
 	private final ContactRepository contactRepository;
-		
-	public ContactService(ContactRepository contactRepository) {
-	
-	this.contactRepository = contactRepository;
+
+	public ContactService(ContactRepository cRepo) {
+
+		this.contactRepository = cRepo;
 	}
 	
-	public Contact newContact(Contact cont) {
-		return contactRepository.save(cont);
-	}
-	
-	public Contact editContact(Contact cont) {
-		return contactRepository.save(cont);
-	}
+	 public Contact newContact(Contact number) {
+	        return contactRepository.save(number);
+	    }
 
 }
