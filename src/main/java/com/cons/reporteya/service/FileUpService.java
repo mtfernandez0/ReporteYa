@@ -1,10 +1,10 @@
 package com.cons.reporteya.service;
-
-import com.cons.reporteya.entity.Report;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cons.reporteya.entity.Company;
 import com.cons.reporteya.entity.FileUp;
+import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.repository.FileUpRepo;
 
 @Service
@@ -32,4 +32,21 @@ public class FileUpService {
 
 		return fileupRepo.save(nuevoArchivo);
 	}
+	public FileUp subirFotoDePerfil(MultipartFile archivo,
+			Company company,
+					  String path) {
+		
+		String fileName =
+				company.getName() + archivo.getOriginalFilename();
+		
+		FileUp nuevoArchivo = FileUp.builder()
+		.nombre(fileName)
+		.fileType(archivo.getContentType())
+		.rutaArchivo(path + "/" + fileName)
+		.build();
+		
+		nuevoArchivo.setCompany(company);
+		
+		return fileupRepo.save(nuevoArchivo);
+		}
 }

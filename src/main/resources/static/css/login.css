@@ -1,0 +1,152 @@
+@charset "ISO-8859-1";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body{
+  min-height: 100vh;
+  background: url("../images/mim.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+nav{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  padding: 15px;
+  margin-right: 20px;
+}
+
+nav a{
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+
+  padding: 12px;
+  border: 2px solid white;
+  border-radius: 7px;
+
+  transition: 0.3s;
+}
+
+nav a:hover{
+  background: #0b5359;
+}
+
+.login-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper{
+  width: 420px;
+  background: transparent;
+  border:2px solid rgba(255, 255, 255, 0.44);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px  rgba(0, 0, 0, .1);
+  color: #fff;
+  border-radius: 10px;
+  padding: 30px 40px ;
+
+}
+
+.wrapper h1{
+  font-size: 40px;
+  /*font-weight:10px;*/
+  text-align: center;
+  color:black;
+
+}
+
+.wrapper .input-box{
+  position:relative;
+  width: 100%;
+  height: 50px;
+
+  margin: 30px 0;
+}
+
+.input-box input{
+  width: 100%;
+  height:100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border:2px solid rgba(255, 255, 255, 0.44);
+  padding: 20px 45px 20px 20px;
+  font-size: 16px;
+  color:#fff;
+  border-radius: 40px;
+  
+}
+
+.input-box input::placeholder{
+  color:#fff;
+
+}
+
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size: 20px;
+  color: black;
+
+}
+
+.wrapper .remember-forgot{
+  display:  flex;
+  justify-content: center;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+}
+
+.remember-forgot label input{
+  accent-color: #fff;
+  margin-right: 3px;
+
+}
+
+
+
+ #button{
+  width: 100%;
+  height: 45px;
+  background:black;
+  border:none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.44);
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+
+}
+
+
+.wrapper .register-link{
+  font-size:14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+
+.register-link p a {
+  color:#fff;
+  text-decoration: none;
+  font-weight: 600;
+
+}
+
+.register-link p a:hover{
+  text-decoration: underline;
+}

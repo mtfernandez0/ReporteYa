@@ -7,9 +7,12 @@ body {
 
 nav {
 	background: #071952;
-	box-shadow: 0px 5px 0px #dedede;
+	box-shadow: 0 5px 0 #dedede; /* ??? */
 	display: flex;
 	justify-content: center;
+
+	position: fixed;
+	width: 100%;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -65,7 +68,7 @@ nav.shift ul li a:after {
 	content: '.';
 	color: transparent;
 	background: #2240a2;
-	visibility: none;
+	/*visibility: hidden;*/
 	opacity: 0;
 	z-index: -1;
 }
@@ -161,7 +164,7 @@ img {
 .destacados {
 	width: 100%;
 	text-align: center;
-	margin-top: 5%;
+	margin-top: 3%;
 }
 
 #top3 {
@@ -279,12 +282,10 @@ img {
 
 .contact-form {
 	flex: 1;
-	padding: 40px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	background-color: #225C85;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-	margin-right: 20px;
 	height: 400px;
 	width: 40%;
 	margin: 0 auto;
@@ -330,7 +331,7 @@ button[type="submit"]:hover {
 }
 
 footer {
-	background-color: #f0f0f0;
+	/*background-color: #f0f0f0;*/
 	padding: 40px;
 	color: rgb(255, 255, 255);
 	background-color: #345063;

@@ -23,7 +23,6 @@ nav {
 }
 
 h1 {
-	font-size: 1.5em;
 	text-align: center;
 	margin-left: 38%;
 	font-size: 2rem;
@@ -65,7 +64,7 @@ nav a:hover {
 }
 
 .company img {
-	border: 2px solid rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 6px rgb(50, 48, 48, 0.7);
 	border-radius: 50px;
 	width: 150px;
 	height: 150px;
@@ -79,6 +78,6 @@ nav a:hover {
 }
 
 .company:hover img {
-	box-shadow: 3px 6px rgb(50, 48, 48, 0.7);
-	border: 2px solid black;
+	box-shadow: 5px 8px 5px rgb(0, 0, 0);
+	/*border: 2px solid black;*/
 }

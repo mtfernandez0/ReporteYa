@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link th:href="@{/css/auth.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{css/login.css}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
-<body data-bs-theme="dark">
-    <div class="container-fluid bg-dark bg-gradient py-4">
-        <div class="w-75 mx-auto">
+
+<body>
+    <nav>
+        <a href="/home">Inicio</a>
+    </nav>
+    <div class="login-container">
+        <div class="wrapper">
             <form th:action="@{/login}" method="post">
                 <div class="d-flex justify-content-center text-center" th:if="${param.error}">
-                    <p class="bg-danger p-2 text-white rounded-3" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}"></p>
+                    <p class="bg-danger p-2 text-white rounded-3" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">
+                    </p>
                 </div>
-                <div class="d-flex justify-content-center text-center" th:if="${register}">
-                    <p class="bg-success p-2 text-white rounded-3" th:text="${register}"></p>
+
+                <div th:if="${register}">
+                    <p th:text="${register}"></p>
                 </div>
-                <div class="d-flex justify-content-center text-center" th:if="${param.logout}">
-                    <p class="bg-success p-2 text-white rounded-2">Deslogueado correctamente</p>
+
+                <h1>Login</h1>
+                <div class="input-box">
+
+                    <input type="email" placeholder="Email" id="email" name="email" autofocus th:value="${email}"
+                           requerid>
+                    <i class='bx bxl-gmail'></i>
                 </div>
-                <h2 class="text-center display-6">Login</h2>
-                <div class="mb-3">
-                    <label class="form-label" for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" autofocus th:value="${email}"/>
+                <div class="input-box">
+                    <input type="password"
+                           placeholder="Password" id="password" name="password"
+                           required>
+                    <i class='bx bx-lock'></i>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password"/>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Recuerdame</label>
+
                 </div>
-                <div class="mb-3 text-center">
-                    <input type="checkbox" id="remember-me" name="remember-me" class="col-form-label"/>
-                    <label for="remember-me">Recordarme</label>
+                <button type="submit" id="button" value="Acceder">Login</button>
+                <div class="register-link">
+                    <p>Aún no tienes cuenta? <a th:href="@{/register}">Registrate</a></p>
+
                 </div>
-                <div class="mb-3 text-center">
-                    <input type="submit" class="btnSubmit" value="Acceder"/>
-                </div>
-                <div id="accountLink" class="mb-3 text-center">
-                    <a>Aún no tienes una cuenta?&nbsp;</a>
-                    <a th:href="@{/register}" class="btnForgetPwd">Registrate aquì</a>
-                </div>
-                
             </form>
         </div>
     </div>

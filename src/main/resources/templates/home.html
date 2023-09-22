@@ -49,7 +49,7 @@
 	<div class="wrappDestacados">
 		<section class="destacados">
 			<div>
-				<h2 id="top3">Reportes destacados</h2>
+				<h2 id="top3">Ultimos Reportes</h2>
 			</div>
 		</section>
 
@@ -115,9 +115,14 @@
 						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
 					</div>
 				</div>
-			</div>
+	<!--	<section class="fondo-morado">
+			<div class="carta" th:each="report : ${reports}">
+				<img th:src="@{/images/reports/{name}(name=${report.images.get(0).nombre})}" alt="img"></img>
+				<h4 th:text="${report.title}"></h4>
+				<p th:text="${report.description}"></p>
+			</div>   -->
 
-		</div>
+		</div> 
 
 	</div>
 
@@ -135,6 +140,7 @@
 				seguro y funcional para todos.</p>
 		</div>
 	</section>
+
 	<section class="contact-section">
 		<div class="contact-form">
 			<h2>Soporte</h2>

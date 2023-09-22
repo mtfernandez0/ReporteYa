@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link th:href="@{/css/auth.css}" rel="stylesheet">
+    <link th:href="@{css/register.css}" rel="stylesheet">
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
+<body>
+    <nav>
+        <a href="/home">Inicio</a>
+    </nav>
+    <div class="register-container">
+        <div class="wrapper">
+            <form th:action="@{/register}" method="post" th:obeject="${user}">
+                <h1>Registrarse</h1>
+                <div th:if="${register}">
+                </div>
 
-<body data-bs-theme="dark">
-    <div class="container-fluid bg-dark bg-gradient py-4">
-        <div class="w-75 mx-auto">
-<!--            <div class="d-flex flex-row-reverse">-->
-<!--                <a href="/" class="btn btn-outline-secondary">Home</a>-->
-<!--            </div>-->
-            <form th:action="@{/register}" method="post" th:object="${user}">
-                <h2 class="text-center display-6">Registro</h2>
-                <div class="mb-3">
-                    <label class="form-label" for="first_name">Nombre</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name"
-                           autofocus required th:value="${user.first_name}"/>
-                    <p class="text-danger p-0" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"></p>
+                <div class="input-box">
+                    <h6>+ + + + + + + </h6>
+                    <input type="text" placeholder="Nombre" id="first_name" name="first_name" required
+                           th:value="${user.first_name}">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="last_name">Apellido</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" required th:value="${user.first_name}"/>
-                    <p class="text-danger p-0" th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}"></p>
+
+                <div class="input-box">
+                    <h6>+ + + + + + + </h6>
+                    <input type="text" placeholder="Apellido" id="last_name" name="last_name"
+                           required th:value="${user.last_name}">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="date_of_birth">Fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
-                           required th:value="${user.date_of_birth}"/>
-                    <p class="text-danger p-0" th:if="${#fields.hasErrors('date_of_birth')}" th:errors="*{date_of_birth}"></p>
+
+                <div class="input-box">
+                    <h6> + + + + + + + </h6>
+                    <input type="email" placeholder="Email" id="email" name="email"
+                           required th:value="${user.email}"/>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required th:value="${user.email}"/>
-                    <p class="text-danger p-0" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                <div class="input-box">
+                    <h6>Fecha de nacimiento:</h6>
+                    <input type="date" id="date_of_birth" name="date_of_birth"
+                           required th:value="${user.date_of_birth}">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" required/>
-                    <p class="text-danger p-0" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                <div class="input-box">
+                    <h6> + + + + + + + </h6>
+                    <input type="password" placeholder="Contraseña" id="password" name="password"
+                           required>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="passwordConfirmation">Confirmar Contraseña</label>
-                    <input type="password" class="form-control" id="passwordConfirmation"
-                           required name="passwordConfirmation"/>
-                    <p class="text-danger p-0" th:if="${#fields.hasErrors('passwordConfirmation')}"
-                       th:errors="*{passwordConfirmation}"></p>
+                <div class="input-box">
+                    <h6> + + + + + + + </h6>
+                    <input type="password" placeholder="Confirmar contraseña" id="passwordConfirmation"
+                           required name="passwordConfirmation">
                 </div>
-                <div class="mb-3 text-center my-2">
-                    <input type="submit" class="btnSubmit" value="Registrarse"/>
+                <div>
+                    <button type="submit" value="Registrarse" id="button">Registrarse</button>
                 </div>
-                <div class="mb-3 text-center">
-                    <a th:href="@{/login}" class="btnForgetPwd">Ya tienes una cuenta?</a>
+                <div class="url">
+                    <a th:href="@{/login}"><p>¿Ya tienes una cuenta?</p></a>
                 </div>
             </form>
         </div>
     </div>
 </body>
 </html>
+
