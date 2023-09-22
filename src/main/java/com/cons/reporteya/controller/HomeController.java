@@ -36,9 +36,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String home(Model model,Principal principal ) {
-		/*User us = userService.findByEmail(principal.getName());
-		model.addAttribute("usuario",us);*/
+	public String home(Model model) {
+		model.addAttribute("reports", reportService.findAllHighlightedReports());
 		return "home";
 	}
 
@@ -54,11 +53,15 @@ public class HomeController {
 			return "redirect:/profile";
 		}
 
+//		if (user.getReports().size() == 3){
+//			attributes.addFlashAttribute("newReportNoContact", true);
+//			return "redirect:/profile";
+//		}
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ReportDto> reportDtos = new ArrayList<>();
-		List<Report> reports = reportService.findAll();
+		List<Report> reports = reportService.findAllByCreatorContactPostcode(user.getContact().getPostcode());
 		for (Report report : reports) reportDtos.add(ReportDto.ReportToDto(report));
-
 
 		ContactDto contactDto = new ContactDto().contactToContactDto(user.getContact());
 
@@ -66,5 +69,4 @@ public class HomeController {
 		model.addAttribute("reports", objectMapper.writeValueAsString(reportDtos));
 		return "map";
 	}
-
 }

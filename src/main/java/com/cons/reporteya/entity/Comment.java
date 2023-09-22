@@ -31,6 +31,10 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "report_id")
 	private Report report;
+	
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
 
 	@Column(nullable = false)
 	private Date created_at;
@@ -47,5 +51,4 @@ public class Comment {
 	private void onUpdate() {
 		this.updated_at = new Date();
 	}
-
 }
