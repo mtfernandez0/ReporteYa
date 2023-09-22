@@ -113,6 +113,12 @@ h2 {
 	padding: 3%;
 }
 
+img {
+	max-width: 100%;
+	display: block;
+	object-fit: cover;
+}
+
 .content {
 	display: flex;
 	justify-items: center;
@@ -154,58 +160,82 @@ h2 {
 
 .destacados {
 	width: 100%;
-	font-weight: 400;
 	text-align: center;
 	margin-top: 5%;
 }
 
 #top3 {
 	font-size: 30px;
+	font-weight: 600;
 	color: #f0f0f0;
-	padding-top: 40px;
+	padding: 40px;
 }
 
 .wrappDestacados {
 	background-color: #071952;
 	padding-bottom: 30px;
+	height: fit-content;
 }
 
-.fondo-morado {
-	margin: 20px;
+.container {
 	display: flex;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	grid-gap: 20px;
-	margin-left: 20%;
+	flex-wrap: wrap;
+	justify-content: center;
+	max-width: 1200px;
+	margin-block: 2rem;
+	gap: 2rem;
 }
 
-.fondo-morado .carta {
-	margin: 10px;
-	background-color: rgb(255, 255, 255);
+.card {
+	display: flex;
+	flex-direction: column;
+	width: clamp(20rem, calc(20rem + 2vw), 22rem);
+	overflow: hidden;
+	box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+	border-radius: 1em;
+
+}
+
+.card__body {
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+}
+
+.card__body h4 {
+	font-size: 1.5rem;
+}
+
+
+.texto p {
+	max-height: 100px;
+	overflow: hidden;
+	position: relative;
+}
+
+.texto.mostrar p {
+	max-height: none;
+}
+
+.mostrarMas {
+
+	background-color: #1c2f4f;
+	color: white;
+	border: none;
+	padding: 10px 20px;
 	border-radius: 5px;
-	padding: 15px;
-	text-align: center;
-	box-shadow: 0 1px 10px 0 rgb(68, 68, 68);
-
-	--bg-color: #B8F9D3;
-	--bg-color-light: #e2fced;
-	--text-color-hover: #4C5656;
-	--box-shadow-color: rgba(184, 249, 211, 0.48);
-
+	cursor: pointer;
+	font-size: 16px;
 }
 
-.fondo-morado .carta img {
-	max-width: 100%;
-	height: 188px;
-	border-radius: 5px;
-	margin-top: 10px;
-	margin-bottom: 15px;
+.mostrarMas:hover {
+
+	background-color: #003d6b;
 }
 
-.fondo-morado .carta p {
-	margin-top: 10px;
-	font-size: 19px;
-	color: rgb(40, 68, 115);
+.texto.mostrar button {
+	display: none;
 }
 
 .about-us {
@@ -259,7 +289,6 @@ h2 {
 	width: 40%;
 	margin: 0 auto;
 	margin-top: 100px;
-	margin-bottom: 30px;
 	padding: 20px;
 	color: #f0f0f0;
 }
