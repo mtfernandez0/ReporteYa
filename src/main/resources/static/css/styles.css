@@ -196,7 +196,13 @@ h2 {
 	--bg-color-light: #e2fced;
 	--text-color-hover: #4C5656;
 	--box-shadow-color: rgba(184, 249, 211, 0.48);
+}
 
+.carta{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .fondo-morado .carta img {

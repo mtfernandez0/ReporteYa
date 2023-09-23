@@ -2,6 +2,8 @@ package com.cons.reporteya.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,6 +24,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "archivos")
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -10,9 +10,12 @@ import java.util.stream.Collectors;
 
 import com.cons.reporteya.entity.*;
 import com.cons.reporteya.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -229,10 +232,19 @@ public class ReportController {
 	 * @return
 	 */
 	@GetMapping("/{i}")
-	private ResponseEntity<Page<Report>> reportsPerPage(@PathVariable Integer i){
+	public ResponseEntity<?> reportsPerPage(@PathVariable Integer i) throws JsonProcessingException {
 
 		if (i == null || i < 0) return ResponseEntity.badRequest().build();
 
-		return ResponseEntity.ok(reportService.reportsPerPage(i));
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		Page<Report> reports = reportService.reportsPerPage(i);
+
+		List<String> reportJsonList = new ArrayList<>();
+
+		for (Report report : reports)
+			reportJsonList.add(objectMapper.writeValueAsString(report));
+
+		return ResponseEntity.ok(objectMapper.writeValueAsString(reportJsonList));
 	}
 }

@@ -40,18 +40,13 @@ public class Contact {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	
-
-
 	@PrePersist
 	private void onCreate() {
 		this.created_at = new Date();
 		this.updated_at = new Date();
 	}
-
 	@PreUpdate
 	private void onUpdate() {
 		this.updated_at = new Date();
 	}
-
 }

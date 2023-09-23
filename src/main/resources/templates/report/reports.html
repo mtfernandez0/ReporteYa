@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/reports.css}"/>
 </head>
-<body style="background-image: url('/images/AdobeStock_638760385.jpeg')">
+<body style="background-image: url('/images/AdobeStock_614864168.jpeg')">
     <div class="heading-container">
         <h4>Reportes</h4>
     </div>
@@ -48,7 +48,6 @@
 
         <div class="reports">
             <div class="news-card" th:each="report, reportIndex : ${reports}">
-
                 <div th:id="${'myCarousel' + reportIndex.index}" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div th:each="image, imageIndex : ${report.images}" th:class="'carousel-item ' + ${imageIndex.index == 0 ? 'active' : ''}">
@@ -70,12 +69,47 @@
                 </div>
                 <div class="news-content">
                     <div class="news-title" th:text="${report.title}"></div>
+                    <div class="news-author" th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></div>
                     <div class="news-description" th:text="${report.description}"></div>
                     <div class="reports-tags">
                         <span th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}">
                         </span>
                     </div>
+                    <h4>Comentarios</h4>
+                    <div class="comments-box">
+                        <div class="comments" th:each="comment : ${report.comments}">
+                            <div th:if="${user.id == comment.owner.id}" class="author-comment comment">
+                                <span th:text="${comment.comment}"></span>
+                            </div>
+                            <div th:if="${!(user.id == comment.owner.id)}" class="user-comment comment">
+                                <span class="comment-name" th:text="${comment.company != null ?
+                                    comment.company.name : comment.owner.first_name + ' ' +  comment.owner.last_name}"></span>
+                                <br>
+                                <span th:text="${comment.comment}"></span>
+                            </div>
+                        </div>
+                        <form id="commentForm" th:action="@{'/reports/dashboard'}" method="post">
+                            <input type="hidden" name="id" th:value="${report.id}" />
+                            <textarea name="comment" rows="2" required placeholder="Deja tu opinión..."></textarea>
+                            <div class="input-comments">
+                                <div th:if="${user.getCompany() == null}">
+                                    <button type="submit">Comentar</button>
+                                </div>
+                                <div th:if="${user.getCompany() != null}">
+                                    <button type="button"
+                                            onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>
+                                    <button type="button"
+                                            onclick="setAction(this, '/reports/dashboardEmp')"
+                                            th:text="${'Comenta como ' + user.getCompany().name}"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+            <div id="see-more">
+                <hr>
+                <p>Ver más</p>
             </div>
         </div>
 
@@ -83,41 +117,6 @@
             <h2>Anuncios</h2>
         </div>
     </div>
-<!--                        <div class="comments-box">-->
-<!--                            <p class="text-white comments" th:each="comment : ${report.comments}">-->
-<!--                                <span class="comment-name"-->
-<!--                                      th:text="${comment.company != null ?-->
-<!--                                      comment.company.name :-->
-<!--                                      comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>-->
-<!--                                <br>-->
-<!--                                <span th:text="${comment.comment}"></span>-->
-<!--                            </p>-->
-<!--                            <form id="commentForm" th:action="@{'/reports/dashboard'}" method="post">-->
-<!--                                <input type="hidden" name="id" th:value="${report.id}" />-->
-<!--                                <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>-->
-<!--                                <div class="input-comments">-->
-<!--                                    <div th:if="${user.getCompany() == null}">-->
-<!--                                        <button type="submit" class="btn btn-outline-dark text-white mt-2">Comentar</button>-->
-<!--                                    </div>-->
-<!--                                    <div th:if="${user.getCompany() != null}">-->
-<!--                                        <button type="button" class="btn btn-outline-dark text-white mt-2"-->
-<!--                                                onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>-->
-<!--                                        <button type="button" class="btn btn-outline-dark text-white mt-2"-->
-<!--                                                onclick="setAction(this, '/reports/dashboardEmp')"-->
-<!--                                        th:text="${'Comenta como ' + user.getCompany().name}"></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div id="see-more">-->
-<!--                    <hr>-->
-<!--                    <p>Ver más</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </body>
 <script>
     /**
@@ -129,35 +128,57 @@
         formElement.form.action = action;
         formElement.form.submit();
     }
-    // let currentPage = 0;
-    //
-    // let see_more = document.getElementById("see-more");
-    //
-    // see_more.addEventListener('click', () => {
-    //     currentPage++;
-    //     (async () => {
-    //         try {
-    //             const data = await $.ajax({
-    //                 type: "GET",
-    //                 url: "/reports/" + currentPage
-    //             })
-    //             console.log(data);
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     })();
-    // })
+
+    let currentPage = 0;
+
+    let see_more = document.getElementById("see-more");
+
+    see_more.addEventListener('click', async () => {
+        currentPage++;
+        try {
+            const response = await fetch(`/reports/${currentPage}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+
+            console.log(data);
+
+            data.forEach(jsonString => {
+                const report = JSON.parse(jsonString);
+
+                console.log(report.title);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
     const reportCards = document.querySelectorAll('.news-card');
 
+    /**
+     * It will apply blur to cards that exceed their max-height
+     * @param reportCard
+     */
     function applyBlurIfNeeded(reportCard) {
         const maxHeight = 400;
         const content = reportCard.querySelector('.news-content')
         const carousel = reportCard.querySelector('.carousel')
 
         if (carousel.offsetHeight + content.offsetHeight > maxHeight) {
+            const button = document.createElement('button');
+            button.classList.add('more-info');
+            button.innerText = "Mostrar mas";
             const blurOverlay = document.createElement('div');
             blurOverlay.classList.add('blur-overlay');
             reportCard.appendChild(blurOverlay);
+            reportCard.appendChild(button);
+            button.addEventListener('click', () => {
+                reportCard.classList.add('news-card-full')
+                reportCard.removeChild(blurOverlay);
+                reportCard.removeChild(button);
+            });
         }
     }
 
