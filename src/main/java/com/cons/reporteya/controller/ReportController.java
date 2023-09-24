@@ -10,12 +10,9 @@ import java.util.stream.Collectors;
 
 import com.cons.reporteya.entity.*;
 import com.cons.reporteya.service.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -204,47 +201,55 @@ public class ReportController {
 		return "redirect:/reports";
 	}
 
-	@GetMapping("")
-	public String reports(Model model, Principal principal) {
-		model.addAttribute("reports", reportService.reportsPerPage(0));
-		model.addAttribute("user", userService.findByEmail(principal.getName()));
-		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+	@GetMapping(value = {"/{page}", ""})
+	public String reports(Model model,
+						  Principal principal,
+						  HttpServletRequest request,
+						  @PathVariable(required = false) Integer page) {
+
+		if (page == null || page < 0) page = 0;
+
+		User user = userService.findByEmail(principal.getName());
+		Page<Report> reports = reportService.reportsPerPage(page);
+		model.addAttribute("tagId", null);
+		model.addAttribute("currentPage", page);
+
+		generateModelForDashboard(model, reports, request, user);
+
 		return "report/reports";
 	}
 
-	@GetMapping("/tags/{id}")
+	@GetMapping(value = {"/tags/{id}", "/tags/{id}/{page}"})
 	public String reportsByTag(@PathVariable Long id,
+							   @PathVariable(required = false) Integer page,
+							   HttpServletRequest request,
 							   Model model,
 							   Principal principal) {
 
+		User user = userService.findByEmail(principal.getName());
+
+		if (page == null || page < 0) page = 0;
+
 		if (tagService.findById(id).isEmpty()) return "redirect:/reports";
 
-		model.addAttribute("reports", reportService.findAllByTagsIdOrderByCreationDesc(id));
-		model.addAttribute("user", userService.findByEmail(principal.getName()));
-		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+		model.addAttribute("tagId", id);
+		model.addAttribute("currentPage", page);
+
+		Page<Report> reports = reportService.findAllByTagsIdOrderByCreationDesc(id, page);
+
+		generateModelForDashboard(model, reports, request, user);
 
 		return "report/reports";
 	}
 
-	/**
-	 * Endpoint that returns the i-th page of reports
-	 * @param i
-	 * @return
-	 */
-	@GetMapping("/{i}")
-	public ResponseEntity<?> reportsPerPage(@PathVariable Integer i) throws JsonProcessingException {
-
-		if (i == null || i < 0) return ResponseEntity.badRequest().build();
-
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		Page<Report> reports = reportService.reportsPerPage(i);
-
-		List<String> reportJsonList = new ArrayList<>();
-
-		for (Report report : reports)
-			reportJsonList.add(objectMapper.writeValueAsString(report));
-
-		return ResponseEntity.ok(objectMapper.writeValueAsString(reportJsonList));
+	private void generateModelForDashboard(Model model,
+										   Page<Report> reports,
+										   HttpServletRequest request,
+										   User user){
+		model.addAttribute("reports", reports);
+		model.addAttribute("request", request);
+		model.addAttribute("pages", reports.getTotalPages());
+		model.addAttribute("user", user);
+		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 	}
 }

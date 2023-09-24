@@ -80,6 +80,9 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
 
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Comment> comments;
+
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
 	private Company company;
 

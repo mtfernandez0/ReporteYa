@@ -329,34 +329,33 @@ textarea{
     border-radius: 15px;
 }
 
+.input-comments{
+    display: flex;
+}
+
 .form-emp{
     display: none;
 }
 
-#see-more{
-    margin: 15px 20px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 20px;
+.arrows{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#see-more hr{
-    width: 40%;
-    margin: 12px auto;
-    border: 3px solid #ffffff;
-    border-radius: 4px;
+.arrows a{
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    margin: 10px;
     transition: 0.3s;
 }
 
-#see-more p{
-    color: #ffffff;
-    transition: 0.3s;
-}
-
-#see-more:hover hr{
-    border: 3px solid #00ff9b;
-}
-
-#see-more:hover p{
-    color: #00ff9b;
+.arrows a:hover{
+    color: #30d9ce;
+    background-color: black;
+    margin: 6px 10px;
+    padding: 4px 14px;
+    border-radius: 12px;
 }

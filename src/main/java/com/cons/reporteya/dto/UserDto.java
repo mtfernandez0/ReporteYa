@@ -1,6 +1,5 @@
 package com.cons.reporteya.dto;
 
-import com.cons.reporteya.entity.Contact;
 import com.cons.reporteya.entity.User;
 import lombok.*;
 
@@ -10,6 +9,7 @@ import java.util.Date;
 @Builder
 public class UserDto {
 
+    private Long id;
     private String first_name;
 
     private String last_name;
@@ -20,6 +20,7 @@ public class UserDto {
 
     public UserDto userToUserDto(User user){
         return UserDto.builder()
+                .id(user.getId())
                 .first_name(user.getFirst_name())
                 .last_name(user.getLast_name())
                 .date_of_birth(user.getDate_of_birth())

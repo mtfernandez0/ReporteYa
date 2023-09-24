@@ -39,8 +39,11 @@ public class ReportService {
 		return reportRepository.findAllHighlightedReports();
 	}
 
-	public List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId){
-		return reportRepository.findAllByTagsIdOrderByCreationDesc(tagId);
+	public Page<Report> findAllByTagsIdOrderByCreationDesc(Long tagId, int pageNumber){
+		PageRequest pageRequest = PageRequest.of(
+				pageNumber,
+				PAGE_SIZE);
+		return reportRepository.findAllByTagsIdOrderByCreationDesc(tagId, pageRequest);
 	}
 
 	public Report createReport(Report report, List<String> subjects) {
