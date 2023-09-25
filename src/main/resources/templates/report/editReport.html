@@ -1,10 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Editar Reporte</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/newReport.css}"/>
+	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-image: url('/images/AdobeStock_638760385.jpeg')">
+	<nav>
+		<a href="/home">Inicio</a>
+		<a href="/reports">Reportes</a>
+		<a href="/map">Crear reporte</a>
+		<a href="/profile">Cuenta</a>
+		<a href="/companies">Compañías</a>
+	</nav>
+	<div class="main-container">
+		<h1>Reporte</h1>
+		<form th:action="@{/reports/edit}" th:method="put" th:object="${report}" enctype="multipart/form-data">
+			<input type="hidden" name="country" th:value="${marker.country}">
+			<input type="hidden" name="postcode" th:value="${marker.postcode}">
+			<input type="hidden" name="location_name" th:value="${marker.location_name}">
+			<input type="hidden" name="latitude" th:value="${marker.latitude}">
+			<input type="hidden" name="longitude" th:value="${marker.longitude}">
 
+			<div class="my-3 normal">
+				<label for="title">Encabezado <span class="text-danger">*</span></label>
+				<input type="text" name="title" id="title" required th:value="${report.title}" autofocus>
+				<p class="text-danger" th:if="${#fields.hasErrors('title')}">
+					<span class="row" th:each="error : ${#fields.errors('title')}" th:text="${error}"></span>
+				</p>
+			</div>
+
+			<div class="mb-3 normal">
+				<label for="description">Detalles del reporte <span class="text-danger">*</span></label>
+				<textarea id="description" name="description" required rows="4" th:value="${report.description}"></textarea>
+				<p class="text-danger" th:if="${#fields.hasErrors('description')}">
+					<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
+				</p>
+			</div>
+
+			<div class="mb-3 normal">
+				<label for="additional_directions">Direcciones Adicionales</label>
+				<input type="text" name="additional_directions" id="additional_directions"
+					   th:value="${report.additional_directions == null ? marker.location_name : report.additional_directions}">
+			</div>
+
+			<div class="mb-3">
+				<p>Tags</p>
+				<div id="tags-div" class="d-flex gap-2">
+					<div id="tag-input-container" style="display: none;">
+						<textarea class="px-2 rounded-3 bg-dark text-white" type="text" id="tag-input" rows="1"></textarea>
+					</div>
+					<p id="tag" class="tags-checks">&#43;</p>
+				</div>
+				<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
+					<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
+				</p>
+			</div>
+
+			<div class="d-flex gap-3 align-items-center mb-3">
+				<p class="text-danger" th:if="${maxUploadSizeExceeded != null}">
+					Imagen muy pesada. (hasta 2000KB por imagen)
+				</p>
+				<p class="text-danger" th:if="${#fields.hasErrors('images')}">
+					<span class="row" th:each="error : ${#fields.errors('images')}" th:text="${error}"></span>
+				</p>	     		<label class="btn btn-outline-dark text-white" for="files">Subir fotos</label>
+				<input type="file" id="files" name="files" style="display:none;" accept="image/png, image/jpeg" multiple />
+				<p id="text-files-space" class="m-0" ></p>
+			</div>
+			<input class="btnSubmit text-center" type="submit" value="Editar">
+		</form>
+	</div>
 </body>
+<script>
+	$(document).ready(function () {
+		$('#files').change(() => {
+			let i = $(this).prev('label').clone();
+			let files = $('#files')[0].files;
+			let text = "";
+			if (files.length === 1) text = files[0].name;
+			else if (files.length > 5) text = "Solo puede seleccionar hasta 5 archivos."
+			else text = files.length + ' archivos seleccionados.';
+			document.getElementById("text-files-space").innerHTML = text;
+		});
+	});
+
+	const tagContainer = document.getElementById('tags-div');
+	const tagButton = document.getElementById('tag');
+	const tagInputContainer = document.getElementById('tag-input-container');
+	const tagInput = document.getElementById('tag-input');
+
+	tagButton.addEventListener('click', () => {
+		if (document.getElementsByName('tags').length === 5) return;
+		if (tagInputContainer.style.display === 'none') {
+			tagInputContainer.style.display = 'block';
+			tagInput.focus();
+		} else {
+			addTag(tagInput.value.trim());
+		}
+	});
+
+	tagInput.addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') {
+			addTag(tagInput.value.trim());
+		}
+	});
+
+	function addTag(tagText) {
+		if (tagText !== '') {
+			const checkbox = document.createElement('input');
+			checkbox.type = 'checkbox';
+			checkbox.name = 'tag';
+			checkbox.value = tagText;
+			checkbox.className = 'custom-checkbox';
+			checkbox.checked = true;
+
+			const p = document.createElement('p');
+			p.className = 'tags-checks checks';
+			p.textContent = '#' + tagText;
+
+			p.addEventListener('click', () => {
+				checkbox.remove();
+				p.remove();
+			});
+
+			tagContainer.insertAdjacentElement('afterbegin', checkbox);
+			tagContainer.insertAdjacentElement('afterbegin', p);
+
+			tagInput.value = '';
+			tagInputContainer.style.display = 'none';
+		}
+	}
+
+</script>
 </html>
