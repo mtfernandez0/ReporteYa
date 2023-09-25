@@ -18,12 +18,7 @@
 	</nav>
 	<div class="main-container">
 		<h1>Reporte</h1>
-		<form th:action="@{/reports/edit}" th:method="put" th:object="${report}" enctype="multipart/form-data">
-			<input type="hidden" name="country" th:value="${marker.country}">
-			<input type="hidden" name="postcode" th:value="${marker.postcode}">
-			<input type="hidden" name="location_name" th:value="${marker.location_name}">
-			<input type="hidden" name="latitude" th:value="${marker.latitude}">
-			<input type="hidden" name="longitude" th:value="${marker.longitude}">
+		<form th:action="@{reports/edit}" th:method="put" th:object="${report}" enctype="multipart/form-data">
 
 			<div class="my-3 normal">
 				<label for="title">Encabezado <span class="text-danger">*</span></label>
@@ -35,7 +30,7 @@
 
 			<div class="mb-3 normal">
 				<label for="description">Detalles del reporte <span class="text-danger">*</span></label>
-				<textarea id="description" name="description" required rows="4" th:value="${report.description}"></textarea>
+				<textarea id="description" name="description" required rows="4" th:text="${report.description}"></textarea>
 				<p class="text-danger" th:if="${#fields.hasErrors('description')}">
 					<span class="row" th:each="error : ${#fields.errors('description')}" th:text="${error}"></span>
 				</p>
