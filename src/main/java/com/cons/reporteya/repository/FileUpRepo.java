@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FileUpRepo extends CrudRepository<FileUp, Long>{
 
+	void deleteAllByReporteId(Long report_id);
+	
 }
