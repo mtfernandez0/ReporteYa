@@ -3,6 +3,8 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,9 +48,9 @@ public class User {
 	@Size(max = 255)
 	private String last_name;
 
-//    @NotNull
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//    private Date date_of_birth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    private Date date_of_birth;
 
 	
 

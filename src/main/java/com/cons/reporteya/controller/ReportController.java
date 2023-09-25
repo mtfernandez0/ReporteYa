@@ -235,4 +235,12 @@ public class ReportController {
 
 		return ResponseEntity.ok(reportService.reportsPerPage(i));
 	}
+	
+	@GetMapping("/my/report")
+	public String myReport(Model model) {
+//		model.addAttribute("user", userService.findByEmail(principal.getName()));
+		List<Report> reportes = reportService.findAll();
+		model.addAttribute("reports", reportes);
+		return "report/myreports";
+	}
 }

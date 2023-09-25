@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Reporte Ya</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Ya</title>
 </head>
 
 <body>
@@ -25,19 +26,19 @@
 			<h1>REPORTE YA</h1>
 		</div>
 	</header>
-	<div>
-
-	</div>
+	<div></div>
 	<section class="info">
 
 		<div class="content">
 			<div class="nuevo-div w-50">
 				<h2 class="otro-h2">Qué es ReporteYa?</h2>
-				<p class="parrafo">ReporteYa es una aplicación que se compromete a resolver la inconformidad de
-					las personas a través de procesos transparentes y comunicación efectiva,
-					además de poder ser un puente entre los usuarios y las pymes para que estas
-					últimas puedan solucionar las necesidades de los usuarios. Nuestro propósito
-					es poder transformar comunidades y fomentar la participación ciudadana.</p>
+				<p class="parrafo">ReporteYa es una aplicación que se compromete
+					a resolver la inconformidad de las personas a través de procesos
+					transparentes y comunicación efectiva, además de poder ser un
+					puente entre los usuarios y las pymes para que estas últimas puedan
+					solucionar las necesidades de los usuarios. Nuestro propósito es
+					poder transformar comunidades y fomentar la participación
+					ciudadana.</p>
 			</div>
 			<div class="illustracion">
 				<img src="/images/Cityscapes Downtown.png">
@@ -54,7 +55,9 @@
 		</section>
 		<section class="fondo-morado">
 			<div class="carta" th:each="report : ${reports}">
-				<img th:src="@{/images/reports/{name}(name=${report.images.get(0).nombre})}" alt="img"></img>
+				<img th:if="${!report.images.isEmpty()}"
+					th:src="@{/images/reports/{name}(name=${report.images.get(0).nombre})}"
+					alt="img"></img>
 				<h4 th:text="${report.title}"></h4>
 				<p th:text="${report.description}"></p>
 			</div>
@@ -64,27 +67,33 @@
 	<section class="about-us">
 		<div class="about-content">
 			<h2>Sobre Nosotros</h2>
-			<p>Nos enorgullecemos de trabajar en estrecha colaboración con las autoridades locales y la comunidad para
-				abordar de manera efectiva los desafíos de infraestructura. Cada miembro de nuestro equipo aporta su
-				experiencia única y dedicación para garantizar que cada proyecto se lleve a cabo con los más altos
-				estándares de calidad y seguridad. Juntos, estamos comprometidos a construir un entorno urbano más
-				seguro y funcional para todos.</p>
+			<p>Nos enorgullecemos de trabajar en estrecha colaboración con
+				las autoridades locales y la comunidad para abordar de manera
+				efectiva los desafíos de infraestructura. Cada miembro de nuestro
+				equipo aporta su experiencia única y dedicación para garantizar que
+				cada proyecto se lleve a cabo con los más altos estándares de
+				calidad y seguridad. Juntos, estamos comprometidos a construir un
+				entorno urbano más seguro y funcional para todos.</p>
 		</div>
 	</section>
 
 	<section class="contact-section">
 		<div class="contact-form">
 			<h2>Soporte</h2>
-			<p>Si tiene algún inconveniente o comentario deje sus datos y nos comunicaremos con usted</p>
+			<p>Si tiene algún inconveniente o comentario deje sus datos y nos
+				comunicaremos con usted</p>
 			<form>
 				<div class="form-group">
-					<input type="text" placeholder="Nombre" id="nombre" name="nombre" required>
+					<input type="text" placeholder="Nombre" id="nombre" name="nombre"
+						required>
 				</div>
 				<div class="form-group">
-					<input type="email" placeholder="Email" id="email" name="email" required>
+					<input type="email" placeholder="Email" id="email" name="email"
+						required>
 				</div>
 				<div class="form-group">
-					<input type="tel" placeholder="Teléfono" id="telefono" name="telefono">
+					<input type="tel" placeholder="Teléfono" id="telefono"
+						name="telefono">
 				</div>
 				<!--				<div class="form-group">-->
 				<!--					<label for="mensaje">Mensaje:</label>-->
@@ -105,23 +114,15 @@
 			<div class="row">
 				<div class=" col-md-4">
 					<h3>Déjenos ayudarle</h3>
-					<p class="variat pad_roght2">There are many variat
-						ions of passages of L
-						orem Ipsum available
-						, but the majority h
-						ave suffered altera
-						tion in some form, by
-					</p>
+					<p class="variat pad_roght2">There are many variat ions of
+						passages of L orem Ipsum available , but the majority h ave
+						suffered altera tion in some form, by</p>
 				</div>
 				<div class="col-md-4">
 					<h3>Nuestro diseño</h3>
-					<p class="variat">There are many variat
-						ions of passages of L
-						orem Ipsum available
-						, but the majority h
-						ave suffered altera
-						tion in some form, by
-					</p>
+					<p class="variat">There are many variat ions of passages of L
+						orem Ipsum available , but the majority h ave suffered altera tion
+						in some form, by</p>
 				</div>
 			</div>
 		</div>

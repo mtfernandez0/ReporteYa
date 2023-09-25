@@ -33,46 +33,34 @@ import lombok.Setter;
 @Builder
 public class Contact {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String number;
-	
-	@NotBlank
-	@Size(max = 255)
-	private String address;
-	
-	private String email;
+    private String number;
 
+    private String country;
 
+    private String postcode;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "User_id")
-	private User user;
-	
+    private String location_name;
 
-	@Column(nullable = false)
-	private Date created_at;
+    @Column(nullable = false)
+    private Date created_at;
 
-	private Date updated_at;
+    private Date updated_at;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	
-
-
-	@PrePersist
-	private void onCreate() {
-		this.created_at = new Date();
-		this.updated_at = new Date();
-	}
-
-	@PreUpdate
-	private void onUpdate() {
-		this.updated_at = new Date();
-	}
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+    @PrePersist
+    private void onCreate() {
+        this.created_at = new Date();
+        this.updated_at = new Date();
+    }
+    @PreUpdate
+    private void onUpdate() {
+        this.updated_at = new Date();
+    }
 }
