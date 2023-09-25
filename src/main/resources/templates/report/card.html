@@ -27,8 +27,8 @@
         </div>
         <div class="news-content">
         <div th:if="${request.getRequestURI().contains('user')}">
-        <button type="submit">Comentar</button>
-        <button type="submit">Comentar</button>
+        <a th:href="@{'/reports/edit/' + ${report.Id}}">Editar</a>
+        <button type="submit">Eiminar</button>
         </div>
             <div class="news-title" th:text="${report.title}"></div>
             <div class="news-author" th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></div>
