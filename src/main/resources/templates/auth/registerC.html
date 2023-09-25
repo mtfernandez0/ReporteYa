@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign out</title>
+    <link th:href="@{/css/auth.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</head>
+<body data-bs-theme="dark">
+    <div class="container-fluid bg-dark bg-gradient py-4">
+        <div class="w-75 mx-auto">
+<!--            <div class="d-flex flex-row-reverse">-->
+<!--                <a href="/" class="btn btn-outline-secondary">Home</a>-->
+<!--            </div>-->
+            <form th:action="@{/register}" method="post" th:object="${user}">
+                <h2 class="text-center display-6">Sign up</h2>
+                <div class="mb-3">
+                    <label class="form-label" for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Your First Name *"
+                           autofocus required th:value="${user.first_name}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="last_name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Your Last Name *"
+                           required th:value="${user.first_name}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email *"
+                           required th:value="${user.email}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Your Address *"
+                           required th:value="${user.email}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           required placeholder="Your Password *"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="passwordConfirmation">Confirm Password</label>
+                    <input type="password" class="form-control" id="passwordConfirmation"
+                           required name="passwordConfirmation" placeholder="Your Password *"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('passwordConfirmation')}"
+                       th:errors="*{passwordConfirmation}"></p>
+                </div>
+                <div class="mb-3 text-center my-2">
+                    <input type="submit" class="btnSubmit" value="Sign up"/>
+                </div>
+                <div class="mb-3 text-center">
+                    <a th:href="@{/login}" class="btnForgetPwd">Already have an account?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
