@@ -40,7 +40,7 @@
 					es poder transformar comunidades y fomentar la participación ciudadana.</p>
 			</div>
 			<div class="illustracion">
-				<img src="/images/Cityscapes Downtown.png">
+				<img src="/img/Cityscapes Downtown.png">
 			</div>
 		</div>
 
@@ -54,7 +54,8 @@
 		</section>
 		<section class="fondo-morado">
 			<div class="carta" th:each="report : ${reports}">
-				<img th:if="${!report.images.isEmpty()}" th:src="@{/images/reports/{name}(name=${report.images.get(0).nombre})}" alt="img"></img>
+				<img th:if="${!report.images.isEmpty()}"
+					 th:src="@{/images/{image}(image=${report.images.get(0).nombre})}" alt="img"></img>
 				<h4 th:text="${report.title}"></h4>
 				<p th:text="${report.description}"></p>
 			</div>

@@ -45,15 +45,15 @@ public class User {
 	private Long id;
 
 	@NotBlank
-	@Size(max = 255)
+	@Size(max = 255, message = "El nombre debe de tener menos de 255 caracteres")
 	private String first_name;
 
 	@NotBlank
-	@Size(max = 255)
+	@Size(max = 255, message = "El apellido debe de tener menos de 255 caracteres")
 	private String last_name;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull
+	@NotNull(message = "Este campo es obligatorio")
 	private Date date_of_birth;
 
 	@NotBlank

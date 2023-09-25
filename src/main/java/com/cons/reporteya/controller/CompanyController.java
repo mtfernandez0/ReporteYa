@@ -8,7 +8,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cons.reporteya.dto.CompanyDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,21 +40,22 @@ public class CompanyController {
 		this.userServ = user;
 		this.fileupService = fileupService;
 	}
-	
-	private String UPLOAD_FOLDER = "src/main/resources/static/images/companyLogos";
+
+	@Value("${imagePath}")
+	private String imageDir;
 
 	@GetMapping("/companies")
 	public String companies(Model model){
 
 		List<Company> companies = companyService.findAll();
-		List<List<CompanyDto>> companiesGroup = new ArrayList<>();
+		List<List<Company>> companiesGroup = new ArrayList<>();
 
 		int i = 0;
 		for (int j = 0; j < companies.size(); j++) {
 			if (j % 4 == 0){
 				i++; companiesGroup.add(new ArrayList<>());
 			}
-			companiesGroup.get(i - 1).add(CompanyDto.companyToCompanyDto(companies.get(j)));
+			companiesGroup.get(i - 1).add(companies.get(j));
 		}
 
 		model.addAttribute("companiesGroup", companiesGroup);
@@ -68,23 +69,28 @@ public class CompanyController {
 	}
 	
 	@PostMapping("/companies/new")
-		public String company(@Valid @ModelAttribute("company") Company company,BindingResult bindingResult,Principal principal, @RequestParam(value = "files", required = false) MultipartFile file) {
+		public String company(@Valid @ModelAttribute("company") Company company,
+							  BindingResult bindingResult,
+							  Principal principal,
+							  @RequestParam(value = "files", required = false) MultipartFile file) {
+
+		companyService.validateCompany(company, bindingResult);
+
 		if(bindingResult.hasErrors()) return "company/company";
 
 		User us = userServ.findByEmail(principal.getName());
 		company.setUser(us);
 		companyService.save(company);
 
-		FileUp fileUp =  fileupService.subirFotoDePerfil(file, company, UPLOAD_FOLDER);
+		FileUp fileUp =  fileupService.subirFotoDePerfil(file, company, imageDir);
 		try {
 			byte[] bytes = file.getBytes();
-			Path ruta = Paths.get(UPLOAD_FOLDER, fileUp.getNombre());
+			Path ruta = Paths.get(imageDir, fileUp.getNombre());
 			Files.write(ruta, bytes);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/home";
-		
-		}
+		return "redirect:/companies";
 	}
+}

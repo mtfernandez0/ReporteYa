@@ -11,7 +11,7 @@
 body{
     background:blue;
     min-height: 100vh;
-    background: url("../images/mim.jpg") no-repeat;
+    background: url("../img/mim.jpg") no-repeat;
     background-size: cover;
     background-position: center;
 }

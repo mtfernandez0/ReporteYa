@@ -9,7 +9,7 @@
         <div th:id="${'myCarousel' + reportIndex.index}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div th:each="image, imageIndex : ${report.images}" th:class="'carousel-item ' + ${imageIndex.index == 0 ? 'active' : ''}">
-                    <img class="d-block w-100" th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
+                    <img th:src="@{/images/{reportImg}(reportImg=${image.nombre})}" alt="img"></img>
                 </div>
             </div>
             <div th:if="${report.images.size() > 1}">

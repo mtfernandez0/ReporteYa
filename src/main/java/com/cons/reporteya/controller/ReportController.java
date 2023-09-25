@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.cons.reporteya.entity.*;
 import com.cons.reporteya.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,8 @@ public class ReportController {
 	private final TagService tagService;
 	private final FileUpService fileupService;
 
-	private String UPLOAD_FOLDER = "src/main/resources/static/images/reports";
+	@Value("${imagePath}")
+	private String imageDir;
 
 	public ReportController(ReportService reportService,
 							UserService userService,
@@ -96,10 +98,10 @@ public class ReportController {
 
 			if (Objects.equals(file.getOriginalFilename(), "")) break;
 
-			FileUp fileUp =  fileupService.subirArchivoABD(file, report, UPLOAD_FOLDER);
+			FileUp fileUp =  fileupService.subirArchivoABD(file, report, imageDir);
 			try {
 				byte[] bytes = file.getBytes();
-				Path ruta = Paths.get(UPLOAD_FOLDER, fileUp.getNombre());
+				Path ruta = Paths.get(imageDir, fileUp.getNombre());
 				Files.write(ruta, bytes);
 			}catch(IOException e) {
 				e.printStackTrace();
