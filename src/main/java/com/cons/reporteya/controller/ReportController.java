@@ -254,4 +254,18 @@ public class ReportController {
 		model.addAttribute("user", user);
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 	}
+	
+	@GetMapping("/user")
+	public String myReport(Model model, Principal principal,  HttpServletRequest request) {
+		User us = userService.findByEmail(principal.getName());
+		
+		model.addAttribute("reports", us.getReports());
+		model.addAttribute("request", request);
+		model.addAttribute("pages",1);
+		model.addAttribute("user", us);
+		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+		model.addAttribute("currentPage", 0);
+		
+		return "report/reports";
+	}
 }

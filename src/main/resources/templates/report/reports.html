@@ -48,7 +48,7 @@
 
         <div id="reports-container" class="reports">
             <div class="news-card" th:each="report, reportIndex : ${reports}"
-                 th:insert="~{report/card :: reportCard(report = ${report}, reportIndex = ${reportIndex}, user = ${user})}">
+                 th:insert="~{report/card :: reportCard(report = ${report}, reportIndex = ${reportIndex}, user = ${user}, request = ${request})}">
             </div>
             <div class="arrows">
                 <a th:if="${tagId != null && currentPage == 1}"
