@@ -10,140 +10,127 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
-<body style="background-image: url('/images/map.jpg')">
-	<nav>
-		<a href="/">Inicio</a>
-		<div th:if="${user.getCompany() == null}">
-			<a href="/companies/new">Registrar compañía</a>
+<body style="background-image: url('/img/map.jpg')">
+<nav>
+    <a href="/">Inicio</a>
+    <div th:if="${user.getCompany() == null}">
+        <a href="/companies/new">Registrar compañía</a>
+    </div>
+    <a href="/map">Crear reporte</a>
+			<div th:if="${user.reports.size()!= 0 }">
+			<a href="/reports/user">Mis reportes</a>
 		</div>
-			<a href="/map">Crear reporte</a>
-			<div th:if="${user.reports != null}">
-			<a href="/my/reports">Mis reportes</a>
-		</div>
-		<div class="d-flex justify-content-end align-item-center">
-			<form th:action="@{/logout}" method="post">
-				<input class="form-logout" type="submit" value="Cerrar sesión" />
-			</form>
-		</div>
-	</nav>
-	<div class="main-container">
-		<div class="container mt-3">
-			<div class="col text-center">
-				<div class="row">
-					<div class="col-7"></div>
-				</div>
-			</div>
-			<div class="mb-3">
-				<label for="name" class="form-label">Usuario:</label> <input
-					type="text" id="name" class="form-control" disabled
-					th:value="${user.first_name + ' ' + user.last_name}" />
-			</div>
-			<div class="mb-3">
-				<label for="email" class="form-label">Email:</label> <input
-					type="text" id="email" class="form-control" disabled
-					th:value="${user.email}" />
-			</div>
-			<div class="mb-3">
-				<label for="date_of_birth" class="form-label">Fecha De
-					Nacimiento:</label> <input type="text" id="date_of_birth"
-					class="form-control" disabled
-					th:value="${#dates.format(user.date_of_birth, 'dd/MM/yyyy')}" />
-			</div>
+    <div class="d-flex justify-content-end align-item-center">
+        <form th:action="@{/logout}" method="post">
+            <input class="form-logout" type="submit" value="Cerrar sesión"/>
+        </form>
+    </div>
+</nav>
+<div class="main-container">
+    <div class="container mt-3">
+        <div class="col text-center">
+            <div class="row">
+                <div class="col-7">
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Usuario:</label>
+            <input type="text" id="name" class="form-control" disabled
+                   th:value="${user.first_name + ' ' + user.last_name}"/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" id="email" class="form-control" disabled th:value="${user.email}"/>
+        </div>
+        <div class="mb-3">
+            <label for="date_of_birth" class="form-label">Fecha De Nacimiento:</label>
+            <input type="text" id="date_of_birth" class="form-control" disabled
+                   th:value="${#dates.format(user.date_of_birth, 'dd/MM/yyyy')}"/>
+        </div>
 
-			<div th:if="${user.getCompany() != null}">
-				<h5>Datos de la Compañía</h5>
-				<div class="mb-3">
-					<label for="company-name" class="form-label">Nombre:</label> <input
-						type="text" id="company-name" class="form-control"
-						th:value="${user.company.name}" />
-				</div>
-				<div class="mb-3">
-					<label for="company-description" class="form-label">Descripción:</label>
-					<input type="text" id="company-description" class="form-control"
-						th:value="${user.company.description}" />
-				</div>
-				<div class="mb-3">
-					<label for="company-location" class="form-label">Ubicación:</label>
-					<input type="text" id="company-location" class="form-control"
-						th:value="${user.company.location}" />
-				</div>
-				<div class="mb-3">
-					<label for="company-website" class="form-label">Website:</label> <input
-						type="text" id="company-website" class="form-control link-info"
-						th:value="${user.company.website}" />
-				</div>
-			</div>
+        <div th:if="${user.getCompany() != null}">
+            <h5>Datos de tu Compañía</h5>
+            <div class="mb-3">
+                <label for="company-name" class="form-label">Nombre:</label>
+                <input type="text" id="company-name" class="form-control" th:value="${user.company.name}" disabled/>
+            </div>
+            <div class="mb-3">
+                <label for="company-description" class="form-label">Descripción:</label>
+                <textarea id="company-description" class="form-control"
+                          th:text="${user.company.description}" disabled style="resize: none"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="company-location" class="form-label">Ubicación:</label>
+                <input type="text" id="company-location" class="form-control" th:value="${user.company.location}" disabled/>
+            </div>
 
-			<div class="container mt-4" th:if="${user.contact == null}">
-				<p class="text-bg-info p-2 rounded-3 me-5"
-					th:if="${newReportNoContact != null}">
-					Antes de poder crear un reporte, es necesario que completes tu
-					información de usuario. <br> (Solo los campos marcados con *
-					son necesarios)
-				</p>
-				<div id="error-message-post" class="text-danger"></div>
-				<div class="mt-4 border border-2 border-black rounded-4 p-2">
-					<form id="form-post">
-						<input type="hidden" th:name="${_csrf.parameterName}"
-							th:value="${_csrf.token}" />
-						<div class="mb-3">
-							<label for="number-post" class="form-label">Número</label> <input
-								type="text" id="number-post" name="number-post"
-								class="form-control" autofocus />
-						</div>
-						<div class="mb-3">
-							<label for="country-post" class="form-label">País<span
-								class="text-danger">*</span></label> <input type="text"
-								id="country-post" name="country-post" class="form-control"
-								placeholder="Argentina" />
-						</div>
-						<div class="mb-3">
-							<label for="postcode-post" class="form-label">Código
-								Postal<span class="text-danger">*</span>
-							</label> <input type="text" id="postcode-post" name="postcode-post"
-								class="form-control" placeholder="1625" />
-						</div>
-						<button id="btn-post" type="submit" class="btn btn-outline-info">Guardar</button>
-					</form>
-				</div>
-			</div>
-			<div th:if="${user.contact != null}"
-				class="mt-4 border border-2 border-black rounded-4 p-2">
-				<h5>Tu información de contacto:</h5>
-				<form id="form-put">
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}" />
-					<div class="mb-3">
-						<label for="location_name" class="form-label">Locación</label> <input
-							type="text" id="location_name" class="form-control" disabled
-							th:value="${contact.location_name}" />
-					</div>
-					<div class="mb-3">
-						<label for="number-put" class="form-label">Número</label> <input
-							type="text" id="number-put" name="number-put"
-							class="form-control" th:value="${contact.number}" />
-					</div>
-					<div id="error-message-put" class="text-danger"></div>
-					<div class="mb-3">
-						<label for="country-put" class="form-label">País</label> <input
-							type="text" id="country-put" name="country-put"
-							class="form-control" th:value="${contact.country}" />
-					</div>
-					<div class="mb-3">
-						<label for="postcode-put" class="form-label">Código Postal</label>
-						<input type="text" id="postcode-put" name="postcode-put"
-							class="form-control" th:value="${contact.postcode}" />
-					</div>
-					<div class="mb-3 bg-danger text-white rounded-3 p-3 me-5">
-						<h4>¡AVISO!</h4>
-						<p>En caso de que decidas actualizar tus datos de contacto,
-							todos tus reportes serán eliminados.</p>
-					</div>
-					<button id="btn-put" class="btn btn-outline-info">Actualizar</button>
-				</form>
-			</div>
-		</div>
-	</div>
+            <div class="mb-3">
+                <label for="email-location" class="form-label">Email:</label>
+                <input type="text" id="email-location" class="form-control" th:value="${user.company.email}" disabled/>
+            </div>
+
+            <div class="mb-3">
+                <label for="company-website" class="form-label">Website:</label>
+                <input type="text" id="company-website" class="form-control link-info"
+                       th:value="${user.company.website}" disabled>
+            </div>
+        </div>
+
+        <div class="container mt-4" th:if="${user.contact == null}">
+            <p class="text-bg-info p-2 rounded-3 me-5" th:if="${newReportNoContact != null}">
+                Antes de poder crear un reporte, es necesario que completes tu información de usuario.
+                <br>
+                (Solo los campos marcados con * son necesarios)
+            </p>
+            <div id="error-message-post" class="text-danger"></div>
+            <div class="mt-4 border border-2 border-black rounded-4 p-2">
+                <form id="form-post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <div class="mb-3">
+                        <label for="country-post" class="form-label">País<span class="text-danger">*</span></label>
+                        <input type="text" id="country-post" name="country-post" class="form-control"
+                               placeholder="Argentina"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postcode-post" class="form-label">Código Postal<span
+                                class="text-danger">*</span></label>
+                        <input type="text" id="postcode-post" name="postcode-post" class="form-control"
+                               placeholder="1625"/>
+                    </div>
+                    <button id="btn-post" type="submit" class="btn btn-outline-info">Guardar</button>
+                </form>
+            </div>
+        </div>
+        <div th:if="${user.contact != null}" class="mt-4 border border-2 border-black rounded-4 p-2">
+            <h5>Tu información de contacto:</h5>
+            <form id="form-put">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <div class="mb-3">
+                    <label for="location_name" class="form-label">Locación</label>
+                    <input type="text" id="location_name" class="form-control" disabled
+                           th:value="${contact.location_name}"/>
+                </div>
+                <div id="error-message-put" class="text-danger"></div>
+                <div class="mb-3">
+                    <label for="country-put" class="form-label">País</label>
+                    <input type="text" id="country-put" name="country-put" class="form-control"
+                           th:value="${contact.country}"/>
+                </div>
+                <div class="mb-3">
+                    <label for="postcode-put" class="form-label">Código Postal</label>
+                    <input type="text" id="postcode-put" name="postcode-put" class="form-control"
+                           th:value="${contact.postcode}"/>
+                </div>
+                <div class="mb-3 bg-danger text-white rounded-3 p-3 me-5">
+                    <h4>¡AVISO!</h4>
+                    <p>En caso de que decidas actualizar tus datos de contacto, todos tus reportes serán eliminados.</p>
+                </div>
+                <button id="btn-put" class="btn btn-outline-info">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 <script>
     function searchAndReplace(btn, newBtn) {
@@ -160,7 +147,6 @@
         let savingButton = '<button id="btn-search" class="btn btn-secondary disabled">Guardando...</button>';
         searchAndReplace("btn-post", savingButton);
 
-        let number = $("input[name='number-post']").val();
         let country = $("input[name='country-post']").val();
         let postcode = $("input[name='postcode-post']").val();
 
@@ -185,7 +171,6 @@
                 if (data !== undefined && data[0].address !== undefined
                     && data[0].address.postcode !== undefined && data[0].address.country !== undefined) {
                     let formData = {
-                        number: number,
                         country: data[0].address.country,
                         postcode: data[0].address.postcode,
                         location_name: data[0].display_name
@@ -224,7 +209,6 @@
         let savingButton = '<button id="btn-search" class="btn btn-secondary disabled">Actualizando...</button>';
         searchAndReplace("btn-put", savingButton);
 
-        let number = $("input[name='number-put']").val();
         let country = $("input[name='country-put']").val();
         let postcode = $("input[name='postcode-put']").val();
 
@@ -249,7 +233,6 @@
                 if (data !== undefined && data[0].address !== undefined
                     && data[0].address.postcode !== undefined && data[0].address.country !== undefined) {
                     let formData = {
-                        number: number,
                         country: data[0].address.country,
                         postcode: data[0].address.postcode,
                         location_name: data[0].display_name

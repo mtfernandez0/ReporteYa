@@ -5,11 +5,11 @@
     <title></title>
 </head>
 <body>
-    <div th:fragment="reportCard(report, reportIndex, user)">
+    <div th:fragment="reportCard(report, reportIndex, user, request)">
         <div th:id="${'myCarousel' + reportIndex.index}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div th:each="image, imageIndex : ${report.images}" th:class="'carousel-item ' + ${imageIndex.index == 0 ? 'active' : ''}">
-                    <img class="d-block w-100" th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
+                    <img th:src="@{/images/{reportImg}(reportImg=${image.nombre})}" alt="img"></img>
                 </div>
             </div>
             <div th:if="${report.images.size() > 1}">
@@ -26,6 +26,10 @@
             </div>
         </div>
         <div class="news-content">
+        <div th:if="${request.getRequestURI().contains('user')}">
+        <button type="submit">Comentar</button>
+        <button type="submit">Comentar</button>
+        </div>
             <div class="news-title" th:text="${report.title}"></div>
             <div class="news-author" th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></div>
             <div class="news-description" th:text="${report.description}"></div>

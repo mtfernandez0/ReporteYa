@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +20,10 @@ public class FileUpController {
 	public FileUpController(FileUpService fuS) {
 		this.fileupService = fuS;
 	}
-	
-	private String UPLOAD_FOLDER = "src/main/resources/static/images";
+
+	@Value("${imagePath}")
+	private String imageDir;
+//	private String UPLOAD_FOLDER = "src/main/resources/static/images";
 	
 //	@PostMapping("/subir")
 //	public String subirArchivo(@RequestParam("imagen") MultipartFile [] archivo) {

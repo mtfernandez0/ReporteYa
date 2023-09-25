@@ -11,4 +11,5 @@ import java.util.List;
 public interface CompanyRepository extends CrudRepository<Company, Long>{
 	List<Company> findAll();
 
+	boolean existsByName(String name);
 }

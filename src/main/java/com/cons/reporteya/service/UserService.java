@@ -4,14 +4,11 @@ import com.cons.reporteya.entity.User;
 import com.cons.reporteya.entity.VerificationToken;
 import com.cons.reporteya.repository.UserRepository;
 import com.cons.reporteya.repository.VerificationTokenRepository;
-import com.cons.reporteya.security.validator.UserValidator;
+import com.cons.reporteya.validator.UserValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
 @Service

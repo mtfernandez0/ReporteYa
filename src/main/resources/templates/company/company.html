@@ -42,6 +42,13 @@
 
                 <div class="input-box">
                     <h6>+ + + + + + + </h6>
+                    <input type="text" placeholder="Email" id="email" name="email" required
+                           th:value="${company.email}">
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                </div>
+
+                <div class="input-box">
+                    <h6>+ + + + + + + </h6>
                     <input type="text" placeholder="Website" id="website" name="website" required
                            th:value="${company.website}">
                     <p class="text-danger p-0" th:if="${#fields.hasErrors('website')}" th:errors="*{website}"></p>
@@ -50,7 +57,7 @@
                 <div class="upload-h6">
                     <h6>+ + + + + + + </h6>
                 </div>
-                <div class="d-flex gap-3 align-items-center">
+                <div class="d-flex gap-3 align-items-center ps-2">
                     <p class="text-danger" th:if="${maxUploadSizeExceeded != null}">
                         Imagen muy pesada. (hasta 2000KB por imagen)
                     </p>
@@ -58,6 +65,7 @@
                     <input type="file" id="file" name="files" style="display:none;" accept="image/png, image/jpeg" />
                     <p id="text-files-space" class="m-0"></p>
 			    </div>
+                <br>
                 <div>
                     <button type="submit" id="button">Crear</button>
                 </div>

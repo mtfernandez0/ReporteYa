@@ -13,13 +13,17 @@ public class CompanyDto {
 
     private String location;
 
+    private String email;
+
     private String website;
+
 
     public static CompanyDto companyToCompanyDto(Company company){
         return CompanyDto.builder()
                 .name(company.getName())
                 .description(company.getDescription())
                 .location(company.getLocation())
+                .email(company.getEmail())
                 .website(company.getWebsite())
                 .build();
     }

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import com.cons.reporteya.entity.*;
 import com.cons.reporteya.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,8 @@ public class ReportController {
 	private final TagService tagService;
 	private final FileUpService fileupService;
 
-	private String UPLOAD_FOLDER = "src/main/resources/static/images/reports";
+	@Value("${imagePath}")
+	private String imageDir;
 
 	public ReportController(ReportService reportService,
 							UserService userService,
@@ -96,10 +98,10 @@ public class ReportController {
 
 			if (Objects.equals(file.getOriginalFilename(), "")) break;
 
-			FileUp fileUp =  fileupService.subirArchivoABD(file, report, UPLOAD_FOLDER);
+			FileUp fileUp =  fileupService.subirArchivoABD(file, report, imageDir);
 			try {
 				byte[] bytes = file.getBytes();
-				Path ruta = Paths.get(UPLOAD_FOLDER, fileUp.getNombre());
+				Path ruta = Paths.get(imageDir, fileUp.getNombre());
 				Files.write(ruta, bytes);
 			}catch(IOException e) {
 				e.printStackTrace();
@@ -253,11 +255,17 @@ public class ReportController {
 		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 	}
 	
-	@GetMapping("/my/report")
-	public String myReport(Model model) {
-//		model.addAttribute("user", userService.findByEmail(principal.getName()));
-		List<Report> reportes = reportService.findAll();
-		model.addAttribute("reports", reportes);
-		return "report/myreports";
+	@GetMapping("/user")
+	public String myReport(Model model, Principal principal,  HttpServletRequest request) {
+		User us = userService.findByEmail(principal.getName());
+		
+		model.addAttribute("reports", us.getReports());
+		model.addAttribute("request", request);
+		model.addAttribute("pages",1);
+		model.addAttribute("user", us);
+		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+		model.addAttribute("currentPage", 0);
+		
+		return "report/reports";
 	}
 }

@@ -5,7 +5,7 @@
 }
 
 body {
-	background-image: url('/images/AdobeStock_614864168.jpeg');
+	background-image: url('/img/AdobeStock_614864168.jpeg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
@@ -24,7 +24,6 @@ nav {
 
 h1 {
 	text-align: center;
-	margin-left: 38%;
 	font-size: 2rem;
 }
 
@@ -51,8 +50,8 @@ nav a:hover {
 	padding: 40px;
 	gap: 20px;
 
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 20px;
+	font-weight: 500;
 
 	box-shadow: 5px 8px 5px rgb(0, 0, 0);
 	border: 2px solid rgba(0, 0, 0, 0.3);

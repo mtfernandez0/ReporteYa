@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav>
-        <h1>Compañías de la red de Reporte Ya</h1>
+        <h1>Compañías</h1>
         <div class="d-flex gap-3">
             <a href="/home">Inicio</a>
             <a href="/reports">Reportes</a>
@@ -21,7 +21,7 @@
         <div class="row gap-2 justify-content-evenly mb-3"
              th:each="group : ${companiesGroup}">
             <div th:each="company : ${group}" class="company col-sm-2">
-                <img src="/images/logo.png" alt="company-profile-img">
+                <img th:src="@{/images/{companyLogo}(companyLogo=${company.logoCompania.nombre})}" alt="company-profile-img">
                 <p th:text="${company.name}"></p>
             </div>
         </div>

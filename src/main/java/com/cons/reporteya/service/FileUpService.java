@@ -33,8 +33,8 @@ public class FileUpService {
 		return fileupRepo.save(nuevoArchivo);
 	}
 	public FileUp subirFotoDePerfil(MultipartFile archivo,
-			Company company,
-					  String path) {
+									Company company,
+									String path) {
 		
 		String fileName =
 				company.getName() + archivo.getOriginalFilename();

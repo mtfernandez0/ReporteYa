@@ -7,8 +7,6 @@ import lombok.*;
 @Builder
 public class ContactDto {
 
-    private String number;
-
     private String country;
 
     private String postcode;
@@ -17,7 +15,6 @@ public class ContactDto {
 
     public Contact contactDtoToContact(){
         return Contact.builder()
-                .number(number)
                 .country(country)
                 .postcode(postcode)
                 .location_name(location_name)
@@ -26,7 +23,6 @@ public class ContactDto {
 
     public ContactDto contactToContactDto(Contact contact){
         return ContactDto.builder()
-                .number(contact.getNumber())
                 .country(contact.getCountry())
                 .postcode(contact.getPostcode())
                 .location_name(contact.getLocation_name())
