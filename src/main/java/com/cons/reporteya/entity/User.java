@@ -93,9 +93,7 @@ public class User {
 
 	private Date updated_at;
 	
-	public User() {
-		status=1;
-	}
+	
 
 
 	@PrePersist
