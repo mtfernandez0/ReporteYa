@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 
 import com.cons.reporteya.entity.*;
 import com.cons.reporteya.service.*;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +42,9 @@ public class ReportController {
 	private final TagService tagService;
 	private final FileUpService fileupService;
 
+	@Value("${imagePath}")
+	private String imageDir;
+
 	public ReportController(ReportService reportService,
 							UserService userService,
 							MarkerService markerService,
@@ -53,8 +59,6 @@ public class ReportController {
 		this.fileupService = fuS;
 
 	}
-
-	private String UPLOAD_FOLDER = "src/main/resources/static/images/reports";
 
 	@GetMapping("/new")
 	public String newReport(@ModelAttribute("marker") Marker marker,
@@ -94,10 +98,10 @@ public class ReportController {
 
 			if (Objects.equals(file.getOriginalFilename(), "")) break;
 
-			FileUp fileUp =  fileupService.subirArchivoABD(file, report, UPLOAD_FOLDER);
+			FileUp fileUp =  fileupService.subirArchivoABD(file, report, imageDir);
 			try {
 				byte[] bytes = file.getBytes();
-				Path ruta = Paths.get(UPLOAD_FOLDER, fileUp.getNombre());
+				Path ruta = Paths.get(imageDir, fileUp.getNombre());
 				Files.write(ruta, bytes);
 			}catch(IOException e) {
 				e.printStackTrace();
@@ -129,14 +133,13 @@ public class ReportController {
 	private void checkTagErrors(BindingResult result, List<String> subjects) {
 		boolean areSizeCorrect = true;
 
-		for (String subject : subjects)
-			areSizeCorrect &= subject.length() < 140;
+		for (String subject : subjects) areSizeCorrect &= subject.length() < 40;
 
 		if (!areSizeCorrect)
-			result.rejectValue("tags", "size", "Tags must have at most 140 characters");
+			result.rejectValue("tags", "size", "Los tags deben tener como mucho 40 carácteres");
 
 		if (subjects.size() > 5)
-			result.rejectValue("tags", "Maximum of 5 tags", "You can only include up to 5 tags");
+			result.rejectValue("tags", "Maximum of 5 tags", "Solo puedes incluir hasta 5 tags");
 	}
 
 	@GetMapping("/dashboard")
@@ -200,25 +203,55 @@ public class ReportController {
 		return "redirect:/reports";
 	}
 
-	@GetMapping("")
-	public String reports(Model model, Principal principal) {
-		model.addAttribute("reports", reportService.findAllByOrderByCreationDesc());
-		model.addAttribute("user", userService.findByEmail(principal.getName()));
-		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+	@GetMapping(value = {"/{page}", ""})
+	public String reports(Model model,
+						  Principal principal,
+						  HttpServletRequest request,
+						  @PathVariable(required = false) Integer page) {
+
+		if (page == null || page < 0) page = 0;
+
+		User user = userService.findByEmail(principal.getName());
+		Page<Report> reports = reportService.reportsPerPage(page);
+		model.addAttribute("tagId", null);
+		model.addAttribute("currentPage", page);
+
+		generateModelForDashboard(model, reports, request, user);
+
 		return "report/reports";
 	}
 
-	@GetMapping("/tags/{id}")
+	@GetMapping(value = {"/tags/{id}", "/tags/{id}/{page}"})
 	public String reportsByTag(@PathVariable Long id,
+							   @PathVariable(required = false) Integer page,
+							   HttpServletRequest request,
 							   Model model,
 							   Principal principal) {
 
+		User user = userService.findByEmail(principal.getName());
+
+		if (page == null || page < 0) page = 0;
+
 		if (tagService.findById(id).isEmpty()) return "redirect:/reports";
 
-		model.addAttribute("reports", reportService.findAllByTagsIdOrderByCreationDesc(id));
-		model.addAttribute("user", userService.findByEmail(principal.getName()));
-		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
+		model.addAttribute("tagId", id);
+		model.addAttribute("currentPage", page);
+
+		Page<Report> reports = reportService.findAllByTagsIdOrderByCreationDesc(id, page);
+
+		generateModelForDashboard(model, reports, request, user);
 
 		return "report/reports";
+	}
+
+	private void generateModelForDashboard(Model model,
+										   Page<Report> reports,
+										   HttpServletRequest request,
+										   User user){
+		model.addAttribute("reports", reports);
+		model.addAttribute("request", request);
+		model.addAttribute("pages", reports.getTotalPages());
+		model.addAttribute("user", user);
+		model.addAttribute("tagList", tagService.findAllOrderBySubjectCount());
 	}
 }

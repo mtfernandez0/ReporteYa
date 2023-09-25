@@ -1,5 +1,7 @@
 package com.cons.reporteya.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "markers")
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

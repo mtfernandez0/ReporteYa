@@ -5,131 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/reports.css}"/>
 </head>
-<body style="background-image: url('/images/map.jpg')">
-    <nav>
-        <a href="/home">Inicio</a>
-        <a href="/map">Crear reporte</a>
-        <a href="/profile">Cuenta</a>
-        <a href="/companies">Compañías</a>
-    </nav>
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-2 scrollable-navbar-container">
-                <div class="scrollable-navbar">
-                    <a class="nav-link text-white" href="/reports">TAGS</a> <a
-                        th:each="tag : ${tagList}" class="nav-link text-white"
-                        th:href="@{/reports/tags/{id}(id=${tag.id})}"
-                        th:text="${tag.subject}"></a>
+<body style="background-image: url('/img/AdobeStock_614864168.jpeg')">
+    <div class="heading-container">
+        <h4>Reportes</h4>
+    </div>
+    <div class="dash-container">
+        <div class="main-container">
+            <div class="container-nav">
+                <nav>
+                    <a href="/home">
+                        <span class="nav-item">Inicio</span>
+                    </a>
+                    <a href="/map">
+                        <span class="nav-item">Crear Reporte</span>
+                    </a>
+                    <a href="/companies">
+                        <span class="nav-item">Empresas</span>
+                    </a>
+                    <a href="/profile">
+                        <span class="nav-item">Mi Perfil</span>
+                    </a>
+                    <form class="logout" th:action="@{/logout}" method="post">
+                        <input class="nav-item" type="submit" value="Cerrar Sesión"/>
+                    </form>
+                </nav>
+                <div th:if="${tagList.size() != 0}" class="tags">
+                    <hr>
+                    <a class="all-tags" href="/reports">Tags</a>
+                    <a class="tag-links" th:each="tag : ${tagList}" th:href="@{/reports/tags/{id}(id=${tag.id})}"
+                        th:text="${'#' + tag.subject}"></a>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-8">
-                <div th:each="report : ${reports}">
-                    <div class="custom-block">
-                        <h3 th:text="${report.title}" class="text-white"></h3>
-
-                        <div class="image-gallery">
-                            <div class="swiper">
-                                <!-- Additional required wrapper -->
-                                <div class="swiper-wrapper">
-                                    <!-- Slides -->
-<!--                                    <img th:each="image : ${report.images}"-->
-<!--                                         th:src="@{/images/reports/{name}(name=${image.nombre})}"-->
-<!--                                         alt="img"></img>-->
-                                    <div class="swiper-slide" th:each="image : ${report.images}">
-                                        <img th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
-                                    </div>
-                                </div>
-                                <!-- If we need pagination -->
-<!--                                <div class="swiper-pagination"></div>-->
-
-                                <!-- If we need navigation buttons -->
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-button-next"></div>
-
-                                <!-- If we need scrollbar -->
-<!--                                <div class="swiper-scrollbar"></div>-->
-                            </div>
-                        </div>
-                        <br>
-                        <p th:text="${report.description}" class="text-white"></p>
-                        <div class="tags">
-                            <ul class="p-0 d-flex gap-2">
-                                <li th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}" class="text-white"></li>
-                            </ul>
-                        </div>
-                        <div class="comments-box">
-                            <p class="text-white comments" th:each="comment : ${report.comments}">
-                                <span class="comment-name"
-                                      th:text="${comment.company != null ?
-                                      comment.company.name :
-                                      comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>
-<!--                                <span class="comment-name" th:if="${comment.company == null}"-->
-<!--                                      th:text="${comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>-->
-                                <br>
-                                <span th:text="${comment.comment}"></span>
-                            </p>
-                            <form id="commentForm" th:action="@{'/reports/dashboard'}" method="post">
-                                <input type="hidden" name="id" th:value="${report.id}" />
-                                <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>
-                                <div class="input-comments">
-                                    <div th:if="${user.getCompany() != null}">
-                                        <button type="button" class="btn btn-outline-dark text-white mt-2"
-                                                onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>
-                                        <button type="button" class="btn btn-outline-dark text-white mt-2"
-                                                onclick="setAction(this, '/reports/dashboardEmp')"
-                                        th:text="${'Comenta como ' + user.getCompany().name}"></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <div id="reports-container" class="reports">
+            <div class="news-card" th:each="report, reportIndex : ${reports}"
+                 th:insert="~{report/card :: reportCard(report = ${report}, reportIndex = ${reportIndex}, user = ${user})}">
             </div>
-            <div class="col-md-2">
-                <div class="d-flex justify-content-end">
-                    <div class="ad-container ">
-                        <h2>Anuncios</h2>
-                    </div>
-                </div>
+            <div class="arrows">
+                <a th:if="${tagId != null && currentPage == 1}"
+                   th:href="@{/reports/tags/{tagId}(tagId=${tagId})}">&lt;</a>
+                <a th:if="${tagId != null && currentPage > 1}"
+                   th:href="@{/reports/tags/{tagId}/{page}(tagId=${tagId},page=${currentPage - 1})}">&lt;</a>
+                <a th:if="${tagId != null && currentPage + 1 < pages}"
+                   th:href="@{/reports/tags/{tagId}/{page}(tagId=${tagId},page=${currentPage + 1})}">&gt;</a>
+
+                <a th:if="${tagId == null && currentPage == 1}" th:href="@{/reports}">&lt;</a>
+                <a th:if="${tagId == null && currentPage > 1}"
+                   th:href="@{/reports/{page}(page=${currentPage - 1})}">&lt;</a>
+                <a th:if="${tagId == null && (currentPage + 1 < pages)}"
+                   th:href="@{/reports/{page}(page=${currentPage + 1})}">&gt;</a>
             </div>
+
+        </div>
+
+        <div class="adds">
+            <h2>Anuncios</h2>
         </div>
     </div>
 </body>
 <script>
+    /**
+     * Change action url from form before commenting
+     * @param formElement
+     * @param action
+     */
     function setAction(formElement, action) {
         formElement.form.action = action;
         formElement.form.submit();
     }
 
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
+    const reportCards = document.querySelectorAll('.news-card');
 
-        // If we need pagination
-        // pagination: {
-        //     el: '.swiper-pagination',
-        // },
+    /**
+     * It will apply blur to cards that exceed their max-height
+     * @param reportCard
+     */
+    function applyBlurIfNeeded(reportCard) {
+        const maxHeight = 400;
+        const content = reportCard.querySelector('.news-content')
+        const carousel = reportCard.querySelector('.carousel')
 
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
+        if (carousel.offsetHeight + content.offsetHeight > maxHeight) {
+            const button = document.createElement('button');
+            button.classList.add('more-info');
+            button.innerText = "Mostrar mas";
+            const blurOverlay = document.createElement('div');
+            blurOverlay.classList.add('blur-overlay');
+            reportCard.appendChild(blurOverlay);
+            reportCard.appendChild(button);
+            button.addEventListener('click', () => {
+                reportCard.classList.add('news-card-full')
+                reportCard.removeChild(blurOverlay);
+                reportCard.removeChild(button);
+            });
+        }
+    }
 
-        // And if we need scrollbar
-        // scrollbar: {
-        //     el: '.swiper-scrollbar',
-        // },
+    reportCards.forEach((reportCard) => {
+        applyBlurIfNeeded(reportCard);
     });
 </script>
-
 </html>

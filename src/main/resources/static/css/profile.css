@@ -39,13 +39,24 @@ nav {
 	padding: 10px 0;
 }
 
-nav a {
+.form-logout{
+	background: none;
+	border: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+nav a, .form-logout {
 	text-decoration: none;
 	color: white;
 	transition: 0.4s;
 }
 
 nav a:hover {
+	color: #000000;
+}
+
+.form-logout:hover{
 	color: #000000;
 }
 

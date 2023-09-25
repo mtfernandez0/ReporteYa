@@ -1,4 +1,4 @@
-package com.cons.reporteya.security.validator;
+package com.cons.reporteya.validator;
 
 import com.cons.reporteya.entity.User;
 import org.springframework.stereotype.Component;

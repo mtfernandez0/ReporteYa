@@ -1,5 +1,6 @@
 rememberMe: test
-reporteya_p: vwdhwbqhkywynemv #${REPORTEYA_P}
+reporteya_p: ${REPORTEYA_P}
+imagePath: ${IPREPORTEYA}
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,7 +17,7 @@ spring:
         show-sql: true
     mail:
         host: smtp.gmail.com
-        password:  vwdhwbqhkywynemv # ${REPORTEYA_P}
+        password: ${REPORTEYA_P}
         port: 465
         properties:
             mail:

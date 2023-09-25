@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div th:fragment="reportCard(report, reportIndex, user)">
+        <div th:id="${'myCarousel' + reportIndex.index}" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div th:each="image, imageIndex : ${report.images}" th:class="'carousel-item ' + ${imageIndex.index == 0 ? 'active' : ''}">
+                    <img th:src="@{/images/{reportImg}(reportImg=${image.nombre})}" alt="img"></img>
+                </div>
+            </div>
+            <div th:if="${report.images.size() > 1}">
+                <button class="carousel-control-prev" type="button" th:data-bs-target="${'#myCarousel' + reportIndex.index}"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" th:data-bs-target="${'#myCarousel' + reportIndex.index}"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="news-content">
+            <div class="news-title" th:text="${report.title}"></div>
+            <div class="news-author" th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></div>
+            <div class="news-description" th:text="${report.description}"></div>
+            <div class="reports-tags">
+                        <span th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}">
+                        </span>
+            </div>
+            <h4>Comentarios</h4>
+            <div class="comments-box">
+                <div class="comments" th:each="comment : ${report.comments}">
+                    <div th:if="${user.id == comment.owner.id}" class="author-comment comment">
+                        <span th:text="${comment.comment}"></span>
+                    </div>
+                    <div th:if="${!(user.id == comment.owner.id)}" class="user-comment comment">
+                                <span class="comment-name" th:text="${comment.company != null ?
+                                    comment.company.name : comment.owner.first_name + ' ' +  comment.owner.last_name}"></span>
+                        <br>
+                        <span th:text="${comment.comment}"></span>
+                    </div>
+                </div>
+                <form id="commentForm" th:action="@{'/reports/dashboard'}" method="post">
+                    <input type="hidden" name="id" th:value="${report.id}" />
+                    <textarea name="comment" rows="2" required placeholder="Deja tu opinión..."></textarea>
+                    <div th:if="${user.getCompany() == null}" class="input-comments">
+                        <button type="submit">Comentar</button>
+                    </div>
+                    <div th:if="${user.getCompany() != null}" class="input-comments">
+                        <button type="button"
+                                onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>
+                        <button type="button"
+                                onclick="setAction(this, '/reports/dashboardEmp')"
+                                th:text="${'Comenta como ' + user.getCompany().name}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

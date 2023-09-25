@@ -3,6 +3,9 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
@@ -28,10 +31,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -44,15 +47,15 @@ public class User {
 	private int status;
 
 	@NotBlank
-	@Size(max = 255)
+	@Size(max = 255, message = "El nombre debe de tener menos de 255 caracteres")
 	private String first_name;
 
 	@NotBlank
-	@Size(max = 255)
+	@Size(max = 255, message = "El apellido debe de tener menos de 255 caracteres")
 	private String last_name;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull
+	@NotNull(message = "Este campo es obligatorio")
 	private Date date_of_birth;
 
 	@NotBlank
@@ -60,14 +63,17 @@ public class User {
 	private String email;
 
 	@Column(name = "enabled", nullable = false)
+	@JsonIgnore
 	private boolean enabled;
 
 	@Size(min = 6, max = 64)
 	@NotBlank
+	@JsonIgnore
 	private String password;
 
 	@Transient
 	@NotBlank
+	@JsonIgnore
 	private String passwordConfirmation;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -75,6 +81,9 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
+
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Comment> comments;
 
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
 	private Company company;

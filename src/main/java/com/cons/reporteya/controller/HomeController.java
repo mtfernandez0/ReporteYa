@@ -36,10 +36,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String home(Model model,
-					   Principal principal ) {
-		/*User us = userService.findByEmail(principal.getName());
-		model.addAttribute("usuario",us);*/
+	public String home(Model model) {
+		model.addAttribute("reports", reportService.findAllHighlightedReports());
 		return "home";
 	}
 
@@ -71,5 +69,4 @@ public class HomeController {
 		model.addAttribute("reports", objectMapper.writeValueAsString(reportDtos));
 		return "map";
 	}
-
 }

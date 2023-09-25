@@ -16,43 +16,51 @@
     </nav>
     <div class="register-container">
         <div class="wrapper">
-            <form th:action="@{/register}" method="post" th:obeject="${user}">
+            <form th:action="@{/register}" method="post" th:object="${user}">
                 <h1>Registrarse</h1>
                 <div th:if="${register}">
                 </div>
 
                 <div class="input-box">
                     <h6>+ + + + + + + </h6>
-                    <input type="text" placeholder="Nombre" id="first_name" name="first_name" required>
+                    <input type="text" placeholder="Nombre" id="first_name" name="first_name" required
+                           th:value="${user.first_name}">
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"></p>
                 </div>
 
                 <div class="input-box">
                     <h6>+ + + + + + + </h6>
                     <input type="text" placeholder="Apellido" id="last_name" name="last_name"
-                           required th:value="${user.first_name}">
-
+                           required th:value="${user.last_name}">
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}"></p>
                 </div>
 
                 <div class="input-box">
                     <h6> + + + + + + + </h6>
                     <input type="email" placeholder="Email" id="email" name="email"
                            required th:value="${user.email}"/>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                 </div>
+
                 <div class="input-box">
                     <h6>Fecha de nacimiento:</h6>
                     <input type="date" id="date_of_birth" name="date_of_birth"
                            required th:value="${user.date_of_birth}">
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('date_of_birth')}" th:errors="*{date_of_birth}"></p>
                 </div>
                 <div class="input-box">
                     <h6> + + + + + + + </h6>
                     <input type="password" placeholder="Contraseña" id="password" name="password"
                            required>
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </div>
                 <div class="input-box">
                     <h6> + + + + + + + </h6>
                     <input type="password" placeholder="Confirmar contraseña" id="passwordConfirmation"
                            required name="passwordConfirmation">
+                    <p class="text-danger p-0" th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"></p>
                 </div>
+                <br>
                 <div>
                     <button type="submit" value="Registrarse" id="button">Registrarse</button>
                 </div>

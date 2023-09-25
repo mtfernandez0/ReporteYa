@@ -1,10 +1,8 @@
 package com.cons.reporteya.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 
 import com.cons.reporteya.dto.ContactDto;
-import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.service.ReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -67,7 +65,6 @@ public class UserController {
 
 		if (us.getContact() == null) ResponseEntity.badRequest().build();
 
-		us.getContact().setNumber(contactDto.getNumber());
 		us.getContact().setCountry(contactDto.getCountry());
 		us.getContact().setPostcode(contactDto.getPostcode());
 		us.getContact().setLocation_name(contactDto.getLocation_name());

@@ -9,7 +9,7 @@
 }
 
 body{
-	background:blue;
+    background:blue;
     min-height: 100vh;
     background: url("../img/mim.jpg") no-repeat;
     background-size: cover;
@@ -89,7 +89,7 @@ nav a:hover{
 
 .input-box input::placeholder{
     color:white;
-    
+
 }
 
 .input-box i{
@@ -98,17 +98,12 @@ nav a:hover{
     top:50%;
     transform: translateY(-50%);
     font-size: 20px;
-    
-
-
 }
 .url a{
     color:#fff;
     text-decoration: none;
     text-align: center;
 }
-
-
 
 #button{
     width: 100%;
@@ -124,10 +119,27 @@ nav a:hover{
     font-weight: 600;
 }
 
-.input-box h6{
+.upload-h6{
+    display: block;
+}
+
+.input-box h6, .upload-h6{
     font-size: 14.5px;
     color:black;
     margin-left: 15px;
-
 }
 
+.btn-upload{
+    color: white;
+    font-size: 16px;
+
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 7px;
+
+    transition: 0.3s;
+}
+
+.btn-upload:hover{
+    background: #0b5359;
+}
