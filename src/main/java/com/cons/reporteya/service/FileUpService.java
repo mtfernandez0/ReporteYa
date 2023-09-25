@@ -7,6 +7,9 @@ import com.cons.reporteya.entity.FileUp;
 import com.cons.reporteya.entity.Report;
 import com.cons.reporteya.repository.FileUpRepo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FileUpService {
 	
@@ -48,5 +51,9 @@ public class FileUpService {
 		nuevoArchivo.setCompany(company);
 		
 		return fileupRepo.save(nuevoArchivo);
-		}
+	}
+
+	public void deleteAllByReporteId(Long report_id) {
+		fileupRepo.deleteAllByReporteId(report_id);
+	}
 }

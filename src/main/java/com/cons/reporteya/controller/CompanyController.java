@@ -50,13 +50,23 @@ public class CompanyController {
 		List<Company> companies = companyService.findAll();
 		List<List<Company>> companiesGroup = new ArrayList<>();
 
-		int i = 0;
-		for (int j = 0; j < companies.size(); j++) {
-			if (j % 4 == 0){
-				i++; companiesGroup.add(new ArrayList<>());
-			}
-			companiesGroup.get(i - 1).add(companies.get(j));
-		}
+//		int i = 0;
+//		for (int j = 0; j < companies.size(); j++) {
+//			if (j % 4 == 0){
+//				i++; companiesGroup.add(new ArrayList<>());
+//			}
+//			companiesGroup.get(i - 1).add(companies.get(j));
+//		}
+
+		companiesGroup.add(new ArrayList<>());
+		companiesGroup.get(0).add(companies.get(0));
+		companiesGroup.get(0).add(companies.get(0));
+		companiesGroup.get(0).add(companies.get(0));
+		companiesGroup.get(0).add(companies.get(0));
+		companiesGroup.add(new ArrayList<>());
+		companiesGroup.get(1).add(companies.get(0));
+		companiesGroup.get(1).add(companies.get(0));
+		companiesGroup.get(1).add(companies.get(0));
 
 		model.addAttribute("companiesGroup", companiesGroup);
 
