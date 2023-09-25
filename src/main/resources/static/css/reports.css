@@ -135,6 +135,15 @@ nav a:hover span,
     position: relative;
 }
 
+.news-author{
+    font-size: 14px;
+    color: black;
+}
+
+.news-card-full{
+    max-height: none !important;
+}
+
 .blur-overlay {
     position: absolute; /* Position the blur overlay */
     bottom: 0;
@@ -143,6 +152,22 @@ nav a:hover span,
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px); /* Apply the blur effect */
     pointer-events: none;
+}
+
+.more-info{
+    position: absolute; /* Position the blur overlay */
+    bottom: 0;
+    right: 0;
+    padding: 7px;
+    border-radius: 8px;
+    color: white;
+    margin: 0 7px 7px 0;
+    background-color: #275b68;
+    transition: 0.3s;
+}
+
+.more-info:hover{
+    background-color: #397889;
 }
 
 .news-content {
@@ -220,75 +245,117 @@ img{
 }
 
 
-/*textarea{*/
-/*    resize: none;*/
-/*    background-color: #104b69;*/
-/*}*/
+textarea{
+    resize: none;
+    background-color: #000000;
+    color: white;
+}
 
-/*.comments {*/
-/*    word-wrap: break-word;*/
-/*    overflow-wrap: break-word;*/
-/*    background-color: #189ab46b;*/
-/*    padding: 5px;*/
-/*    margin-bottom: 5px;*/
-/*}*/
+.comments {
+    /*word-wrap: break-word;*/
+    overflow-wrap: break-word;
+}
 
-/*.comments-box{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    gap: 7px;*/
-/*}*/
+.comment{
+    display: block;
+    clear: both;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 1em;
+}
 
-/*.comments-box p{*/
-/*    padding: 10px;*/
-/*    border-radius: 15px;*/
-/*}*/
+.author-comment{
+    float: right;
+    background-color: black;
+    color: white;
+}
 
-/*.comment-name{*/
-/*    font-weight: bold;*/
-/*}*/
+.user-comment{
+    float: left;
+    background-color: green;
+    color: white;
+}
 
-/*.comments-box form{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*}*/
+.comments-box {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: auto; /* Add overflow to create a scrollable container if needed */
+    max-height: 400px; /* Set a max height to enable scrolling */
 
-/*.comments-box textarea {*/
-/*    width: 80%;*/
-/*    padding: 2px 5px;*/
-/*    border-radius: 15px;*/
-/*}*/
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 
- /*.form-emp{*/
-/*    display: none;*/
-/*}*/
+.comment-name {
+    font-weight: bold;
+}
 
-/*#see-more{*/
-/*    margin: 15px 20px;*/
-/*    cursor: pointer;*/
-/*    text-align: center;*/
-/*    font-size: 20px;*/
-/*}*/
+.comments-box form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-/*#see-more hr{*/
-/*    width: 40%;*/
-/*    margin: 12px auto;*/
-/*    border: 2px solid #a3c6dc;*/
-/*    border-radius: 4px;*/
-/*    transition: 0.3s;*/
-/*}*/
+    clear: both;
+    margin-top: 5px;
+    color: white;
+}
 
-/*#see-more p{*/
-/*    color: #a3c6dc;*/
-/*    transition: 0.3s;*/
-/*}*/
+.comments-box form button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-/*#see-more:hover hr{*/
-/*    border: 3px solid black;*/
-/*}*/
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid black;
+    margin: 2px;
+    color: white;
+    background-color: black;
+    transition: 0.3s;
+}
 
-/*#see-more:hover p{*/
-/*    color: black;*/
-/*}*/
+.comments-box form button:hover{
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+}
+
+.comments-box textarea {
+    width: 100%;
+    padding: 2px 5px;
+    border-radius: 15px;
+}
+
+.input-comments{
+    display: flex;
+}
+
+.form-emp{
+    display: none;
+}
+
+.arrows{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrows a{
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.arrows a:hover{
+    color: #30d9ce;
+    background-color: black;
+    margin: 6px 10px;
+    padding: 4px 14px;
+    border-radius: 12px;
+}

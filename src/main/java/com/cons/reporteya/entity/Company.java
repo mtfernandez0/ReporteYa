@@ -3,6 +3,8 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +30,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "companies")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -35,49 +38,49 @@ import lombok.Setter;
 @Builder
 public class Company {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotBlank
-	private String name;
-	
-	@NotBlank
-	private String description;
-	
-	@NotBlank
-	private String location;
-	
-	private String website;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String description;
+
+    @NotBlank
+    private String location;
+
+    private String website;
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "reports_companies", joinColumns = @JoinColumn(name = "company_id"), inverseJoinColumns = @JoinColumn(name = "report_id"))
     private List<Report> reportes;
-	
-	 @OneToOne(fetch=FetchType.LAZY)
-	 @JoinColumn(name="user_id")
-	 private User user;
-	 
-	 @OneToOne(mappedBy="company", fetch=FetchType.LAZY)
-	    private FileUp logoCompania;
-	 
-	 @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-	    private List<Comment> comments;
-	 
-	@Column(nullable = false)
-	private Date created_at;
 
-	private Date updated_at;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	@PrePersist
-	private void onCreate() {
-		this.created_at = new Date();
-		this.updated_at = new Date();
-	}
+    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY)
+    private FileUp logoCompania;
 
-	@PreUpdate
-	private void onUpdate() {
-		this.updated_at = new Date();
-	}
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+    @Column(nullable = false)
+    private Date created_at;
+
+    private Date updated_at;
+
+    @PrePersist
+    private void onCreate() {
+        this.created_at = new Date();
+        this.updated_at = new Date();
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updated_at = new Date();
+    }
 
 }

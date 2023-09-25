@@ -31,7 +31,7 @@ public interface ReportRepository extends CrudRepository<Report, Long>,
 			"SELECT r.* FROM reports AS r " +
 			"RIGHT JOIN reports_tags AS rt ON r.id = rt.report_id " +
 					"WHERE rt.tags_id = ?1 ORDER BY r.created_at DESC", nativeQuery = true)
-	List<Report> findAllByTagsIdOrderByCreationDesc(Long tagId);
+	Page<Report> findAllByTagsIdOrderByCreationDesc(Long tagId, PageRequest pageRequest);
 
 	void deleteAllByCreatorId(Long id);
 }

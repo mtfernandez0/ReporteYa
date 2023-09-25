@@ -48,19 +48,19 @@ public class Contact {
     @Column(nullable = false)
     private Date created_at;
 
-    private Date updated_at;
+	private Date updated_at;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-    
-    @PrePersist
-    private void onCreate() {
-        this.created_at = new Date();
-        this.updated_at = new Date();
-    }
-    @PreUpdate
-    private void onUpdate() {
-        this.updated_at = new Date();
-    }
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@PrePersist
+	private void onCreate() {
+		this.created_at = new Date();
+		this.updated_at = new Date();
+	}
+	@PreUpdate
+	private void onUpdate() {
+		this.updated_at = new Date();
+	}
 }

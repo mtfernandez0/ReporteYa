@@ -3,6 +3,9 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
@@ -30,6 +33,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -59,14 +63,17 @@ public class User {
 	private String email;
 
 	@Column(name = "enabled", nullable = false)
+	@JsonIgnore
 	private boolean enabled;
 
 	@Size(min = 6, max = 64)
 	@NotBlank
+	@JsonIgnore
 	private String password;
 
 	@Transient
 	@NotBlank
+	@JsonIgnore
 	private String passwordConfirmation;
 
 	
@@ -74,6 +81,9 @@ public class User {
 	private Contact contact;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "creator")
 	private List<Report> reports;
+
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Comment> comments;
 
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
 	private Company company;

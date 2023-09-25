@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/reports.css}"/>
 </head>
-<body style="background-image: url('/images/AdobeStock_638760385.jpeg')">
+<body style="background-image: url('/images/AdobeStock_614864168.jpeg')">
     <div class="heading-container">
         <h4>Reportes</h4>
     </div>
@@ -46,78 +46,31 @@
             </div>
         </div>
 
-        <div class="reports">
-            <div class="news-card" th:each="report, reportIndex : ${reports}">
-
-                <div th:id="${'myCarousel' + reportIndex.index}" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div th:each="image, imageIndex : ${report.images}" th:class="'carousel-item ' + ${imageIndex.index == 0 ? 'active' : ''}">
-                            <img class="d-block w-100" th:src="@{/images/reports/{name}(name=${image.nombre})}" alt="img"></img>
-                        </div>
-                    </div>
-                    <div th:if="${report.images.size() > 1}">
-                        <button class="carousel-control-prev" type="button" th:data-bs-target="${'#myCarousel' + reportIndex.index}"
-                                data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" th:data-bs-target="${'#myCarousel' + reportIndex.index}"
-                                data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="news-content">
-                    <div class="news-title" th:text="${report.title}"></div>
-                    <div class="news-description" th:text="${report.description}"></div>
-                    <div class="reports-tags">
-                        <span th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}">
-                        </span>
-                    </div>
-                </div>
+        <div id="reports-container" class="reports">
+            <div class="news-card" th:each="report, reportIndex : ${reports}"
+                 th:insert="~{report/card :: reportCard(report = ${report}, reportIndex = ${reportIndex}, user = ${user})}">
             </div>
+            <div class="arrows">
+                <a th:if="${tagId != null && currentPage == 1}"
+                   th:href="@{/reports/tags/{tagId}(tagId=${tagId})}">&lt;</a>
+                <a th:if="${tagId != null && currentPage > 1}"
+                   th:href="@{/reports/tags/{tagId}/{page}(tagId=${tagId},page=${currentPage - 1})}">&lt;</a>
+                <a th:if="${tagId != null && currentPage + 1 < pages}"
+                   th:href="@{/reports/tags/{tagId}/{page}(tagId=${tagId},page=${currentPage + 1})}">&gt;</a>
+
+                <a th:if="${tagId == null && currentPage == 1}" th:href="@{/reports}">&lt;</a>
+                <a th:if="${tagId == null && currentPage > 1}"
+                   th:href="@{/reports/{page}(page=${currentPage - 1})}">&lt;</a>
+                <a th:if="${tagId == null && (currentPage + 1 < pages)}"
+                   th:href="@{/reports/{page}(page=${currentPage + 1})}">&gt;</a>
+            </div>
+
         </div>
 
         <div class="adds">
             <h2>Anuncios</h2>
         </div>
     </div>
-<!--                        <div class="comments-box">-->
-<!--                            <p class="text-white comments" th:each="comment : ${report.comments}">-->
-<!--                                <span class="comment-name"-->
-<!--                                      th:text="${comment.company != null ?-->
-<!--                                      comment.company.name :-->
-<!--                                      comment.owner.first_name + ' ' +  comment.owner.last_name + ': '}"></span>-->
-<!--                                <br>-->
-<!--                                <span th:text="${comment.comment}"></span>-->
-<!--                            </p>-->
-<!--                            <form id="commentForm" th:action="@{'/reports/dashboard'}" method="post">-->
-<!--                                <input type="hidden" name="id" th:value="${report.id}" />-->
-<!--                                <textarea name="comment" rows="4" required placeholder="Deja tu opinión..."></textarea>-->
-<!--                                <div class="input-comments">-->
-<!--                                    <div th:if="${user.getCompany() == null}">-->
-<!--                                        <button type="submit" class="btn btn-outline-dark text-white mt-2">Comentar</button>-->
-<!--                                    </div>-->
-<!--                                    <div th:if="${user.getCompany() != null}">-->
-<!--                                        <button type="button" class="btn btn-outline-dark text-white mt-2"-->
-<!--                                                onclick="setAction(this, '/reports/dashboard')">Comenta como Usuario</button>-->
-<!--                                        <button type="button" class="btn btn-outline-dark text-white mt-2"-->
-<!--                                                onclick="setAction(this, '/reports/dashboardEmp')"-->
-<!--                                        th:text="${'Comenta como ' + user.getCompany().name}"></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div id="see-more">-->
-<!--                    <hr>-->
-<!--                    <p>Ver más</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </body>
 <script>
     /**
@@ -129,35 +82,31 @@
         formElement.form.action = action;
         formElement.form.submit();
     }
-    // let currentPage = 0;
-    //
-    // let see_more = document.getElementById("see-more");
-    //
-    // see_more.addEventListener('click', () => {
-    //     currentPage++;
-    //     (async () => {
-    //         try {
-    //             const data = await $.ajax({
-    //                 type: "GET",
-    //                 url: "/reports/" + currentPage
-    //             })
-    //             console.log(data);
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     })();
-    // })
+
     const reportCards = document.querySelectorAll('.news-card');
 
+    /**
+     * It will apply blur to cards that exceed their max-height
+     * @param reportCard
+     */
     function applyBlurIfNeeded(reportCard) {
         const maxHeight = 400;
         const content = reportCard.querySelector('.news-content')
         const carousel = reportCard.querySelector('.carousel')
 
         if (carousel.offsetHeight + content.offsetHeight > maxHeight) {
+            const button = document.createElement('button');
+            button.classList.add('more-info');
+            button.innerText = "Mostrar mas";
             const blurOverlay = document.createElement('div');
             blurOverlay.classList.add('blur-overlay');
             reportCard.appendChild(blurOverlay);
+            reportCard.appendChild(button);
+            button.addEventListener('click', () => {
+                reportCard.classList.add('news-card-full')
+                reportCard.removeChild(blurOverlay);
+                reportCard.removeChild(button);
+            });
         }
     }
 
