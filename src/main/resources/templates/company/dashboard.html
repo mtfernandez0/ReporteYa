@@ -21,7 +21,7 @@
         <div class="row gap-2 justify-content-evenly mb-3"
              th:each="group : ${companiesGroup}">
             <div th:each="company : ${group}" class="company col-sm-2">
-                <img th:src="@{/images/{companyLogo}(companyLogo=${company.logoCompania.nombre})}" alt="company-profile-img">
+               <img th:src="@{/images/{companyLogo}(companyLogo=${company.logoCompania.nombre})}" alt="company-profile-img">
                 <p th:text="${company.name}"></p>
             </div>
         </div>

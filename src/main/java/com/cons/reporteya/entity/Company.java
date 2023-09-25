@@ -28,7 +28,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "companies")
-
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
