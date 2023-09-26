@@ -260,9 +260,10 @@ public class ReportController {
 
 		return "report/editReport";
 	}
-
-	@PutMapping("/edit")
-	public String editReport(Model model, Principal principal) {
-		return null;
+	
+	@DeleteMapping("/delete/{reportId}")
+	public String deleteReport(@PathVariable Long reportId) {
+		reportService.deleteReportById(reportId);
+	    return "redirect:/reports/user";
 	}
 }

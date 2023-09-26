@@ -111,4 +111,15 @@ public class ReportService {
 
 		return reportRepository.findAllByOrderByCreationDesc(pageRequest);
 	}
+	
+	public void deleteReportById(Long id) {
+        Optional<Report> reportOptional = reportRepository.findById(id);
+        if (reportOptional.isPresent()) {
+            Report reportToDelete = reportOptional.get();
+            reportRepository.delete(reportToDelete);
+        } else {
+        	throw new IllegalArgumentException("No se encontró el reporte a eliminar.");
+        }
+    }
+
 }

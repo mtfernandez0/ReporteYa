@@ -28,7 +28,9 @@
         <div class="news-content">
         <div th:if="${request.getRequestURI().contains('user')}">
         <a th:href="@{'/reports/edit/' + ${report.Id}}">Editar</a>
-        <button type="submit">Eiminar</button>
+         <form th:action="@{'/reports/delete/' + ${report.id}}" th:method="delete">
+        <input type="submit" value="Eliminar" />
+    </form>
         </div>
             <div class="news-title" th:text="${report.title}"></div>
             <div class="news-author" th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></div>
