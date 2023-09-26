@@ -275,49 +275,38 @@ public class ReportController {
 		if (result.hasErrors())
 			return "report/new";
 
-		User user = userService.findByEmail(principal.getName());
 		Report newReport = reportService.findById(idreport).get();
-		
-		if (!Objects.equals(files[0].getOriginalFilename(), ""))
-		{
-			for(FileUp img : newReport.getImages()) {
+
+		if (!Objects.equals(files[0].getOriginalFilename(), "")) {
+
+			List<FileUp> oldImages = newReport.getImages();
+			for (FileUp img : oldImages) {
 				File miFichero = new File(img.getRutaArchivo());
-				miFichero.delete();					
+				miFichero.delete();
 			}
-			//fileupService.deleteAll(newReport.getImages());
 			fileupService.deleteAllByReporteId(newReport.getId());
 			newReport.getImages().clear();
-			
 		}
-		
+
 		newReport.setTitle(report.getTitle());
 		newReport.setDescription(report.getDescription());
 		newReport.setAdditional_directions(report.getAdditional_directions());
-		report = reportService.createReport(newReport, tagList);
-		
+		newReport = reportService.createReport(newReport, tagList);
 		
 		for (MultipartFile file : files) {
-			if (Objects.equals(file.getOriginalFilename(), ""))
-				break;
+
+			if (Objects.equals(file.getOriginalFilename(), "")) break;
 			FileUp fileUp = fileupService.subirArchivoABD(file, newReport, imageDir);
-			
-		
 			
 			try {
 				byte[] bytes = file.getBytes();
 				Path ruta = Paths.get(imageDir, fileUp.getNombre());
 				Files.write(ruta, bytes);
-				} 
-			catch (IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
-				}
+			}
 		}
 		
-		
-		
-
-		
-
 		return "redirect:/reports";
 	}
 }
