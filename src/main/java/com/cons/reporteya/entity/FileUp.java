@@ -3,6 +3,7 @@ package com.cons.reporteya.entity;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,23 +35,23 @@ public class FileUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(updatable = false)
-    private Date createdAt;
-    private Date updatedAt;
-
     private String rutaArchivo;
     private String nombre;
     private String fileType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "report_id")
+    @JsonIgnore
     private Report reporte;
     
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="company_id")
+    @JsonIgnore
     private Company company;
 
+    @Column(updatable = false)
+    private Date createdAt;
+    private Date updatedAt;
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();

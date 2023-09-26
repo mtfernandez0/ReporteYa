@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/newReport.css}"/>
 	<script src="/webjars/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 </head>
-<body style="background-image: url('/images/AdobeStock_638760385.jpeg')">
+<body style="background-image: url('/img/AdobeStock_638760385.jpeg')">
 	<nav>
 		<a href="/home">Inicio</a>
 		<a href="/reports">Reportes</a>
@@ -18,7 +18,7 @@
 	</nav>
 	<div class="main-container">
 		<h1>Reporte</h1>
-		<form th:action="@{reports/edit}" th:method="put" th:object="${report}" enctype="multipart/form-data">
+		<form th:action="@{'/reports/edit/' + ${report.id}}" th:method="put" th:object="${report}" enctype="multipart/form-data">
 
 			<div class="my-3 normal">
 				<label for="title">Encabezado <span class="text-danger">*</span></label>
@@ -45,10 +45,18 @@
 			<div class="mb-3">
 				<p>Tags</p>
 				<div id="tags-div" class="d-flex gap-2">
+					<div th:each="tag : ${report.tags}" onclick="removetag(this)">
+						<p class="tags-checks" th:text="${'#'+tag.subject}" ></p>
+						<input type="checkbox" name="tag" th:value="${tag.subject}" class="custom-checkbox" checked>
+					</div>
 					<div id="tag-input-container" style="display: none;">
 						<textarea class="px-2 rounded-3 bg-dark text-white" type="text" id="tag-input" rows="1"></textarea>
-					</div>
+					</div>					
 					<p id="tag" class="tags-checks">&#43;</p>
+					
+						
+					
+					
 				</div>
 				<p class="text-danger" th:if="${#fields.hasErrors('tags')}">
 					<span class="row" th:each="error : ${#fields.errors('tags')}" th:text="${error}"></span>
@@ -65,11 +73,18 @@
 				<input type="file" id="files" name="files" style="display:none;" accept="image/png, image/jpeg" multiple />
 				<p id="text-files-space" class="m-0" ></p>
 			</div>
+			<p th:text="${'imagenes seleccionadas' + report.images.size}"></p>
 			<input class="btnSubmit text-center" type="submit" value="Editar">
 		</form>
 	</div>
 </body>
 <script>
+	
+	function removetag(tag){
+		console.log(tag)
+		tag.remove()
+	}
+	
 	$(document).ready(function () {
 		$('#files').change(() => {
 			let i = $(this).prev('label').clone();

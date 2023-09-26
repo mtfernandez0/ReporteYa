@@ -61,7 +61,7 @@ nav a:hover {
 }
 
 .main-container {
-    width: 58%;
+    width: 50%;
     margin: 8% auto;
     padding: 18px;
     border-radius: 8px;
@@ -124,4 +124,33 @@ textarea {
     border-radius: 1.5rem;
     padding: 1%;
     font-size: 17px;
+}
+.error{
+	background-color:#dc3545;
+	width: 50%;
+	color: white;
+	border-radius: 1rem;
+	text-align: center;
+	margin-left: 25%;
+	margin-right: 25%;
+	font-size: 17px;
+	padding:5px 0;
+}
+.errorB{
+	background-color:#dc3545;
+	color: white;
+	border-radius: 1rem;
+	text-align: center;
+	font-size: 17px;
+	padding: 5px;
+}
+#error-message-post,#error-message-put{
+	display:none;
+}
+.datoscomp{
+	color: #d3d4d5;
+	text-align: center;
+	margin-left: 25%;
+	width: 50%;
+	margin-right: 25%;
 }

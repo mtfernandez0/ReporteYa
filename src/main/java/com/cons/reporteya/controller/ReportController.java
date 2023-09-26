@@ -1,5 +1,6 @@
 package com.cons.reporteya.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,9 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cons.reporteya.entity.Marker;
-import com.cons.reporteya.entity.Report;
-import com.cons.reporteya.entity.User;
 import com.cons.reporteya.service.FileUpService;
 import com.cons.reporteya.service.MarkerService;
 import com.cons.reporteya.service.ReportService;
@@ -75,7 +73,7 @@ public class ReportController {
 		List<String> tagList = tags == null ? new ArrayList<>()
 				: Arrays.stream(tags.split(",")).map(String::trim).collect(Collectors.toList());
 
-		checkImgErrors(result, files);
+		checkImgErrors(result, files, 0);
 		checkTagErrors(result, tagList);
 
 		if (result.hasErrors())
@@ -107,12 +105,13 @@ public class ReportController {
 		return "redirect:/reports";
 	}
 
-	private void checkImgErrors(BindingResult result, MultipartFile[] files) {
+	private void checkImgErrors(BindingResult result, MultipartFile[] files, int img) {
 		if (files.length > 5)
 			result.rejectValue("images", "Maximo de 5 imagenes", "Solo podes ingresar hasta 5 imágenes");
-
-		else if (files.length == 0)
-			result.rejectValue("images", "Minimo una imagen", "Debes de incluir al menos una imagen");
+		if (img == 0) {
+			if (files.length == 0)
+				result.rejectValue("images", "Minimo una imagen", "Debes de incluir al menos una imagen");
+		}
 	}
 
 	private void checkTagErrors(BindingResult result, List<String> subjects) {
@@ -247,12 +246,12 @@ public class ReportController {
 		return "report/reports";
 	}
 
-	@GetMapping("/edit/{reportId}")
-	public String viewEdit(@PathVariable Long reportId, Model model) {
+	@GetMapping("/edit/{id}")
+	public String viewEdit(@PathVariable Long id, Model model) {
 
-		Optional<Report> rep = reportService.findById(reportId);
-		
-		if(rep.isEmpty()) {
+		Optional<Report> rep = reportService.findById(id);
+
+		if (rep.isEmpty()) {
 			return "redirect:/home";
 		}
 
@@ -260,10 +259,60 @@ public class ReportController {
 
 		return "report/editReport";
 	}
-	
+
 	@DeleteMapping("/delete/{reportId}")
 	public String deleteReport(@PathVariable Long reportId) {
 		reportService.deleteReportById(reportId);
-	    return "redirect:/reports/user";
+		return "redirect:/reports/user";
+	}
+
+	@PutMapping("/edit/{id}")
+	public String editReport(@Valid @ModelAttribute("report") Report report, BindingResult result, Principal principal,
+			@RequestParam(value = "tag", required = false) String tags,
+			@RequestParam(value = "files", required = false) MultipartFile[] files, @PathVariable("id") Long idreport) {
+
+		List<String> tagList = tags == null ? new ArrayList<>()
+				: Arrays.stream(tags.split(",")).map(String::trim).collect(Collectors.toList());
+
+		checkImgErrors(result, files, 1);
+		checkTagErrors(result, tagList);
+
+		if (result.hasErrors())
+			return "report/new";
+
+		Report newReport = reportService.findById(idreport).get();
+
+		if (!Objects.equals(files[0].getOriginalFilename(), "")) {
+
+			List<FileUp> oldImages = newReport.getImages();
+			for (FileUp img : oldImages) {
+				File miFichero = new File(img.getRutaArchivo());
+				miFichero.delete();
+			}
+			fileupService.deleteAllByReporteId(newReport.getId());
+			newReport.getImages().clear();
+		}
+
+		newReport.setTitle(report.getTitle());
+		newReport.setDescription(report.getDescription());
+		newReport.setAdditional_directions(report.getAdditional_directions());
+		newReport = reportService.createReport(newReport, tagList);
+
+		for (MultipartFile file : files) {
+
+			if (Objects.equals(file.getOriginalFilename(), ""))
+				break;
+			FileUp fileUp = fileupService.subirArchivoABD(file, newReport, imageDir);
+
+			try {
+				byte[] bytes = file.getBytes();
+				Path ruta = Paths.get(imageDir, fileUp.getNombre());
+				Files.write(ruta, bytes);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return "redirect:/reports";
 	}
 }

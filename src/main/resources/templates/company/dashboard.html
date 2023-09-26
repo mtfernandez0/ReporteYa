@@ -19,12 +19,50 @@
     </nav>
     <div class="container px-2 my-4">
         <div class="row gap-2 justify-content-evenly mb-3"
-             th:each="group : ${companiesGroup}">
-            <div th:each="company : ${group}" class="company col-sm-2">
-                <img th:src="@{/images/{companyLogo}(companyLogo=${company.logoCompania.nombre})}" alt="company-profile-img">
-                <p th:text="${company.name}"></p>
+             th:each="group, gIndex : ${companiesGroup}">
+            <div th:each="company, cIndex : ${group}"
+                 th:data-index="${cIndex.index + 4 * gIndex.index}"
+                 th:data-name="${company.name}"
+                 th:data-description="${company.description}"
+                 th:data-website="${company.website}"
+                 th:data-location="${company.location}"
+                 th:data-imgName="${company.logoCompania.nombre}"
+                 th:data-email="${company.email}"
+                 onclick="showPopup(
+                     this.getAttribute('data-index'),
+                     this.getAttribute('data-name'),
+                     this.getAttribute('data-description'),
+                     this.getAttribute('data-website'),
+                     this.getAttribute('data-location'),
+                     this.getAttribute('data-imgName'),
+                     this.getAttribute('data-email'))"
+                 class="company col-sm-2">
+                    <img th:src="@{/images/{companyLogo}(companyLogo=${company.logoCompania.nombre})}" alt="company-profile-img">
+                    <p th:text="${company.name}"></p>
             </div>
         </div>
     </div>
+    <div id="popup-container" class="popup-container">
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <div class="img-container">
+                    <img id="popup-company-img" alt="company-profile-img"></img>
+                </div>
+                <div class="company-info">
+                    <h2 id="popup-company-name"></h2>
+                    <h4>Gmail: </h4>
+                    <p id="popup-company-email"></p>
+                    <h4>Website:</h4>
+                    <p id="popup-company-website"></p>
+                    <h4>Locación: </h4>
+                    <p id="popup-company-location"></p>
+                    <h4>Descripción: </h4>
+                    <p id="popup-company-description"></p>
+                </div>
+            </div>
+            <button onclick="closePopup()">Cerrar</button>
+        </div>
+    </div>
+    <script th:src="@{/js/companyDashboard.js}"></script>
 </body>
 </html>

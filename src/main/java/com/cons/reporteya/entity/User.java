@@ -43,6 +43,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private int status;
 
 	@NotBlank
 	@Size(max = 255, message = "El nombre debe de tener menos de 255 caracteres")
@@ -90,6 +92,9 @@ public class User {
 	private Date created_at;
 
 	private Date updated_at;
+	
+	
+
 
 	@PrePersist
 	private void onCreate() {
