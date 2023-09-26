@@ -245,10 +245,11 @@ img {
 	justify-content: center;
 	align-items: center;
 	padding: 90px;
+	padding-bottom: 0;
 	background-color: transparent;
 	background-image: url('/img/Allura Background Cityscapes.png');
 	background-position: 0 130%;
-	height: 600px;
+	background-size: cover; /* Add this line */
 }
 
 .about-content {
@@ -286,7 +287,6 @@ img {
 	height: 400px;
 	width: 40%;
 	margin: 0 auto;
-	margin-top: 100px;
 	padding: 20px;
 	color: #f0f0f0;
 }
