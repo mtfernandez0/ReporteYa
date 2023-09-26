@@ -53,26 +53,93 @@
 				<h2 id="top3">Ultimos Reportes</h2>
 			</div>
 		</section>
-		<section class="fondo-morado">
+
+
+		<div class="container">
+			<div class="card">
+				<div class="card__header">
+					<img src="/images/818x460_240340_20170523160646.jpg" alt="card__image" class="card__image"
+						width="600">
+				</div>
+				<div class="card__body">
+					<h4>What's new in 2022 Tech</h4>
+					<div class="texto">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non
+							nemo
+							doloribus. Doloremque, nihil! At ea atque quidem!Nos enorgullecemos de trabajar en estrecha
+							colaboración con las autoridades locales y la
+							comunidad para
+							abordar de manera efectiva los desafíos de infraestructura. Cada miembro de nuestro equipo
+							aporta su
+							experiencia única y dedicación para garantizar que cada proyecto se lleve a cabo con los más
+							altos
+							estándares de calidad y seguridad. Juntos, estamos comprometidos a construir un entorno
+							urbano
+							más
+							seguro y funcional para todos.
+						</p>
+						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card__header">
+					<img src="/images/818x460_240340_20170523160646.jpg" alt="card__image" class="card__image"
+						width="600">
+				</div>
+				<div class="card__body">
+					<h4>What's new in 2022 Tech</h4>
+					<div class="texto">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non
+							nemo
+							doloribus. Doloremque, nihil! At ea atque quidem!
+						</p>
+						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card__header">
+					<img src="/images/818x460_240340_20170523160646.jpg" alt="card__image" class="card__image"
+						width="600">
+				</div>
+				<div class="card__body">
+					<h4>What's new in 2022 Tech</h4>
+					<div class="texto">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non
+							nemo
+							doloribus. Doloremque, nihil! At ea atque quidem!
+						</p>
+						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
+					</div>
+				</div>
+	<!--	<section class="fondo-morado">
 			<div class="carta" th:each="report : ${reports}">
 				<img th:if="${!report.images.isEmpty()}"
 					 th:src="@{/images/{image}(image=${report.images.get(0).nombre})}" alt="img"></img>
 				<h4 th:text="${report.title}"></h4>
-				<p th:text="${report.description}"></p>
+				<p th:text="${report.description}"></p> -->
 			</div>
-		</section>
+
+		</div>
+
 	</div>
 
 	<section class="about-us">
 		<div class="about-content">
 			<h2>Sobre Nosotros</h2>
-			<p>Nos enorgullecemos de trabajar en estrecha colaboración con
-				las autoridades locales y la comunidad para abordar de manera
-				efectiva los desafíos de infraestructura. Cada miembro de nuestro
-				equipo aporta su experiencia única y dedicación para garantizar que
-				cada proyecto se lleve a cabo con los más altos estándares de
-				calidad y seguridad. Juntos, estamos comprometidos a construir un
-				entorno urbano más seguro y funcional para todos.</p>
+			<p>Nos enorgullecemos de trabajar en estrecha colaboración con las autoridades locales y la
+				comunidad para
+				abordar de manera efectiva los desafíos de infraestructura. Cada miembro de nuestro equipo
+				aporta su
+				experiencia única y dedicación para garantizar que cada proyecto se lleve a cabo con los más
+				altos
+				estándares de calidad y seguridad. Juntos, estamos comprometidos a construir un entorno urbano
+				más
+				seguro y funcional para todos.</p>
 		</div>
 	</section>
 
@@ -94,19 +161,9 @@
 					<input type="tel" placeholder="Teléfono" id="telefono"
 						name="telefono">
 				</div>
-				<!--				<div class="form-group">-->
-				<!--					<label for="mensaje">Mensaje:</label>-->
-				<!--					<textarea id="mensaje" name="mensaje" rows="4" required></textarea>-->
-				<!--				</div>-->
 				<button type="submit">Enviar</button>
 			</form>
 		</div>
-		<!--		<div class="patrocinadores">-->
-		<!--			 Aquí puedes agregar las imágenes de los patrocinadores -->
-		<!--			<img src="patrocinador1.jpg" alt="Patrocinador 1">-->
-		<!--			<img src="patrocinador2.jpg" alt="Patrocinador 2">-->
-		<!--			<img src="patrocinador3.jpg" alt="Patrocinador 3">-->
-		<!--		</div>-->
 	</section>
 	<footer>
 		<div class="container">
@@ -126,6 +183,15 @@
 			</div>
 		</div>
 	</footer>
+
+	<script>
+
+		function mostrarTexto() {
+			var elemento = event.target.parentElement;
+			elemento.classList.toggle('mostrar');
+		}
+
+	</script>
 </body>
 
 </html>
