@@ -54,80 +54,22 @@
 			</div>
 		</section>
 
-
 		<div class="container">
-			<div class="card">
+			<div class="card" th:each="report : ${reports}">
 				<div class="card__header">
-					<img src="/images/818x460_240340_20170523160646.jpg" alt="card__image" class="card__image"
-						width="600">
+					<img th:if="${!report.images.isEmpty()}"
+						 th:src="@{/images/{image}(image=${report.images.get(0).nombre})}" alt="img"></img>
 				</div>
 				<div class="card__body">
-					<h4>What's new in 2022 Tech</h4>
+					<h4 th:text="${report.title}"></h4>
 					<div class="texto">
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non
-							nemo
-							doloribus. Doloremque, nihil! At ea atque quidem!Nos enorgullecemos de trabajar en estrecha
-							colaboración con las autoridades locales y la
-							comunidad para
-							abordar de manera efectiva los desafíos de infraestructura. Cada miembro de nuestro equipo
-							aporta su
-							experiencia única y dedicación para garantizar que cada proyecto se lleve a cabo con los más
-							altos
-							estándares de calidad y seguridad. Juntos, estamos comprometidos a construir un entorno
-							urbano
-							más
-							seguro y funcional para todos.
-						</p>
+						<p th:text="${report.description}"></p>
 						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
 					</div>
 				</div>
 			</div>
-			<div class="card">
-				<div class="card__header">
-					<img src="/images/818x460_240340_20170523160646.jpg" alt="card__image" class="card__image"
-						width="600">
-				</div>
-				<div class="card__body">
-					<h4>What's new in 2022 Tech</h4>
-					<div class="texto">
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non
-							nemo
-							doloribus. Doloremque, nihil! At ea atque quidem!
-						</p>
-						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
-					</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card__header">
-					<img src="/images/818x460_240340_20170523160646.jpg" alt="card__image" class="card__image"
-						width="600">
-				</div>
-				<div class="card__body">
-					<h4>What's new in 2022 Tech</h4>
-					<div class="texto">
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non
-							nemo
-							doloribus. Doloremque, nihil! At ea atque quidem!
-						</p>
-						<button class="mostrarMas" onclick="mostrarTexto()">Mostrar Más</button>
-					</div>
-				</div>
-	<!--	<section class="fondo-morado">
-			<div class="carta" th:each="report : ${reports}">
-				<img th:if="${!report.images.isEmpty()}"
-					 th:src="@{/images/{image}(image=${report.images.get(0).nombre})}" alt="img"></img>
-				<h4 th:text="${report.title}"></h4>
-				<p th:text="${report.description}"></p> -->
-			</div>
-
 		</div>
-
 	</div>
-
 	<section class="about-us">
 		<div class="about-content">
 			<h2>Sobre Nosotros</h2>
@@ -168,24 +110,24 @@
 	<footer>
 		<div class="container">
 			<div class="row">
-				<div class=" col-md-4">
-					<h3>Déjenos ayudarle</h3>
-					<p class="variat pad_roght2">There are many variat ions of
-						passages of L orem Ipsum available , but the majority h ave
-						suffered altera tion in some form, by</p>
-				</div>
-				<div class="col-md-4">
-					<h3>Nuestro diseño</h3>
-					<p class="variat">There are many variat ions of passages of L
-						orem Ipsum available , but the majority h ave suffered altera tion
-						in some form, by</p>
+				<div class="col-md-4 footer-container">
+					<h3 class="msnosotros">Mas sobre nosotros</h3>
+					<div class="dinfo">
+						<a href="https://www.linkedin.com/in/martina-reta-7bb18b1b2/" class="pinfo">Martina Reta</a>
+						<a href="https://www.linkedin.com/in/matias-fernandez-383b19215/" class="pinfo">Matías Fernández</a>
+						<a href="" class="pinfo">Christian Castellón</a>
+					</div>
+					<div class="dinfo">
+						<a href="https://www.linkedin.com/in/ignacio-senicen-7b8b83270/" class="pinfo">Ignacio Senicen</a>
+						<a href="https://www.linkedin.com/in/lautharo-ferreyra-958b43210/" class="pinfo">Lautharo Ferreyra</a>
+						<a href="https://www.linkedin.com/in/camila-gómez-4bbb26230/" class="pinfo">Camila Gómez</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
 
 	<script>
-
 		function mostrarTexto() {
 			var elemento = event.target.parentElement;
 			elemento.classList.toggle('mostrar');

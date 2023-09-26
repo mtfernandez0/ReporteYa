@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.cons.reporteya.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -119,5 +120,4 @@ public class ReportService {
         	throw new IllegalArgumentException("No se encontró el reporte a eliminar.");
         }
     }
-
 }

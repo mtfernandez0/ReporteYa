@@ -47,8 +47,6 @@ public class UserController {
 
 		User us = userServ.findByEmail(principal.getName());
 
-		System.out.println("PASO");
-
 		if (us.getContact() != null) return ResponseEntity.badRequest().build();
 
 		Contact contact = contactDto.contactDtoToContact();

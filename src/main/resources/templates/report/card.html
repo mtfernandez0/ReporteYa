@@ -26,18 +26,17 @@
             </div>
         </div>
         <div class="news-content">
-        <div th:if="${request.getRequestURI().contains('user')}">
-        <a th:href="@{'/reports/edit/' + ${report.Id}}">Editar</a>
-         <form th:action="@{'/reports/delete/' + ${report.id}}" th:method="delete">
-        <input type="submit" value="Eliminar" />
-    </form>
-        </div>
+            <div th:if="${request.getRequestURI().contains('user')}" class="user-buttons">
+                <a th:href="@{'/reports/edit/' + ${report.Id}}">Editar</a>
+                 <form class="delete-report" th:action="@{'/reports/delete/' + ${report.id}}" th:method="delete">
+                    <input type="submit" value="&#10005;" />
+                </form>
+            </div>
             <div class="news-title" th:text="${report.title}"></div>
             <div class="news-author" th:text="${report.creator.first_name + ' ' + report.creator.last_name}"></div>
             <div class="news-description" th:text="${report.description}"></div>
             <div class="reports-tags">
-                        <span th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}">
-                        </span>
+                        <span th:each="tag : ${report.tags}" th:text="${'#'+tag.subject}"></span>
             </div>
             <h4>Comentarios</h4>
             <div class="comments-box">

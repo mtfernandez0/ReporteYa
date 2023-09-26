@@ -242,17 +242,16 @@ img {
 
 .about-us {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	padding: 90px;
 	background-color: transparent;
-	background-image: url('/images/Allura Background Cityscapes.png');
+	background-image: url('/img/Allura Background Cityscapes.png');
 	background-position: 0 130%;
 	height: 600px;
 }
 
 .about-content {
-	flex: 1;
 	text-align: center;
 	margin-top: 10%;
 	padding: 30px;
@@ -269,7 +268,6 @@ img {
 .about-content p {
 	color: rgb(9, 33, 91);
 	width: 800px;
-	margin-left: 27%;
 	font-size: larger;
 }
 
@@ -426,4 +424,23 @@ h3 {
 
 .sub_btn:hover {
 	background-color: #003d6b;
+}
+
+.dinfo{
+	display: inline-block;
+	margin: 5%;
+}
+.msnosotros{
+	margin: 5%;
+	text-align: center;
+	margin-right: 15%;
+}
+.pinfo{
+	display: block;
+	color: white;
+	font-size: 18px;
+}
+
+.footer-container{
+	display: contents;
 }

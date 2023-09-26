@@ -53,10 +53,10 @@ public class HomeController {
 			return "redirect:/profile";
 		}
 
-//		if (user.getReports().size() == 3){
-//			attributes.addFlashAttribute("newReportNoContact", true);
-//			return "redirect:/profile";
-//		}
+		if (!userService.canCreateAReport(user)){
+			attributes.addFlashAttribute("maxReportsError", true);
+			return "redirect:/reports/user";
+		}
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ReportDto> reportDtos = new ArrayList<>();

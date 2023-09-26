@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/reports.css}"/>
 </head>
-<body style="background-image: url('/images/AdobeStock_614864168.jpeg')">
+<body style="background-image: url('/img/AdobeStock_614864168.jpeg')">
     <div class="heading-container">
         <h4>Reportes</h4>
     </div>
@@ -47,6 +47,11 @@
         </div>
 
         <div id="reports-container" class="reports">
+            <div th:if="${maxReportsError != null}" class="maxReportsError">
+                <p>No puedes crear más de tres reportes,
+                    debes de eliminar alguno.
+                </p>
+            </div>
             <div class="news-card" th:each="report, reportIndex : ${reports}"
                  th:insert="~{report/card :: reportCard(report = ${report}, reportIndex = ${reportIndex}, user = ${user}, request = ${request})}">
             </div>

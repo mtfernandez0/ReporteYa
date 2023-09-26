@@ -363,3 +363,52 @@ textarea{
     padding: 4px 14px;
     border-radius: 12px;
 }
+
+.user-buttons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+.user-buttons a{
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.user-buttons a:hover{
+    text-decoration: underline;
+}
+
+.delete-report input{
+    padding: 4px 5px;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    font-weight: bolder;
+    border: 1px solid red;
+    transition: 0.3s;
+}
+
+.delete-report input:hover{
+    background-color: white;
+    color: red;
+}
+
+.maxReportsError{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.maxReportsError p{
+    padding: 7px;
+    background-color: red;
+    border-radius: 10px;
+}

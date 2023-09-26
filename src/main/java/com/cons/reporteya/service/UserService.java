@@ -95,4 +95,8 @@ public class UserService {
         );
         verificationTokenRepository.save(myToken);
     }
+
+    public boolean canCreateAReport(User user){
+        return user.getReports().size() < 3;
+    }
 }
