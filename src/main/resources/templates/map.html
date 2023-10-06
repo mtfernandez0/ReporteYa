@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/img/logo.png" type="logo.png">
     <title>Mapa</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
@@ -142,7 +143,10 @@
 
     function setMarker(report) {
         L.marker([report.lat, report.lng])
-            .bindPopup("<p>" + report.title + "</p><p>" + report.location + "</p>")
+            .bindPopup(
+                "<p>" + report.title + "</p>" +
+                "<p>" + report.description + "</p>" +
+                "<p>" + report.location + "</p>")
             .addTo(map);
     }
 </script>

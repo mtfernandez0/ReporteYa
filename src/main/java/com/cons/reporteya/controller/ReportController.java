@@ -361,7 +361,7 @@ public class ReportController {
 			}
 		}
 
-		return "redirect:/reports";
+		return "redirect:/reports/user";
 	}
 
 	/**

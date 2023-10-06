@@ -6,25 +6,46 @@ body {
 }
 
 nav {
+	z-index: 1;
 	background: #071952;
-	box-shadow: 0 5px 0 #dedede; /* ??? */
-	display: flex;
-	justify-content: center;
+
+	position: fixed;
 	width: 100%;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+.logo {
+	position: absolute;
+	padding: 10px; /* Ajusta el espaciado según tus preferencias */
+}
+.logo img {
+    width: 60px; /* Ajusta el ancho máximo de tu logotipo según sea necesario */
+	left:1200px;
+}
+
+.logout input{
+	border: none;
+	background: none;
+}
+
+.logout input{
+	padding: 0;
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	font-weight: 800;
+	text-transform: uppercase;
+}
 
 nav ul {
 	list-style: none;
 	text-align: center;
 }
 
-nav ul li {
+nav ul li{
 	display: inline-block;
 }
 
-nav ul li a {
+nav ul li a{
 	display: block;
 	padding: 15px;
 	text-decoration: none;
@@ -36,7 +57,7 @@ nav ul li a {
 
 nav ul li a,
 nav ul li a:after,
-nav ul li a:before {
+nav ul li a:before{
 	transition: all .5s;
 }
 
@@ -44,12 +65,12 @@ nav ul li a:hover {
 	color: #555;
 }
 
-nav.shift ul li a {
+nav.shift ul li a{
 	position: relative;
 	z-index: 1;
 }
 
-nav.shift ul li a:hover {
+nav.shift ul li a:hover{
 	color: #dedede;
 }
 
@@ -66,12 +87,46 @@ nav.shift ul li a:after {
 	content: '.';
 	color: transparent;
 	background: #2240a2;
-	/*visibility: hidden;*/
 	opacity: 0;
 	z-index: -1;
 }
 
-nav.shift ul li a:hover:after {
+nav.shift ul li a:hover:after{
+	opacity: 1;
+	visibility: visible;
+	height: 100%;
+}
+
+
+header {
+	background-image: url("../img/AdobeStock_614864168.jpeg");
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	color: white;
+	text-align: center;
+	padding: 100px 0;
+}
+
+header .titulos {
+	margin-top: 5%;
+}
+
+header h6 {
+	font-size: 20px;
+	font-weight: bolder;
+	text-shadow: 1px 5px 12px rgb(0, 0, 0);
+}
+
+h1 {
+	font-size: 70px;
+	letter-spacing: 10px;
+	margin-bottom: 20px;
+	font-weight: bolder;
+	text-shadow: 1px 5px 12px rgb(0, 0, 0);
+}
+
+nav.shift ul li a:hover:after{
 	opacity: 1;
 	visibility: visible;
 	height: 100%;
@@ -195,7 +250,7 @@ img {
 	overflow: hidden;
 	box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
 	border-radius: 1em;
-
+	z-index: 0;
 }
 
 .card__body {

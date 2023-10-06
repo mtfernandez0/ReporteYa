@@ -43,6 +43,7 @@ public class Company {
     private String name;
 
     @NotBlank
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @NotBlank

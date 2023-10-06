@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/img/logo.png" type="logo.png">
 <title>Reporte Ya</title>
 </head>
 
 <body>
 	<nav class="shift">
+		<div class="logo">
+			<img src="/img/logo.png" alt="Logo">
+		</div>
 		<ul class="pt-2">
-			<li><a href="#">Inicio</a></li>
 			<li><a href="/reports">Reportes</a></li>
 			<li><a href="/map">Crear reporte</a></li>
 			<li><a href="/profile">Cuenta</a></li>
 			<li><a href="/companies">Empresas</a></li>
+			<li>
+				<a>
+					<form class="logout" th:action="@{/logout}" method="post">
+						<input class="nav-item" type="submit" value="Cerrar Sesión"/>
+					</form>
+				</a>
+			</li>
 		</ul>
 	</nav>
 	<header>
@@ -85,28 +93,28 @@
 		</div>
 	</section>
 
-	<section class="contact-section">
-		<div class="contact-form">
-			<h2>Soporte</h2>
-			<p>Si tiene algún inconveniente o comentario deje sus datos y nos
-				comunicaremos con usted</p>
-			<form>
-				<div class="form-group">
-					<input type="text" placeholder="Nombre" id="nombre" name="nombre"
-						required>
-				</div>
-				<div class="form-group">
-					<input type="email" placeholder="Email" id="email" name="email"
-						required>
-				</div>
-				<div class="form-group">
-					<input type="tel" placeholder="Teléfono" id="telefono"
-						name="telefono">
-				</div>
-				<button type="submit">Enviar</button>
-			</form>
-		</div>
-	</section>
+<!--	<section class="contact-section">-->
+<!--		<div class="contact-form">-->
+<!--			<h2>Soporte</h2>-->
+<!--			<p>Si tiene algún inconveniente o comentario deje sus datos y nos-->
+<!--				comunicaremos con usted</p>-->
+<!--			<form>-->
+<!--				<div class="form-group">-->
+<!--					<input type="text" placeholder="Nombre" id="nombre" name="nombre"-->
+<!--						required>-->
+<!--				</div>-->
+<!--				<div class="form-group">-->
+<!--					<input type="email" placeholder="Email" id="email" name="email"-->
+<!--						required>-->
+<!--				</div>-->
+<!--				<div class="form-group">-->
+<!--					<input type="tel" placeholder="Teléfono" id="telefono"-->
+<!--						name="telefono">-->
+<!--				</div>-->
+<!--				<button type="submit">Enviar</button>-->
+<!--			</form>-->
+<!--		</div>-->
+<!--	</section>-->
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -115,7 +123,7 @@
 					<div class="dinfo">
 						<a href="https://www.linkedin.com/in/martina-reta-7bb18b1b2/" class="pinfo">Martina Reta</a>
 						<a href="https://www.linkedin.com/in/matias-fernandez-383b19215/" class="pinfo">Matías Fernández</a>
-						<a href="" class="pinfo">Christian Castellón</a>
+						<a href="https://www.linkedin.com/in/christian-horacio-castellon-dure-433354293/" class="pinfo">Christian Castellón</a>
 					</div>
 					<div class="dinfo">
 						<a href="https://www.linkedin.com/in/ignacio-senicen-7b8b83270/" class="pinfo">Ignacio Senicen</a>

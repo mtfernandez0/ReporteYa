@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Mi perfil</title>
-<link rel="stylesheet"
-	href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/img/logo.png" type="logo.png">
+    <title>Mi perfil</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}"/>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body style="background-image: url('/img/AdobeStock_614864168.jpeg')">
@@ -17,9 +18,10 @@
         <a href="/companies/new">Registrar compañía</a>
     </div>
     <a href="/map">Crear reporte</a>
-			<div th:if="${user.reports.size()!= 0 }">
-			<a href="/reports/user">Mis reportes</a>
-		</div>
+    <div th:if="${user.reports.size()!= 0 }">
+        <a href="/reports/user">Mis reportes</a>
+    </div>
+    <a href="/companies">Empresas</a>
     <div class="d-flex justify-content-end align-item-center">
         <form th:action="@{/logout}" method="post">
             <input class="form-logout" type="submit" value="Cerrar sesión"/>
@@ -63,7 +65,8 @@
             </div>
             <div class="mb-3">
                 <label for="company-location" class="form-label">Ubicación</label>
-                <input type="text" id="company-location" class="form-control" th:value="${user.company.location}" disabled/>
+                <input type="text" id="company-location" class="form-control" th:value="${user.company.location}"
+                       disabled/>
             </div>
 
             <div class="mb-3">
@@ -81,9 +84,9 @@
         <div class="container mt-4" th:if="${user.contact == null}">
             <p class="error" th:if="${newReportNoContact != null}">
                 Antes de poder crear un reporte, es necesario que completes tu información de usuario.
-               
+
             </p>
-        <div id="error-message-post" class="errorB">Los Campos marcados con * son obligatorios.</div>
+            <div id="error-message-post" class="errorB">Los Campos marcados con * son obligatorios.</div>
             <div class="mt-4 border border-2 border-black rounded-4 p-2">
                 <form id="form-post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -111,7 +114,9 @@
                     <input type="text" id="location_name" class="form-control" disabled
                            th:value="${contact.location_name}"/>
                 </div>
-                <div  id="error-message-put" class="errorB">Los Campos marcados con codigo postal y país son obligatorios.</div>
+                <div id="error-message-put" class="errorB">Los Campos marcados con codigo postal y país son
+                    obligatorios.
+                </div>
                 <div class="mb-3">
                     <label for="country-put" class="form-label">País</label>
                     <input type="text" id="country-put" name="country-put" class="form-control"
@@ -151,7 +156,7 @@
         let postcode = $("input[name='postcode-post']").val();
 
         if (country === "" || postcode === "") {
-           
+
             document.getElementById("error-message-post").style.display = "inline-block";
             let saveButton = '<button id="btn-post" type="submit" class="btn btn-outline-info">Guardar</button>';
             searchAndReplace("btn-search", saveButton);
